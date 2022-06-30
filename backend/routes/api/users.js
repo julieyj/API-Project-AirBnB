@@ -45,3 +45,18 @@ router.post(
 
 
 module.exports = router;
+
+// fetch("/api/users", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json",
+//     "XSRF-TOKEN": `NmEH4Ppo-dYRHmY0numcomdvfQWSJaLpgZkg`,
+//   },
+//   body: JSON.stringify({
+//     email: "spidey@spider.man",
+//     username: "Spidey",
+//     password: "password",
+//   }),
+// })
+//   .then((res) => res.json())
+//   .then((data) => console.log(data));
