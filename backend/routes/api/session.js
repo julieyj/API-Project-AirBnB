@@ -29,11 +29,25 @@ router.post(
   }
 );
 
+// Log out
+router.delete(
+  '/',
+  (_req, res) => {
+    res.clearCookie('token');
+    return res.json({ message: 'success' });
+  }
+);
 
 
 
 module.exports = router;
 
-
-
-
+// fetch("/api/session", {
+//   method: "DELETE",
+//   headers: {
+//     "Content-Type": "application/json",
+//     "XSRF-TOKEN": `bJQyACfL-j20_pJLHjutALouNs-PSVnwCsnY`,
+//   },
+// })
+//   .then((res) => res.json())
+//   .then((data) => console.log(data));
