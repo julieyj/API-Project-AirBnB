@@ -70,36 +70,3 @@ router.get(
 
 
 module.exports = router;
-
-// fetch("/api/session", {
-//   method: "DELETE",
-//   headers: {
-//     "Content-Type": "application/json",
-//     "XSRF-TOKEN": `bJQyACfL-j20_pJLHjutALouNs-PSVnwCsnY`,
-//   },
-// })
-//   .then((res) => res.json())
-//   .then((data) => console.log(data));
-
-
-// fetch("/api/session", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//     "XSRF-TOKEN": `iMcBGN3M-vIRyC-J9eiDKPAIFLp4Vwve_zA8`,
-//   },
-//   body: JSON.stringify({ credential: "", password: "password" }),
-// })
-//   .then((res) => res.json())
-//   .then((data) => console.log(data));
-
-// fetch("/api/session", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//     "XSRF-TOKEN": `iMcBGN3M-vIRyC-J9eiDKPAIFLp4Vwve_zA8`,
-//   },
-//   body: JSON.stringify({ credential: "Demo-lition", password: "" }),
-// })
-//   .then((res) => res.json())
-//   .then((data) => console.log(data));
