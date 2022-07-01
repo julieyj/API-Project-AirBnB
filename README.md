@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-![/path/to/img.jpg](https://dbdiagram.io/d/62be64fd69be0b672c7b5caa)
+<img src="https://dbdiagram.io/embed/62be64fd69be0b672c7b5caa" alt="Alt text" title="Optional title">
 
 ## API Documentation
 
