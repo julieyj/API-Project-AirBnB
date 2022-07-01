@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-![AirBnB](AirBnB_Clone_Schema.png)
+![AirBnB](AirBnB_Clone_Schema_v2.png)
 
 ## API Documentation
 
