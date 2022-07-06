@@ -13,11 +13,14 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isEmail()
     .withMessage("Please provide a valid email."),
-  check("username")
+  check("firstName")
     .exists({ checkFalsy: true })
-    .isLength({ min: 4 })
-    .withMessage("Please provide a username with at least 4 characters."),
-  check("username").not().isEmail().withMessage("Username cannot be an email."),
+    .isLength({ max: 30 })
+    .withMessage("The maximum character length is 30."),
+  check("lastName")
+    .exists({ checkFalsy: true })
+    .isLength({ max: 30 })
+    .withMessage("The maximum character length is 30."),
   check("password")
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
@@ -30,8 +33,8 @@ router.post(
   '/',
   validateSignup,
   async (req, res) => {
-    const { email, password, username } = req.body;
-    const user = await User.signup({ email, username, password });
+    const { email, password, firstName, lastName } = req.body;
+    const user = await User.signup({ email, password, firstName, lastName });
 
     await setTokenCookie(res, user);
 
@@ -45,18 +48,3 @@ router.post(
 
 
 module.exports = router;
-
-// fetch("/api/users", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//     "XSRF-TOKEN": `NmEH4Ppo-dYRHmY0numcomdvfQWSJaLpgZkg`,
-//   },
-//   body: JSON.stringify({
-//     email: "spidey@spider.man",
-//     username: "Spidey",
-//     password: "password",
-//   }),
-// })
-//   .then((res) => res.json())
-//   .then((data) => console.log(data));

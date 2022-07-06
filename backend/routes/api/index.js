@@ -14,38 +14,34 @@ router.post("/test", function (req, res) {
 });
 
 // TEST ROUTE : GET /api/set-token-cookie
-// const { setTokenCookie } = require('../../utils/auth.js');
-// const { User } = require('../../db/models');
-// router.get('/set-token-cookie', async (_req, res) => {
-//   const user = await User.findOne({
-//       where: {
-//         username: 'Demo-lition'
-//       }
-//     });
-//   setTokenCookie(res, user);
-//   return res.json({ user });
-// });
+const { setTokenCookie } = require('../../utils/auth.js');
+const { User } = require('../../db/models');
+router.get('/set-token-cookie', async (_req, res) => {
+  const user = await User.findOne({
+      where: {
+        firstName: 'Demo'
+      }
+    });
+  setTokenCookie(res, user);
+  return res.json({ user });
+});
 
 // GET /api/restore-user
 
-// router.use(restoreUser);
+router.use(restoreUser);
 
-// router.get(
-  //   '/restore-user',
-  //   (req, res) => {
-    //     return res.json(req.user);
-    //   }
-    // );
+router.get(
+    '/restore-user',
+    (req, res) => {
+        return res.json(req.user);
+      }
+    );
 
     // GET /api/require-auth
-    // const { requireAuth } = require('../../utils/auth.js');
-    // router.get(
-      //   '/require-auth',
-      //   requireAuth,
-      //   (req, res) => {
-        //     return res.json(req.user);
-        //   }
-        // );
+    const { requireAuth } = require("../../utils/auth.js");
+    router.get("/require-auth", requireAuth, (req, res) => {
+      return res.json(req.user);
+    });
 
 
 module.exports = router;
@@ -61,6 +57,23 @@ module.exports = router;
 //     email: "spidey@spider.man",
 //     username: "Spidey",
 //     password: "password",
+//   }),
+// })
+//   .then((res) => res.json())
+//   .then((data) => console.log(data));
+
+
+// fetch("/api/users", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json",
+//     "XSRF-TOKEN": `g5JR7uoE-4yVEMlUDAXoaNCTKqglpfl_StcE`,
+//   },
+//   body: JSON.stringify({
+  //     email: "spidey@spider.man",
+  //     password: "password",
+  //     firstName: "spidey",
+  //     lastName: "pete"
 //   }),
 // })
 //   .then((res) => res.json())
