@@ -39,11 +39,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     lat: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DECIMAL,
       allowNull: false
     },
     lng: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DECIMAL,
       allowNull: false
     },
     name: {
@@ -58,14 +58,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     price: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DECIMAL,
       allowNull: false
     },
     numReviews: {
       type: DataTypes.INTEGER,
     },
     avgStarRating: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DECIMAL,
     },
     previewImage: {
       type: DataTypes.STRING,

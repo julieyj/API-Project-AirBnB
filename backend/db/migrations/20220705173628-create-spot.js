@@ -33,11 +33,11 @@ module.exports = {
         allowNull: false,
       },
       lat: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL,
         allowNull: false,
       },
       lng: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL,
         allowNull: false,
       },
       name: {
@@ -49,14 +49,14 @@ module.exports = {
         allowNull: false,
       },
       price: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL,
         allowNull: false,
       },
       numReviews: {
         type: Sequelize.INTEGER,
       },
       avgStarRating: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL,
       },
       previewImage: {
         type: Sequelize.STRING,
@@ -64,10 +64,12 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
     });
   },

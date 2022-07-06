@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { Spot, Booking, Review, Image } = require('../../db/models');
+const { Spot } = require('../../db/models');
 
 const router = express.Router();
 
