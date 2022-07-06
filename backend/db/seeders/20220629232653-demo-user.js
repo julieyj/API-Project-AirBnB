@@ -40,3 +40,35 @@ module.exports = {
     );
   },
 };
+
+// fetch("/api/users", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json",
+//     "XSRF-TOKEN": `<value of XSRF-TOKEN cookie>`,
+//   },
+//   body: JSON.stringify({
+//     email: "spidey@spider.man",
+//     firstName: "Spidey",
+//     password: "password",
+//   }),
+// })
+//   .then((res) => res.json())
+//   .then((data) => console.log(data));
+
+
+  // fetch("/api/users", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "XSRF-TOKEN": `6wJLJnOd-nT_7OMVlo1brRlN7q77paXqeUZo`,
+  //   },
+  //   body: JSON.stringify({
+  //     email: "spidey@spider.man",
+  //     firstName: "Spidey",
+  //     lastName: "Man",
+  //     password: "password",
+  //   }),
+  // })
+  //   .then((res) => res.json())
+  //   .then((data) => console.log(data));

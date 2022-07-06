@@ -1,6 +1,13 @@
-const router = require("express").Router();
+const express = require("express")
+const router = express.Router();
+
 const sessionRouter = require("./session.js");
 const usersRouter = require("./users.js");
+const spotsRouter = require("./spots.js");
+const reviewsRouter = require("./reviews.js");
+// const bookingsRouter = require("./bookings.js");
+// const imagesRouter = require("./images.js");
+
 const { restoreUser } = require("../../utils/auth.js");
 
 router.use(restoreUser);
@@ -8,6 +15,14 @@ router.use(restoreUser);
 router.use("/session", sessionRouter);
 
 router.use("/users", usersRouter);
+
+router.use("/spots", spotsRouter);
+
+router.use("/reviews", reviewsRouter);
+
+// router.use("/bookings", bookingsRouter);
+
+// router.use("/images", imagesRouter);
 
 router.post("/test", function (req, res) {
   res.json({ requestBody: req.body });
@@ -45,36 +60,3 @@ router.get(
 
 
 module.exports = router;
-
-
-// fetch("/api/users", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//     "XSRF-TOKEN": `G35XDYDi-hq_MoNNoSOhYteDk_QwcKf7y9KA`,
-//   },
-//   body: JSON.stringify({
-//     email: "spidey@spider.man",
-//     username: "Spidey",
-//     password: "password",
-//   }),
-// })
-//   .then((res) => res.json())
-//   .then((data) => console.log(data));
-
-
-// fetch("/api/users", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//     "XSRF-TOKEN": `g5JR7uoE-4yVEMlUDAXoaNCTKqglpfl_StcE`,
-//   },
-//   body: JSON.stringify({
-  //     email: "spidey@spider.man",
-  //     password: "password",
-  //     firstName: "spidey",
-  //     lastName: "pete"
-//   }),
-// })
-//   .then((res) => res.json())
-//   .then((data) => console.log(data));
