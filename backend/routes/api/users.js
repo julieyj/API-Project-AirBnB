@@ -12,51 +12,55 @@ const validateSignup = [
   check("email")
     .exists({ checkFalsy: true })
     .isEmail()
-    .withMessage("Please provide a valid email."),
+    .withMessage("Invalid email"),
   check("firstName")
     .exists({ checkFalsy: true })
     .isLength({ max: 30 })
-    .withMessage("The maximum character length is 30."),
+    .withMessage("First Name is required"),
   check("lastName")
     .exists({ checkFalsy: true })
     .isLength({ max: 30 })
-    .withMessage("The maximum character length is 30."),
+    .withMessage("Last Name is required"),
   check("password")
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
-    .withMessage("Password must be 6 characters or more."),
+    .withMessage("Password must be 6 characters or more"),
   handleValidationErrors,
 ];
 
 // Sign up
-router.post(
-  '/',
-  validateSignup,
-  async (req, res) => {
-    const { email, password, firstName, lastName } = req.body;
+router.post('/', validateSignup, async (req, res, next) => {
+  const { email, password, firstName, lastName } = req.body;
+
+  const emailCheck = await User.findOne({ where: { email: req.body.email } });
+
+  if (emailCheck) {
+    const err = new Error("User already exists");
+    err.status = 403;
+    err.title = "User already exists";
+    err.errors = ["User with that email already exists"];
+    return next(err);
+
+  } else {
     const user = await User.signup({ email, password, firstName, lastName });
-
     await setTokenCookie(res, user);
-
-    return res.json({
-      user
-    });
+    return res.json({ user });
   }
-);
+});
 
 
 // Get all current user's bookings
 router.get('/:id/bookings', requireAuth, async (req, res) => {
   const userBookings = await Booking.findAll({
-    where: {
-      userId: req.params.id
-    },
     include: [
       {
         model: Spot,
         attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
       }
-    ]
+    ],
+    where: {
+      userId: req.params.id
+    },
   });
   return res.json({ userBookings });
 });
