@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { requireAuth } = require("../../utils/auth");
-const { Spot, Review, User, sequelize } = require('../../db/models');
+const { Spot, Review, User, Image } = require('../../db/models');
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -43,35 +43,30 @@ const validateSpot = [
     .isNumeric()
     .withMessage("Price per day is required."),
   handleValidationErrors,
-]
+];
 
 
+// Get all spots
 router.get('/', async (req, res) => {
   const spots = await Spot.findAll();
   return res.json({spots});
 });
 
 
-router.get(
-  '/users/:userId',
-  requireAuth,
-  async (req, res) => {
-    const { userId } = req.params;
+// Get all spots owned by current user
+router.get('/users/:userId', requireAuth, async (req, res) => {
+  const userSpot = Spot.findOne({
+    where: {
+      userId: req.params.userId,
+    },
+  });
 
-    const userSpot = Spot.findOne({
-      where: {
-        userId: userId
-      }
-    });
-
-    return res.json({userSpot})
-  }
-);
+  return res.json({ userSpot });
+});
 
 
-router.get('/:id', async (req, res) => {
-  const { id } = req.params.id;
-
+// Get details of a spot from an id
+router.get('/:id', async (req, res, next) => {
   const spot = await Spot.findOne({
     where: {
       id: req.params.id,
@@ -90,14 +85,18 @@ router.get('/:id', async (req, res) => {
   });
 
   if (!spot) {
-    res.status(404);
-    return res.json({message: "Spot couldn't be found"});
+    const err = new Error('Not found.');
+    err.status = 404;
+    err.title = 'Not found';
+    err.errors = ["Spot couldn't be found."];
+    return next(err);
   };
 
   return res.json({spot});
 });
 
 
+// Create a spot
 router.post('/', requireAuth, validateSpot, async (req, res) => {
   const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
@@ -118,17 +117,21 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
 });
 
 
-router.put('/:id', async (req, res) => {
+// Edit a spot
+router.put('/:id', requireAuth, validateSpot, async (req, res, next) => {
   const { id, userId, address, city, state, country, lat, lng, name, description, price } = req.body;
 
   const updateSpot = await Spot.findByPk(req.params.id);
 
   if (!updateSpot) {
-    res.status(404);
-    return res.json({message: "Spot couldn't be found"})
+    const err = new Error("Not found.");
+    err.status = 404;
+    err.title = "Not found";
+    err.errors = ["Spot couldn't be found."];
+    return next(err);
   };
 
-  updateSpot.update({
+  await updateSpot.update({
     id,
     userId,
     address,
@@ -142,36 +145,52 @@ router.put('/:id', async (req, res) => {
     price
   });
 
-  return res.json({updateSpot});
+  return res.json({ updateSpot });
 });
 
 
-router.delete('/:id', async (req,res) => {
-  const { id } = req.params;
-
-  await Spot.destroy({
+// Delete a spot
+router.delete('/:id', requireAuth, async (req,res, next) => {
+  const deleteSpot = await Spot.findOne({
     where: {
-      id: id
+      id: req.params.id
     }
   });
 
-  return res.json({message: "Successfully deleted"});
+  if (!deleteSpot) {
+    const err = new Error("Not found.");
+    err.status = 404;
+    err.title = "Not found";
+    err.errors = ["Spot couldn't be found."];
+    return next(err);
+  };
+
+  await deleteSpot.destory();
+
+  return res.json({ message: "Successfully deleted" });
 });
 
 
+// Add an image to spot based on spot id
+router.post('/:id/images', requireAuth, async (req, res, next) => {
+  const { url } = req.body;
+
+  const spotImage = await Image.create({
+    spotId: req.params.id,
+    imageableType: "Spot",
+    url: url
+  });
+
+  if (!spotImage) {
+    const err = new Error("Not found.");
+    err.status = 404;
+    err.title = "Not found";
+    err.errors = ["Spot couldn't be found."];
+    return next(err);
+  };
+
+  return res.json({ spotImage });
+});
+
 
 module.exports = router;
-
-
-// {
-//     "userId": 4,
-//     "address": "123 ABC Street",
-//     "city": "Defghijklmnop",
-//     "state": "Qrstuvw",
-//     "country": "XYZ",
-//     "lat": "34.049988576041805",
-//     "lng": "-118.25312306454447",
-//     "name": "ABC Test Spot",
-//     "description": "Test spot for post route.",
-//     "price": 1.99
-//   }
