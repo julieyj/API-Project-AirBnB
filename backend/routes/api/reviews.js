@@ -15,7 +15,7 @@ const validateReview = [
   check("stars")
     .exists({ checkFalsy: true })
     .isNumeric()
-    .custom((value, {req}) => value <= 5 && value >= 1)
+    .custom((value, { req }) => value <= 5 && value >= 1)
     .withMessage("Stars must be an integer from 1 to 5"),
   handleValidationErrors,
 ];
@@ -34,46 +34,56 @@ const reviewUserAuth = async (req, res, next) => {
 };
 
 // Get all reviews of current user
-router.get('/users/:userId', requireAuth, async (req, res) => {
+router.get("/users/:userId", requireAuth, async (req, res) => {
   const userReviews = await Review.findAll({
     where: {
-      userId: req.params.userId
+      userId: req.params.userId,
     },
     include: [
       {
         model: User,
-        attributes: ['id', 'firstName', 'lastName']
+        attributes: ["id", "firstName", "lastName"],
       },
       {
         model: Spot,
-        attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
+        attributes: [
+          "id",
+          "userId",
+          "address",
+          "city",
+          "state",
+          "country",
+          "lat",
+          "lng",
+          "name",
+          "price",
+        ],
       },
       {
         model: Image,
-        attributes: ['url']
-      }
-    ]
+        attributes: ["url"],
+      },
+    ],
   });
   return res.json({ userReviews });
 });
 
-
 // Get all reviews by spot id
-router.get('/spots/:spotId', async (req, res, next) => {
+router.get("/spots/:spotId", async (req, res, next) => {
   const spotReviews = await Review.findAll({
     where: {
-      spotId: req.params.spotId
+      spotId: req.params.spotId,
     },
     include: [
       {
         model: User,
-        attributes: ['id', 'firstName', 'lastName']
+        attributes: ["id", "firstName", "lastName"],
       },
       {
         model: Image,
-        attributes: ['url']
-      }
-    ]
+        attributes: ["url"],
+      },
+    ],
   });
 
   if (!spotReviews) {
@@ -82,89 +92,97 @@ router.get('/spots/:spotId', async (req, res, next) => {
     err.title = "Not found";
     err.errors = ["Spot couldn't be found"];
     next(err);
-  };
+  }
 
   return res.json({ spotReviews });
 });
 
-
 // Create a review for a spot based on spot id
-router.post('/spots/:spotId', requireAuth, validateReview, async (req, res, next) => {
-  const { review, stars } = req.body;
+router.post(
+  "/spots/:spotId",
+  requireAuth,
+  validateReview,
+  async (req, res, next) => {
+    const { review, stars } = req.body;
 
-  const userReviewCheck = await Review.findOne({
-    where: {
-      userId: req.user.id,
-      spotId: req.params.spotId
+    const userReviewCheck = await Review.findOne({
+      where: {
+        userId: req.user.id,
+        spotId: req.params.spotId,
+      },
+    });
+
+    if (userReviewCheck) {
+      const err = new Error("Review already exists");
+      err.status = 400;
+      err.title = "Review already exists";
+      err.errors = ["User already has a review for this spot"];
+      next(err);
     }
-  });
 
-  if (userReviewCheck) {
-    const err = new Error("Review already exists");
-    err.status = 400;
-    err.title = "Review already exists";
-    err.errors = ["User already has a review for this spot"];
-    next(err);
+    const newSpotReview = await Review.create({
+      userId: req.user.id,
+      spotId: req.params.spotId,
+      review,
+      stars,
+    });
+
+    if (!newSpotReview) {
+      const err = new Error("Not found");
+      err.status = 404;
+      err.title = "Not found";
+      err.errors = ["Spot couldn't be found"];
+      next(err);
+    }
+
+    const result = {
+      id: newSpotReview.id,
+      userId: req.user.id,
+      spotId: req.params.spotId,
+      review: newSpotReview.review,
+      stars: newSpotReview.stars,
+      creatdAt: newSpotReview.createdAt,
+      updatedAt: newSpotReview.updatedAt,
+    };
+
+    return res.json(result);
   }
-
-  const newSpotReview = await Review.create({
-    userId: req.user.id,
-    spotId: req.params.spotId,
-    review,
-    stars
-  });
-
-  if (!newSpotReview) {
-    const err = new Error("Not found");
-    err.status = 404;
-    err.title = "Not found";
-    err.errors = ["Spot couldn't be found"];
-    next(err);
-  };
-
-  const result = {
-    id: newSpotReview.id,
-    userId: req.user.id,
-    spotId: req.params.spotId,
-    review: newSpotReview.review,
-    stars: newSpotReview.stars,
-    creatdAt: newSpotReview.createdAt,
-    updatedAt: newSpotReview.updatedAt
-  };
-
-  return res.json(result);
-});
-
+);
 
 // Edit a review
-router.put('/:id', requireAuth, reviewUserAuth, validateReview, async (req, res, next) => {
-  const { review, stars } = req.body;
+router.put(
+  "/:id",
+  requireAuth,
+  reviewUserAuth,
+  validateReview,
+  async (req, res, next) => {
+    const { review, stars } = req.body;
 
-  const editReview = await Review.findByPk(req.params.id);
+    const editReview = await Review.findByPk(req.params.id);
 
-  if (!editReview) {
-    const err = new Error("Not found");
-    err.status = 404;
-    err.title = "Not found";
-    err.errors = ["Review couldn't be found"];
-    next(err);
-  };
+    if (!editReview) {
+      const err = new Error("Not found");
+      err.status = 404;
+      err.title = "Not found";
+      err.errors = ["Review couldn't be found"];
+      next(err);
+    }
 
-  await editReview.update({
-    review,
-    stars
-  });
+    await editReview.update({
+      review,
+      stars,
+    });
 
-  return res.json({ editReview });
-});
-
+    return res.json({ editReview });
+  }
+);
 
 // Delete a review
-router.delete('/:id', requireAuth, reviewUserAuth, async (req, res, next) => {
+router.delete("/:id", requireAuth, reviewUserAuth, async (req, res, next) => {
   const deleteReview = await Review.findOne({
     where: {
-      id: req.params.id
-    }
+      id: req.params.id,
+    },
   });
 
   if (!deleteReview) {
@@ -173,34 +191,43 @@ router.delete('/:id', requireAuth, reviewUserAuth, async (req, res, next) => {
     err.title = "Not found";
     err.errors = ["Review couldn't be found"];
     next(err);
-  };
+  }
 
   await deleteReview.destroy();
 
-  return res.json({message: "Successfully deleted"});
+  return res.json({ message: "Successfully deleted" });
 });
-
 
 // Add an image to review based on review id
-router.post('/:id/images', requireAuth, reviewUserAuth, async (req, res, next) => {
-  const { url } = req.body;
+router.post(
+  "/:id/images",
+  requireAuth,
+  reviewUserAuth,
+  async (req, res, next) => {
+    const { url } = req.body;
 
-  const reviewImage = await Image.create({
-    reviewId: req.params.id,
-    imageableType: "Review",
-    url: url
-  });
+    const reviewImage = await Image.create({
+      reviewId: req.params.id,
+      imageableType: "Review",
+      url: url,
+    });
 
-  if (!reviewImage) {
-    const err = new Error("Not found");
-    err.status = 404;
-    err.title = "Not found";
-    err.errors = ["Review couldn't be found"];
-    next(err);
-  };
+    if (!reviewImage) {
+      const err = new Error("Not found");
+      err.status = 404;
+      err.title = "Not found";
+      err.errors = ["Review couldn't be found"];
+      next(err);
+    }
 
-  return res.json({ reviewImage });
+    return res.json({ reviewImage });
+  }
+);
+
+// Get all reviews
+router.get("/", async (req, res) => {
+  const allReviews = await Review.findAll();
+  return res.json({ allReviews });
 });
-
 
 module.exports = router;
