@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![AirBnB](AirBnB_Clone_Schema_v2.png)
 
 ## API Documentation
 
@@ -252,7 +252,7 @@ Returns all the spots owned (created) by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /spots/:ownerId
+  * URL: /spots/users/:userId
   * Body: none
 
 * Successful Response
