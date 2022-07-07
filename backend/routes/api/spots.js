@@ -98,7 +98,7 @@ router.get('/:id', async (req, res, next) => {
         attributes: [],
       },
     ],
-    attributes: [ 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', [sequelize.fn("COUNT", sequelize.col("review")), "numReviews"],[sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"]],
+    attributes: [ 'id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', [sequelize.fn("COUNT", sequelize.col("review")), "numReviews"],[sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"]],
   });
 
   if (!spot) {

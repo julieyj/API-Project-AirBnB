@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User, Booking } = require("../../db/models");
+const { User, Booking, Spot } = require("../../db/models");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -61,15 +61,16 @@ router.get('/', async (req, res) => {
 // Get all current user's bookings
 router.get('/:id/bookings', requireAuth, async (req, res) => {
   const userBookings = await Booking.findAll({
-    include: [
-      {
-        model: Spot,
-        attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
-      }
-    ],
     where: {
       userId: req.params.id
     },
+    include: [
+      {
+        model: Spot,
+        attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price', 'previewImage']
+      }
+    ],
+    attributes: [ 'id', 'spotId', 'userId', 'startDate', 'endDate' ],
   });
   return res.json({ userBookings });
 });
