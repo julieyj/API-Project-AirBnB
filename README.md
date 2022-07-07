@@ -547,7 +547,7 @@ Returns all the reviews written by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /reviews/user/:userId
+  * URL: /reviews/users/:userId
   * Body: none
 
 * Successful Response
@@ -599,7 +599,7 @@ Returns all the reviews that belong to a spot specified by id.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /reviews/spot/:spotId
+  * URL: /reviews/spots/:spotId
   * Body: none
 
 * Successful Response
@@ -652,7 +652,7 @@ Create and return a new review for a spot specified by id.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /reviews/spot/:spotId
+  * URL: /reviews/spots/:spotId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -882,7 +882,7 @@ Return all the bookings for a spot specified by id.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /bookings/spot/:spotId
+  * URL: /bookings/spots/:spotId
   * Body: none
 
 * Successful Response: If you ARE NOT the owner of the spot.
