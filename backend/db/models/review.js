@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Review.belongsTo(models.User, { foreignKey: 'userId'});
       Review.belongsTo(models.Spot, { foreignKey: 'userId'});
+      Review.hasMany(models.Image, { foreignKey: 'reviewId'});
     }
   }
   Review.init({
@@ -41,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Review',
     indexes: [
       {
-        unique: true, 
+        unique: true,
         fields: ['userId', 'spotId']
       }
     ]

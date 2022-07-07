@@ -171,7 +171,7 @@ router.put('/:id', requireAuth, spotUserAuth, validateSpot, async (req, res, nex
     err.status = 404;
     err.title = "Not found";
     err.errors = ["Spot couldn't be found"];
-    return next(err);
+    next(err);
   };
 
   await updateSpot.update({
@@ -203,7 +203,7 @@ router.delete('/:id', requireAuth, spotUserAuth, async (req,res, next) => {
     err.status = 404;
     err.title = "Not found";
     err.errors = ["Spot couldn't be found."];
-    return next(err);
+    next(err);
   };
 
   await deleteSpot.destroy();
@@ -227,7 +227,7 @@ router.post('/:id/images', requireAuth, spotUserAuth, async (req, res, next) => 
     err.status = 404;
     err.title = "Not found";
     err.errors = ["Spot couldn't be found."];
-    return next(err);
+    next(err);
   };
 
   const result = await Image.findAll({

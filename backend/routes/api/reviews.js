@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { requireAuth } = require("../../utils/auth");
-const { Review, User, Spot, Image } = require("../../db/models");
+const { Review, User, Spot, Image, sequelize } = require("../../db/models");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -28,9 +28,9 @@ const reviewUserAuth = async (req, res, next) => {
     err.title = "Unauthorized";
     err.errors = ["Unauthorized"];
     err.status = 401;
-    return next(err);
+    next(err);
   }
-  return next();
+  next();
 };
 
 // Get all reviews of current user
@@ -47,9 +47,12 @@ router.get('/users/:userId', requireAuth, async (req, res) => {
       {
         model: Spot,
         attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
+      },
+      {
+        model: Image,
+        attributes: ['url']
       }
-    ],
-    attributes: [ 'id', 'userId', 'spotId', 'review', 'stars', 'createdAt', 'updatedAt']
+    ]
   });
   return res.json({ userReviews });
 });
@@ -57,7 +60,7 @@ router.get('/users/:userId', requireAuth, async (req, res) => {
 
 // Get all reviews by spot id
 router.get('/spots/:spotId', async (req, res, next) => {
-  const spotReviews = await spotId.findAll({
+  const spotReviews = await Review.findAll({
     where: {
       spotId: req.params.spotId
     },
@@ -65,6 +68,10 @@ router.get('/spots/:spotId', async (req, res, next) => {
       {
         model: User,
         attributes: ['id', 'firstName', 'lastName']
+      },
+      {
+        model: Image,
+        attributes: ['url']
       }
     ]
   });
@@ -74,14 +81,14 @@ router.get('/spots/:spotId', async (req, res, next) => {
     err.status = 404;
     err.title = "Not found";
     err.errors = ["Spot couldn't be found"];
-    return next(err);
+    next(err);
   };
 
   return res.json({ spotReviews });
 });
 
 
-// Create a rewview for a spot based on spot id
+// Create a review for a spot based on spot id
 router.post('/spots/:spotId', requireAuth, validateReview, async (req, res, next) => {
   const { review, stars } = req.body;
 
@@ -97,10 +104,12 @@ router.post('/spots/:spotId', requireAuth, validateReview, async (req, res, next
     err.status = 400;
     err.title = "Review already exists";
     err.errors = ["User already has a review for this spot"];
-    return next(err);
+    next(err);
   }
 
   const newSpotReview = await Review.create({
+    userId: req.user.id,
+    spotId: req.params.spotId,
     review,
     stars
   });
@@ -110,25 +119,35 @@ router.post('/spots/:spotId', requireAuth, validateReview, async (req, res, next
     err.status = 404;
     err.title = "Not found";
     err.errors = ["Spot couldn't be found"];
-    return next(err);
+    next(err);
   };
 
-  return res.json({ newSpotReview });
+  const result = {
+    id: newSpotReview.id,
+    userId: req.user.id,
+    spotId: req.params.spotId,
+    review: newSpotReview.review,
+    stars: newSpotReview.stars,
+    creatdAt: newSpotReview.createdAt,
+    updatedAt: newSpotReview.updatedAt
+  };
+
+  return res.json(result);
 });
 
 
 // Edit a review
 router.put('/:id', requireAuth, reviewUserAuth, validateReview, async (req, res, next) => {
-  const editReview = await Review.findByPk(req.params.id);
-
   const { review, stars } = req.body;
+
+  const editReview = await Review.findByPk(req.params.id);
 
   if (!editReview) {
     const err = new Error("Not found");
     err.status = 404;
     err.title = "Not found";
     err.errors = ["Review couldn't be found"];
-    return next(err);
+    next(err);
   };
 
   await editReview.update({
@@ -153,10 +172,10 @@ router.delete('/:id', requireAuth, reviewUserAuth, async (req, res, next) => {
     err.status = 404;
     err.title = "Not found";
     err.errors = ["Review couldn't be found"];
-    return next(err);
+    next(err);
   };
 
-  await deleteReview.destory();
+  await deleteReview.destroy();
 
   return res.json({message: "Successfully deleted"});
 });
@@ -177,7 +196,7 @@ router.post('/:id/images', requireAuth, reviewUserAuth, async (req, res, next) =
     err.status = 404;
     err.title = "Not found";
     err.errors = ["Review couldn't be found"];
-    return next(err);
+    next(err);
   };
 
   return res.json({ reviewImage });
