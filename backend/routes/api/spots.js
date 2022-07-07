@@ -62,45 +62,27 @@ const spotUserAuth = async (req, res, next) => {
 // Get all spots
 router.get('/', async (req, res) => {
   const spots = await Spot.findAll();
-  return res.json({spots});
+  return res.json({ Spots: spots });
 });
 
 
 // Get all spots owned by current user
 router.get('/users/:userId', requireAuth, async (req, res) => {
-  const userSpot = Spot.findOne({
+  const userSpots = await Spot.findAll({
     where: {
-      userId: req.params.userId,
+      userId: req.params.userId
     },
     attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt', 'previewImage']
   });
 
-  return res.json({userSpot});
+  return res.json({ Spots: userSpots });
 });
 
 
 // Get details of a spot from an id
 router.get('/:id', async (req, res, next) => {
-  const spot = await Spot.findOne({
-    where: {
-      id: req.params.id,
-    },
-    // include: [
-    //   {
-    //     model: User,
-    //     attributes: ["id", "firstName", "lastName"],
-    //   },
-    //   {
-    //     model: Image,
-    //     attributes: ["url"],
-    //   },
-    //   {
-    //     model: Review,
-    //     attributes: [],
-    //   },
-    // ],
-    // attributes: [ 'id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', [sequelize.fn("COUNT", sequelize.col("review")), "numReviews"],[sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"]],
-  });
+  const spot = await Spot.findOne({ where: { id: req.params.id } });
+
   if (!spot) {
     const err = new Error('Not found');
     err.status = 404;
@@ -108,18 +90,21 @@ router.get('/:id', async (req, res, next) => {
     err.message = ["Spot couldn't be found"];
     next(err);
   };
+
   const user = await User.findOne({
     where: {
       id: req.params.id,
     },
     attributes: ["id", "firstName", "lastName"],
   });
+
   const image = await Image.findOne({
     where: {
       spotId: req.params.id
     },
     attributes: ["url"]
   });
+
   const review = await Review.findAll({
     where: {
       spotId: req.params.id,
@@ -129,6 +114,7 @@ router.get('/:id', async (req, res, next) => {
       [sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"],
     ],
   });
+
   const result = {
     id: spot.id,
     userId: spot.userId,
@@ -147,7 +133,7 @@ router.get('/:id', async (req, res, next) => {
     avgStarRating: review.avgStarRating,
     images: image,
     Owners: user
-  }
+  };
 
   return res.json(result);
 });
@@ -157,7 +143,7 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', requireAuth, validateSpot, async (req, res) => {
   const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
-  const newSpot = Spot.create({
+  const newSpot = await Spot.create({
     userId: req.user.id,
     address,
     city,
@@ -170,13 +156,13 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
     price
   });
 
-  return res.json({newSpot});
+  return res.json({ newSpot });
 });
 
 
 // Edit a spot
 router.put('/:id', requireAuth, spotUserAuth, validateSpot, async (req, res, next) => {
-  const { id, userId, address, city, state, country, lat, lng, name, description, price } = req.body;
+  const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
   const updateSpot = await Spot.findByPk(req.params.id);
 
@@ -189,8 +175,6 @@ router.put('/:id', requireAuth, spotUserAuth, validateSpot, async (req, res, nex
   };
 
   await updateSpot.update({
-    id,
-    userId,
     address,
     city,
     state,
@@ -222,7 +206,7 @@ router.delete('/:id', requireAuth, spotUserAuth, async (req,res, next) => {
     return next(err);
   };
 
-  await deleteSpot.destory();
+  await deleteSpot.destroy();
 
   return res.json({ message: "Successfully deleted" });
 });
@@ -246,7 +230,14 @@ router.post('/:id/images', requireAuth, spotUserAuth, async (req, res, next) => 
     return next(err);
   };
 
-  return res.json({ spotImage });
+  const result = await Image.findAll({
+    where: {
+      id: spotImage.id
+    },
+    attributes: ['id', 'spotId', 'imageableType', 'url']
+  });
+
+  return res.json({ result });
 });
 
 
