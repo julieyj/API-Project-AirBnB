@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { requireAuth } = require("../../utils/auth");
-const { Spot, Review, User, Image } = require('../../db/models');
+const { Spot, Review, User, Image, sequelize } = require('../../db/models');
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -51,7 +51,7 @@ const spotUserAuth = async (req, res, next) => {
   if (req.user.id !== spot.userId) {
     const err = new Error("Unauthorized");
     err.title = "Unauthorized";
-    err.errors = ["Unauthorized"];
+    err.message = ["Unauthorized"];
     err.status = 401;
     return next(err);
   }
@@ -101,7 +101,7 @@ router.get('/:id', async (req, res, next) => {
     const err = new Error('Not found');
     err.status = 404;
     err.title = 'Not found';
-    err.errors = ["Spot couldn't be found"];
+    err.message = ["Spot couldn't be found"];
     return next(err);
   };
 

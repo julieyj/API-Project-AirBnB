@@ -49,6 +49,15 @@ router.post('/', validateSignup, async (req, res, next) => {
 });
 
 
+// Get all users
+router.get('/', async (req, res) => {
+  const allUsers = await User.findAll({
+    attributes: [ 'id', 'firstName', 'lastName' ]
+  })
+  return res.json({ allUsers });
+});
+
+
 // Get all current user's bookings
 router.get('/:id/bookings', requireAuth, async (req, res) => {
   const userBookings = await Booking.findAll({
