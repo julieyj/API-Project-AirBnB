@@ -90,6 +90,10 @@ router.get('/:id', async (req, res, next) => {
         attributes: ["id", "firstName", "lastName"],
       },
       {
+        model: Image,
+        attributes: ["url"],
+      },
+      {
         model: Review,
         attributes: [],
       },

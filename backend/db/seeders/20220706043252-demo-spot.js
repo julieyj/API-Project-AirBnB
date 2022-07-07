@@ -49,8 +49,7 @@ module.exports = {
     );
   },
 
-  down: async (queryInterface, Sequelize) => {
-    const Op = Sequelize.Op;
+  down: async (queryInterface) => {
     return queryInterface.bulkDelete("Spots", null, {});
   },
 };
