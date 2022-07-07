@@ -53,9 +53,9 @@ const spotUserAuth = async (req, res, next) => {
     err.title = "Unauthorized";
     err.message = ["Unauthorized"];
     err.status = 401;
-    return next(err);
+    next(err);
   }
-  return next();
+  next();
 };
 
 
@@ -72,9 +72,10 @@ router.get('/users/:userId', requireAuth, async (req, res) => {
     where: {
       userId: req.params.userId,
     },
+    attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', 'previewImage']
   });
 
-  return res.json({ userSpot });
+  return res.json({userSpot});
 });
 
 

@@ -34,7 +34,7 @@ const reviewUserAuth = async (req, res, next) => {
 };
 
 // Get all reviews of current user
-router.get('/user/:userId', requireAuth, async (req, res) => {
+router.get('/users/:userId', requireAuth, async (req, res) => {
   const userReviews = await Review.findAll({
     where: {
       userId: req.params.userId
@@ -56,7 +56,7 @@ router.get('/user/:userId', requireAuth, async (req, res) => {
 
 
 // Get all reviews by spot id
-router.get('/spot/:spotId', async (req, res, next) => {
+router.get('/spots/:spotId', async (req, res, next) => {
   const spotReviews = await spotId.findAll({
     where: {
       spotId: req.params.spotId
@@ -82,7 +82,7 @@ router.get('/spot/:spotId', async (req, res, next) => {
 
 
 // Create a rewview for a spot based on spot id
-router.post('/spot/:spotId', requireAuth, validateReview, async (req, res, next) => {
+router.post('/spots/:spotId', requireAuth, validateReview, async (req, res, next) => {
   const { review, stars } = req.body;
 
   const userReviewCheck = await Review.findOne({
