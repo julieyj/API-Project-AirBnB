@@ -72,7 +72,7 @@ router.get('/users/:userId', requireAuth, async (req, res) => {
     where: {
       userId: req.params.userId,
     },
-    attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', 'previewImage']
+    attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt', 'previewImage']
   });
 
   return res.json({userSpot});
@@ -85,32 +85,71 @@ router.get('/:id', async (req, res, next) => {
     where: {
       id: req.params.id,
     },
-    include: [
-      {
-        model: User,
-        attributes: ["id", "firstName", "lastName"],
-      },
-      {
-        model: Image,
-        attributes: ["url"],
-      },
-      {
-        model: Review,
-        attributes: [],
-      },
-    ],
-    attributes: [ 'id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', [sequelize.fn("COUNT", sequelize.col("review")), "numReviews"],[sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"]],
+    // include: [
+    //   {
+    //     model: User,
+    //     attributes: ["id", "firstName", "lastName"],
+    //   },
+    //   {
+    //     model: Image,
+    //     attributes: ["url"],
+    //   },
+    //   {
+    //     model: Review,
+    //     attributes: [],
+    //   },
+    // ],
+    // attributes: [ 'id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', [sequelize.fn("COUNT", sequelize.col("review")), "numReviews"],[sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"]],
   });
-
   if (!spot) {
     const err = new Error('Not found');
     err.status = 404;
     err.title = 'Not found';
     err.message = ["Spot couldn't be found"];
-    return next(err);
+    next(err);
   };
+  const user = await User.findOne({
+    where: {
+      id: req.params.id,
+    },
+    attributes: ["id", "firstName", "lastName"],
+  });
+  const image = await Image.findOne({
+    where: {
+      spotId: req.params.id
+    },
+    attributes: ["url"]
+  });
+  const review = await Review.findAll({
+    where: {
+      spotId: req.params.id,
+    },
+    attributes: [
+      [sequelize.fn("COUNT", sequelize.col("review")), "numReviews"],
+      [sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"],
+    ],
+  });
+  const result = {
+    id: spot.id,
+    userId: spot.userId,
+    address: spot.address,
+    city: spot.city,
+    state: spot.state,
+    country: spot.country,
+    lat: spot.lat,
+    lng: spot.lng,
+    name: spot.name,
+    description: spot.description,
+    price: spot.price,
+    createdAt: spot.createdAt,
+    updatedAt: spot.updatedAt,
+    numReviews: review.numReviews,
+    avgStarRating: review.avgStarRating,
+    images: image,
+    Owners: user
+  }
 
-  return res.json({spot});
+  return res.json(result);
 });
 
 
