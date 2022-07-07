@@ -16,9 +16,9 @@ const bookingUserAuth = async (req, res, next) => {
     err.title = "Unauthorized";
     err.errors = ["Unauthorized"];
     err.status = 401;
-    return next(err);
+    next(err);
   }
-  return next();
+  next();
 };
 
 // User authorization
@@ -30,21 +30,21 @@ const bookingUserDeleteAuth = async (req, res, next) => {
     err.title = "Unauthorized";
     err.errors = ["Unauthorized"];
     err.status = 401;
-    return next(err);
+    next(err);
   }
-  return next();
+  next();
 };
 
 // Get all bookings for a spot based on spot id
 router.get('/spots/:spotId', requireAuth, async (req, res, next) => {
-  const spotBookings = await Booking.findByPk(req.params.id);
+  const spotBookings = await Booking.findByPk(req.params.spotId);
 
   if (!spotBookings) {
     const err = new Error("Not found");
     err.status = 404;
     err.title = "Not found";
     err.errors = ["Spot couldn't be found"];
-    return next(err);
+    next(err);
   };
 
   if (req.user.id === spotBookings.userId) {
@@ -87,7 +87,7 @@ router.post('/spots/:spotId', requireAuth, async (req, res, next) => {
     err.status = 404;
     err.title = "Not found";
     err.errors = ["Spot couldn't be found"];
-    return next(err);
+    next(err);
   }
 
   if (spot.userId === req.user.id) {
@@ -95,17 +95,27 @@ router.post('/spots/:spotId', requireAuth, async (req, res, next) => {
     err.title = "Booking already exists";
     err.errors = ["User already has a booking for this spot"];
     err.status = 400;
-    return next(err);
+    next(err);
   }
 
-  const newBooking = Booking.create({
+  const newBooking = await Booking.create({
     spotId: req.params.spotId,
     userId: req.user.id,
     startDate: startDate,
     endDate: endDate
   });
 
-  return res.json({ newBooking });
+  const result = {
+    id: newBooking.id,
+    spotId: newBooking.spotId,
+    userId: req.user.id,
+    startDate: newBooking.startDate,
+    endDate: newBooking.endDate,
+    createdAt: newBooking.createdAt,
+    updatedAt: newBooking.updatedAt
+  }
+
+  return res.json(result);
 });
 
 
@@ -120,7 +130,7 @@ router.put('/:id', requireAuth, bookingUserAuth, async (req, res, next) => {
     err.status = 404;
     err.title = "Not found";
     err.errors = ["Booking couldn't be found"];
-    return next(err);
+    next(err);
   };
 
   await editBooking.update({
@@ -145,13 +155,20 @@ router.delete('/:id', requireAuth, bookingUserDeleteAuth, async (req, res, next)
     err.status = 404;
     err.title = "Not found";
     err.errors = ["Booking couldn't be found."];
-    return next(err);
+    next(err);
   };
 
   await deleteBooking.destroy();
 
   return res.json({ message: "Successfully deleted" });
 });
+
+// Get all bookings
+router.get('/', async (req,res) => {
+  const allBookings = await Booking.findAll();
+  return res.json( { allBookings } );
+});
+
 
 
 module.exports = router;
