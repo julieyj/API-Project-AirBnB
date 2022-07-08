@@ -49,42 +49,46 @@ const validateSpot = [
 ];
 
 
-// // Query parameter validation
-// const validateQuery = [
-//   check("page")
-//     .exists({ checkFalsy: true })
-//     .isInt({min: 0, max: 10})
-//     .withMessage("Page must be greater than or equal to 0, and less than or equal to 10"),
-//   check("size")
-//     .exists({ checkFalsy: true })
-//     .isInt({min: 0, max: 20})
-//     .withMessage("Size must be greater than or equal to 0, and less than or equal to 20"),
-//   check("maxLat")
-//     .exists({ checkFalsy: true })
-//     .isInt({max: 90})
-//     .withMessage("Maxiumum latitude is invalid"),
-//   check("minLat")
-//     .exists({ checkFalsy: true })
-//     .isInt({min: -90})
-//     .withMessage("Minimum latitude is invalid"),
-//   check("maxLng")
-//     .exists({ checkFalsy: true })
-//     .isInt({max: 180})
-//     .withMessage("Maximum longitude is invalid"),
-//   check("minLng")
-//     .exists({ checkFalsy: true })
-//     .isInt({min: -180})
-//     .withMessage("Minimum longitude is invalid"),
-//   check("minPrice")
-//     .exists({ checkFalsy: true })
-//     .isInt({ min: 0 })
-//     .withMessage("Minimum price must be greater than 0"),
-//   check("maxPrice")
-//     .exists({ checkFalsy: true })
-//     .isInt({ max: 0 })
-//     .withMessage("Maximum price must be greater than 0"),
-//   handleValidationErrors,
-// ];
+// Query parameter validation
+const validateQuery = [
+  check("page")
+    // .exists({ checkFalsy: true })
+    .custom((value, { req }) => value >= 0 && value <= 10)
+    .withMessage(
+      "Page must be greater than or equal to 0, and less than or equal to 10"
+    ),
+  check("size")
+    // .exists({ checkFalsy: true })
+    .custom((value, { req }) => value >= 0 && value <= 20)
+    .withMessage(
+      "Size must be greater than or equal to 0, and less than or equal to 20"
+    ),
+  check("maxLat")
+    // .exists({ checkFalsy: true })
+    .custom((value, { req }) => value <= 90)
+    .withMessage("Maxiumum latitude is invalid"),
+  check("minLat")
+    // .exists({ checkFalsy: true })
+    .custom((value, { req }) => value >= -90)
+    .withMessage("Minimum latitude is invalid"),
+  check("maxLng")
+    // .exists({ checkFalsy: true })
+    .custom((value, { req }) => value <= 180)
+    .withMessage("Maximum longitude is invalid"),
+  check("minLng")
+    // .exists({ checkFalsy: true })
+    .custom((value, { req }) => value >= -180)
+    .withMessage("Minimum longitude is invalid"),
+  check("minPrice")
+    // .exists({ checkFalsy: true })
+    .custom((value, { req }) => value >= 0)
+    .withMessage("Minimum price must be greater than 0"),
+  check("maxPrice")
+    // .exists({ checkFalsy: true })
+    .custom((value, { req }) => value >= 0)
+    .withMessage("Maximum price must be greater than 0"),
+  handleValidationErrors,
+];
 
 
 // User authorization
