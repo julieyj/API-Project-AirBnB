@@ -70,8 +70,8 @@ const bookingEditConflict = async (req, res, next) => {
   const bookings = await Booking.findAll({
     where: {
       id: req.params.id,
-      startDate: { [Op.lte]: req.body.endDate },
-      endDate: { [Op.gte]: req.body.startDate }
+      startDate: { [Op.gte]: req.body.startDate },
+      endDate: { [Op.lte]: req.body.endDate }
     }
   });
   if (bookings) {
@@ -155,21 +155,20 @@ router.post('/spots/:spotId', requireAuth, validateBooking, async (req, res, nex
     next(err);
   }
 
-  const bookingCreateConflict = await Booking.findAll({
-    where: {
-      spotId: req.params.spotId,
-      startDate: { [Op.gte]: req.body.startDate },
-      endDate: { [Op.lte]: req.body.endDate },
-    },
-  });
-
-  if (bookingCreateConflict) {
-    const err = new Error("Forbidden");
-    err.title = "Forbidden";
-    err.errors = ["Sorry, this spot is already booked for the specified dates"];
-    err.status = 403;
-    next(err);
-  }
+  // const bookingCreateConflict = await Booking.findAll({
+  //   where: {
+  //     spotId: req.params.spotId,
+  //     startDate: { [Op.gte]: req.body.startDate },
+  //     endDate: { [Op.lte]: req.body.endDate },
+  //   },
+  // });
+  // if (bookingCreateConflict) {
+  //   const err = new Error("Forbidden");
+  //   err.title = "Forbidden";
+  //   err.errors = ["Sorry, this spot is already booked for the specified dates"];
+  //   err.status = 403;
+  //   next(err);
+  // }
 
   const newBooking = await Booking.create({
     spotId: req.params.spotId,
@@ -193,7 +192,7 @@ router.post('/spots/:spotId', requireAuth, validateBooking, async (req, res, nex
 
 
 // Edit a booking
-router.put('/:id', requireAuth, bookingUserAuth, validateBooking, bookingEditConflict, async (req, res, next) => {
+router.put('/:id', requireAuth, bookingUserAuth, validateBooking, async (req, res, next) => {
   const { startDate, endDate } = req.body;
 
   const editBooking = await Booking.findByPk(req.params.id);
