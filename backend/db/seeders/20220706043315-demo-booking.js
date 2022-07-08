@@ -23,6 +23,12 @@ module.exports = {
           startDate: new Date("2022-07-16"),
           endDate: new Date("2022-07-17"),
         },
+        {
+          spotId: 1,
+          userId: 2,
+          startDate: new Date("2022-07-03"),
+          endDate: new Date("2022-07-05"),
+        },
       ],
       {}
     );
