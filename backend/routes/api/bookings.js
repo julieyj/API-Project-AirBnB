@@ -3,8 +3,10 @@ const express = require("express");
 const { requireAuth } = require("../../utils/auth");
 const { Booking, Spot, User } = require("../../db/models");
 
-// const { check } = require("express-validator");
-// const { handleValidationErrors } = require("../../utils/validation");
+const { check } = require("express-validator");
+const { handleValidationErrors } = require("../../utils/validation");
+
+const { Op } = require("sequelize");
 
 const router = express.Router();
 
@@ -21,7 +23,7 @@ const bookingUserAuth = async (req, res, next) => {
   next();
 };
 
-// User authorization
+// User authorization for deleting a booking
 const bookingUserDeleteAuth = async (req, res, next) => {
   const booking = await Booking.findOne({ where: { id: req.params.id } });
   const spot = await Spot.findOne({ where: { id: req.params.id } });
@@ -34,6 +36,20 @@ const bookingUserDeleteAuth = async (req, res, next) => {
   }
   next();
 };
+
+// Booking conflict
+const bookingConflict = async (req, res, next) => {
+  const bookings = await Booking.findAll({ where: { spotId: req.params.spotId } });
+  if (bookings.startDate < req.body.endDate && bookings.endDate >= req.body.endDate) {
+    const err = new Error("Forbidden");
+    err.title = "Forbidden";
+    err.errors = ["Sorry, this spot is already booked for the specified dates"];
+    err.status = 403;
+    next(err);
+  }
+  next();
+};
+
 
 // Get all bookings for a spot based on spot id
 router.get('/spots/:spotId', requireAuth, async (req, res, next) => {
@@ -77,10 +93,17 @@ router.get('/spots/:spotId', requireAuth, async (req, res, next) => {
 
 
 // Create booking from spot based on spot id
-router.post('/spots/:spotId', requireAuth, async (req, res, next) => {
+router.post('/spots/:spotId', requireAuth, bookingConflict, async (req, res, next) => {
   const { startDate, endDate } = req.body;
 
-  const spot = await Spot.findByPk(req.params.spotId);
+  const spot = await Spot.findByPk(req.params.spotId, {
+    include: [
+      {
+        model: Booking,
+        attributes: ['startDate', 'endDate']
+      }
+    ]
+  });
 
   if (!spot) {
     const err = new Error("Not found");
@@ -91,9 +114,9 @@ router.post('/spots/:spotId', requireAuth, async (req, res, next) => {
   }
 
   if (spot.userId === req.user.id) {
-    const err = new Error("Booking already exists");
-    err.title = "Booking already exists";
-    err.errors = ["User already has a booking for this spot"];
+    const err = new Error("User owns spot");
+    err.title = "User owns spot";
+    err.errors = ["User is the owner of the spot"];
     err.status = 400;
     next(err);
   }
@@ -120,7 +143,7 @@ router.post('/spots/:spotId', requireAuth, async (req, res, next) => {
 
 
 // Edit a booking
-router.put('/:id', requireAuth, bookingUserAuth, async (req, res, next) => {
+router.put('/:id', requireAuth, bookingUserAuth, bookingConflict, async (req, res, next) => {
   const { startDate, endDate } = req.body;
 
   const editBooking = await Booking.findByPk(req.params.id);

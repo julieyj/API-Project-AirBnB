@@ -5,6 +5,9 @@ const { Spot, Review, User, Image, sequelize } = require('../../db/models');
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+// const { where } = require("sequelize/types");
+
+const { Op } = require("sequelize");
 
 const router = express.Router();
 
@@ -45,6 +48,45 @@ const validateSpot = [
   handleValidationErrors,
 ];
 
+
+// Query parameter validation
+const validateQuery = [
+  check("page")
+    .exists({ checkFalsy: true })
+    .isInt({min: 0, max: 10})
+    .withMessage("Page must be greater than or equal to 0, and less than or equal to 10"),
+  check("size")
+    .exists({ checkFalsy: true })
+    .isInt({min: 0, max: 20})
+    .withMessage("Size must be greater than or equal to 0, and less than or equal to 20"),
+  check("maxLat")
+    .exists({ checkFalsy: true })
+    .isInt({max: 90})
+    .withMessage("Maxiumum latitude is invalid"),
+  check("minLat")
+    .exists({ checkFalsy: true })
+    .isInt({min: -90})
+    .withMessage("Minimum latitude is invalid"),
+  check("maxLng")
+    .exists({ checkFalsy: true })
+    .isInt({max: 180})
+    .withMessage("Maximum longitude is invalid"),
+  check("minLng")
+    .exists({ checkFalsy: true })
+    .isInt({min: -180})
+    .withMessage("Minimum longitude is invalid"),
+  check("minPrice")
+    .exists({ checkFalsy: true })
+    .isInt({ min: 0 })
+    .withMessage("Minimum price must be greater than 0"),
+  check("maxPrice")
+    .exists({ checkFalsy: true })
+    .isInt({ max: 0 })
+    .withMessage("Maximum price must be greater than 0"),
+  handleValidationErrors,
+];
+
+
 // User authorization
 const spotUserAuth = async (req, res, next) => {
   const spot = await Spot.findOne({ where: { id: req.params.id } });
@@ -59,10 +101,33 @@ const spotUserAuth = async (req, res, next) => {
 };
 
 
-// Get all spots
-router.get('/', async (req, res) => {
+// // Get all spots
+// router.get('/', async (req, res) => {
+//   const spots = await Spot.findAll();
+//   return res.json({ Spots: spots });
+// });
+
+
+// Get all spots with query filters
+router.get('/', validateQuery, async (req, res) => {
+  let query = {
+    where: {}
+  }
+
+  const page = req.query.page === undefined ? 0 : parseInt(req.query.page);
+  const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+  if ((page >= 0 && page <= 10) && (size >= 0 && size <= 20)) {
+    query.limit = size;
+    query.offset = size * (page - 1);
+  }
+
+  // const { minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+  // if (minLat || maxLat) {
+  //   where.lat =
+  // }
+
   const spots = await Spot.findAll();
-  return res.json({ Spots: spots });
+  return res.json({ Spots: spots, page, size });
 });
 
 
