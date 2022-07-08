@@ -70,8 +70,8 @@ const bookingEditConflict = async (req, res, next) => {
   const bookings = await Booking.findAll({
     where: {
       id: req.params.id,
-      startDate: { [Op.gte]: req.body.startDate },
-      endDate: { [Op.lte]: req.body.endDate }
+      startDate: { [Op.lte]: req.body.endDate },
+      endDate: { [Op.gte]: req.body.startDate }
     }
   });
   if (bookings) {
@@ -162,6 +162,7 @@ router.post('/spots/:spotId', requireAuth, validateBooking, async (req, res, nex
       endDate: { [Op.lte]: req.body.endDate },
     },
   });
+
   if (bookingCreateConflict) {
     const err = new Error("Forbidden");
     err.title = "Forbidden";
