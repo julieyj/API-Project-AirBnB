@@ -183,6 +183,7 @@ router.post('/spots/:spotId', requireAuth, validateBooking, async (req, res, nex
     createdAt: newBooking.createdAt,
     updatedAt: newBooking.updatedAt
   }
+  
   return res.json(result);
 });
 
