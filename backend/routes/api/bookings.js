@@ -174,18 +174,16 @@ router.post('/spots/:spotId', requireAuth, validateBooking, async (req, res, nex
     endDate: endDate
   });
 
-  // const result = {
-  //   id: newBooking.id,
-  //   spotId: newBooking.spotId,
-  //   userId: req.user.id,
-  //   startDate: newBooking.startDate,
-  //   endDate: newBooking.endDate,
-  //   createdAt: newBooking.createdAt,
-  //   updatedAt: newBooking.updatedAt
-  // }
-  // return res.json(result);
-
-  return res.json(newBooking);
+  const result = {
+    id: newBooking.id,
+    spotId: newBooking.spotId,
+    userId: req.user.id,
+    startDate: newBooking.startDate,
+    endDate: newBooking.endDate,
+    createdAt: newBooking.createdAt,
+    updatedAt: newBooking.updatedAt
+  }
+  return res.json(result);
 });
 
 
