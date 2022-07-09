@@ -46,24 +46,24 @@ const bookingUserDeleteAuth = async (req, res, next) => {
   next();
 };
 
-// // Booking creation conflict
-// const bookingCreateConflict = async (req, res, next) => {
-//   const bookings = await Booking.findAll({
-//     where: {
-//       spotId: req.params.spotId,
-//       startDate: { [Op.gte]: req.body.startDate },
-//       endDate: { [Op.lte]: req.body.endDate }
-//     }
-//   });
-//   if (bookings) {
-//     const err = new Error("Forbidden");
-//     err.title = "Forbidden";
-//     err.errors = ["Sorry, this spot is already booked for the specified dates"];
-//     err.status = 403;
-//     next(err);
-//   }
-//   next();
-// };
+// Booking creation conflict
+const bookingCreateConflict = async (req, res, next) => {
+  const bookings = await Booking.findAll({
+    where: {
+      spotId: req.params.spotId,
+      startDate: { [Op.gte]: req.body.startDate },
+      endDate: { [Op.lte]: req.body.endDate }
+    }
+  });
+  if (bookings) {
+    const err = new Error("Forbidden");
+    err.title = "Forbidden";
+    err.errors = ["Sorry, this spot is already booked for the specified dates"];
+    err.status = 403;
+    next(err);
+  }
+  next();
+};
 
 // Booking editing conflict
 const bookingEditConflict = async (req, res, next) => {
@@ -87,7 +87,11 @@ const bookingEditConflict = async (req, res, next) => {
 
 // Get all bookings for a spot based on spot id
 router.get('/spots/:spotId', requireAuth, async (req, res, next) => {
-  const spotBookings = await Booking.findByPk(req.params.spotId);
+  const spotBookings = await Booking.findOne({
+    where: {
+      spotId: req.params.spotId
+    }
+  });
 
   if (!spotBookings) {
     const err = new Error("Not found");
@@ -130,14 +134,7 @@ router.get('/spots/:spotId', requireAuth, async (req, res, next) => {
 router.post('/spots/:spotId', requireAuth, validateBooking, async (req, res, next) => {
   const { startDate, endDate } = req.body;
 
-  const spot = await Spot.findByPk(req.params.spotId, {
-    include: [
-      {
-        model: Booking,
-        attributes: ['startDate', 'endDate']
-      }
-    ]
-  });
+  const spot = await Spot.findByPk(req.params.spotId);
 
   if (!spot) {
     const err = new Error("Not found");
@@ -173,9 +170,11 @@ router.post('/spots/:spotId', requireAuth, validateBooking, async (req, res, nex
   const newBooking = await Booking.create({
     spotId: req.params.spotId,
     userId: req.user.id,
-    startDate: startDate,
-    endDate: endDate
+    startDate,
+    endDate
   });
+
+
 
   const result = {
     id: newBooking.id,
@@ -215,7 +214,7 @@ router.put('/:id', requireAuth, bookingUserAuth, validateBooking, async (req, re
 
 
 // Delete a booking
-router.delete('/:id', requireAuth, bookingUserDeleteAuth, validateBooking, async (req, res, next) => {
+router.delete('/:id', requireAuth, bookingUserDeleteAuth, async (req, res, next) => {
   const deleteBooking = await Booking.findOne({
     where: {
       id: req.params.id

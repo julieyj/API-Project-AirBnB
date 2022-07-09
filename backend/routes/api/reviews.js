@@ -141,7 +141,7 @@ router.post(
       spotId: req.params.spotId,
       review: newSpotReview.review,
       stars: newSpotReview.stars,
-      creatdAt: newSpotReview.createdAt,
+      createdAt: newSpotReview.createdAt,
       updatedAt: newSpotReview.updatedAt,
     };
 
