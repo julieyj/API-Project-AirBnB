@@ -42,7 +42,6 @@ export const signupUser = (user) => async (dispatch) => {
   const { firstName, lastName, email, password } = user;
   const response = await csrfFetch("/users", {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
       firstName,
       lastName,
@@ -50,11 +49,9 @@ export const signupUser = (user) => async (dispatch) => {
       password
     })
   });
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
-  };
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
 };
 
 const initialState = { user: null };
