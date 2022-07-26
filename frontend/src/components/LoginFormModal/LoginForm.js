@@ -22,7 +22,7 @@ function LoginForm( { setShowModal }) {
   return (
     <form className="login-form-modal" onSubmit={handleSubmit}>
       <div className="modal-title">
-        <h3>Log in or sign up</h3>
+        <h3>Log in</h3>
       </div>
       <div className="modal-title-2">
         <h1>Welcome to Airbnb</h1>

@@ -30,7 +30,7 @@ function SpotDetail() {
           <div className="spot-detail-images"> Images
             <img src={spot.images} />
           </div>
-          <div className="spot-detail-owner">Entire location hosted by {spot.Owners.firstName}</div>
+          <div className="spot-detail-owner">Entire location hosted by {spot.Owners.firstName} {spot.Owners.lastName}</div>
           <div className="spot-detail-description"> {spot.description} </div>
           <div className="spot-detail-price"> ${spot.price} night</div>
         </>

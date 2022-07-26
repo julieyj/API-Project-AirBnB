@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_ALL_SPOTS = 'spots/LOAD_ALL_SPOTS';
 const LOAD_ONE_SPOT = 'spots/GET_ONE_SPOT';
-// const ADD_SPOT = 'spots/ADD_SPOT';
+const ADD_SPOT = 'spots/ADD_SPOT';
 // const REMOVE_SPOT = 'spots/REMOVE_SPOT';
 
 const loadAllSpots = (spots) => ({
@@ -15,10 +15,10 @@ const loadOneSpot = (spot) => ({
   spot
 });
 
-// const addSpot = (spot) => ({
-//   type: ADD_SPOT,
-//   payload: spot
-// });
+const addSpot = (spot) => ({
+  type: ADD_SPOT,
+  payload: spot
+});
 
 // const removeSpot = (id) => ({
 //   type: REMOVE_SPOT,
@@ -46,19 +46,19 @@ export const getOneSpot = (id) => async dispatch => {
   }
 };
 
-// export const createSpot = (payload) => async dispatch => {
-//   const response = await csrfFetch('/api/spots', {
-//     method: 'POST',
-//     headers: {'Content-Type': 'application/json'},
-//     body: JSON.stringify(payload)
-//   });
+export const createSpot = (payload) => async dispatch => {
+  const response = await csrfFetch('/api/spots', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload)
+  });
 
-//   if (response.ok) {
-//     const newSpot = await response.json();
-//     dispatch(addSpot(newSpot));
-//     return newSpot;
-//   }
-// };
+  if (response.ok) {
+    const newSpot = await response.json();
+    dispatch(addSpot(newSpot));
+    return newSpot;
+  }
+};
 
 // export const editSpot = (payload, id) => async dispatch => {
 //   const response = await csrfFetch(`/api/spots/${id}`, {
@@ -108,23 +108,23 @@ const spotReducer = (state = initialState, action) => {
       };
     }
 
-    // case ADD_SPOT:
-    //   if (!state[action.spot.id]) {
-    //     const newState = {
-    //       ...state,
-    //       [action.spot.id]: action.spot
-    //     };
-    //     const spotsList = newState.spots.map(id => newState[id]);
-    //     spotsList.push(action.spot);
-    //     return newState;
-    //   }
-    //   return {
-    //     ...state,
-    //     [action.spot.id]: {
-    //       ...state[action.spot.id],
-    //       ...action.spot
-    //     }
-    //   };
+    case ADD_SPOT:
+      if (!state[action.spot.id]) {
+        const newState = {
+          ...state,
+          [action.spot.id]: action.spot
+        };
+        const spotsList = newState.spots.map(id => newState[id]);
+        spotsList.push(action.spot);
+        return newState;
+      }
+      return {
+        ...state,
+        [action.spot.id]: {
+          ...state[action.spot.id],
+          ...action.spot
+        }
+      };
 
     // case REMOVE_SPOT:
     //   const newState = {...state};
