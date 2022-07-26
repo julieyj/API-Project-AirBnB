@@ -7,8 +7,9 @@ import * as sessionActions from './store/session';
 import Navigation from "./components/Navigation";
 // import CreateSpotForm from "./components/spots/CreateSpotForm";
 import SpotsBrowser from "./components/spots/SpotsBrowser";
+import SpotsDetail from "./components/spots/SpotDetail";
 
-function App() {
+const App = () => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route exact path={['/', '/spots']}>
             <SpotsBrowser />
+          </Route>
+          <Route path={`/spots/:id`}>
+            <SpotsDetail />
           </Route>
         </Switch>
       )}

@@ -158,7 +158,7 @@ router.get('/', async (req, res) => {
     attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt', 'previewImage'],
     ...pagination
   });
-  return res.json({ Spots: spots, page, size });
+  return res.json(spots);
 });
 
 
@@ -171,7 +171,7 @@ router.get('/users/:userId', requireAuth, async (req, res) => {
     attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt', 'previewImage']
   });
 
-  return res.json({ Spots: userSpots });
+  return res.json(userSpots);
 });
 
 
@@ -252,7 +252,7 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
     price
   });
 
-  return res.json({ newSpot });
+  return res.json(newSpot);
 });
 
 
@@ -282,7 +282,7 @@ router.put('/:id', requireAuth, spotUserAuth, validateSpot, async (req, res, nex
     price
   });
 
-  return res.json({ updateSpot });
+  return res.json(updateSpot);
 });
 
 
@@ -333,7 +333,7 @@ router.post('/:id/images', requireAuth, spotUserAuth, async (req, res, next) => 
     attributes: ['id', 'spotId', 'imageableType', 'url']
   });
 
-  return res.json({ result });
+  return res.json(result);
 });
 
 

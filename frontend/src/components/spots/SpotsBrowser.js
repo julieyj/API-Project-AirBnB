@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getAllSpots } from "../../store/spot";
 import SpotCard from "./SpotCard";
+import './SpotsBrowser.css';
 
 function SpotsBrowser() {
   const dispatch = useDispatch();
