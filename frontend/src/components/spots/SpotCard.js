@@ -6,12 +6,8 @@ function SpotCard({ spot }) {
       <div className="spot-card-location">
         <h2>{spot.city}, {spot.state}</h2>
       </div>
-      <div className="spot-card-review">
-        {spot.avgStarRating}
-      </div>
-      <div className="spot-card-price">
-        {spot.price}
-      </div>
+      <div className="spot-card-review">{spot.avgStarRating}</div>
+      <div className="spot-card-price">{spot.price}</div>
     </div>
   )
 }
