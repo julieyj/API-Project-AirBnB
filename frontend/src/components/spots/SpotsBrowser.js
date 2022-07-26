@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+
 import { getAllSpots } from "../../store/spot";
 import SpotCard from "./SpotCard";
 
-const SpotsBrowser = () => {
+function SpotsBrowser() {
   const dispatch = useDispatch();
-
-  const spotsList = useSelector((state) => state.spotsList);
+  const spots = useSelector(state => Object.values(state.spots));
 
   useEffect(() => {
     dispatch(getAllSpots());
@@ -15,13 +14,11 @@ const SpotsBrowser = () => {
 
   return (
     <div className="spots-list-container">
-      {spotsList.map(spot => {
-        return (
-          <Link to={`/spots/${spot.id}`}>
+      {spots && (
+        spots.map(spot => (
             <SpotCard spot={spot} />
-          </Link>
-        )
-      })}
+        ))
+      )}
     </div>
   )
 };

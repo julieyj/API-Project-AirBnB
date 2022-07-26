@@ -1,8 +1,8 @@
-// import { csrfFetch } from "./csrf";
+import { csrfFetch } from "./csrf";
 
 const LOAD_ALL_SPOTS = 'spots/LOAD_ALL_SPOTS';
-const LOAD_ONE_SPOT = 'spots/GET_ONE_SPOT';
-const ADD_SPOT = 'spots/ADD_SPOT';
+// const LOAD_ONE_SPOT = 'spots/GET_ONE_SPOT';
+// const ADD_SPOT = 'spots/ADD_SPOT';
 // const REMOVE_SPOT = 'spots/REMOVE_SPOT';
 
 const loadAllSpots = (spots) => ({
@@ -10,15 +10,15 @@ const loadAllSpots = (spots) => ({
   spots
 });
 
-const loadOneSpot = (spot) => ({
-  type: LOAD_ONE_SPOT,
-  spot
-});
+// const loadOneSpot = (spot) => ({
+//   type: LOAD_ONE_SPOT,
+//   payload: spot
+// });
 
-const addSpot = (spot) => ({
-  type: ADD_SPOT,
-  spot
-});
+// const addSpot = (spot) => ({
+//   type: ADD_SPOT,
+//   payload: spot
+// });
 
 // const removeSpot = (id) => ({
 //   type: REMOVE_SPOT,
@@ -26,53 +26,55 @@ const addSpot = (spot) => ({
 // });
 
 export const getAllSpots = () => async dispatch => {
-  const response = await fetch('/api/spots');
+  const response = await csrfFetch('/api/spots');
 
   if (response.ok) {
     const spots = await response.json();
     dispatch(loadAllSpots(spots));
+    return response;
   }
 };
 
-export const getOneSpot = (id) => async dispatch => {
-  const response = await fetch(`/api/spots/${id})`);
+// export const getOneSpot = (id) => async dispatch => {
+//   const response = await csrfFetch(`/api/spots/${id})`);
 
-  if (response.ok) {
-    const spot = await response.json();
-    dispatch(loadOneSpot(spot));
-  }
-};
+//   if (response.ok) {
+//     const spot = await response.json();
+//     dispatch(loadOneSpot(spot));
+//     return spot;
+//   }
+// };
 
-export const createSpot = (payload) => async dispatch => {
-  const response = await fetch('/api/spots', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(payload)
-  });
+// export const createSpot = (payload) => async dispatch => {
+//   const response = await csrfFetch('/api/spots', {
+//     method: 'POST',
+//     headers: {'Content-Type': 'application/json'},
+//     body: JSON.stringify(payload)
+//   });
 
-  if (response.ok) {
-    const newSpot = await response.json();
-    dispatch(addSpot(newSpot));
-    return newSpot;
-  }
-};
+//   if (response.ok) {
+//     const newSpot = await response.json();
+//     dispatch(addSpot(newSpot));
+//     return newSpot;
+//   }
+// };
 
-export const editSpot = (payload, id) => async dispatch => {
-  const response = await fetch(`/api/spots/${id}`, {
-    method: 'PUT',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(payload)
-  });
+// export const editSpot = (payload, id) => async dispatch => {
+//   const response = await csrfFetch(`/api/spots/${id}`, {
+//     method: 'PUT',
+//     headers: {'Content-Type': 'application/json'},
+//     body: JSON.stringify(payload)
+//   });
 
-  if (response.ok) {
-    const updatedSpot = await response.json();
-    dispatch(addSpot(updatedSpot));
-    return updatedSpot;
-  }
-};
+//   if (response.ok) {
+//     const updatedSpot = await response.json();
+//     dispatch(addSpot(updatedSpot));
+//     return updatedSpot;
+//   }
+// };
 
 // export const deleteSpot = (id) => async dispatch => {
-//   const response = await fetch(`/spots/${id}`, {
+//   const response = await csrfFetch(`/spots/${id}`, {
 //     method: 'DELETE',
 //   })
 
@@ -83,22 +85,24 @@ export const editSpot = (payload, id) => async dispatch => {
 //   }
 // };
 
+const initialState = {}
 
-const spotReducer = (state = {}, action) => {
-  let newState;
+const spotReducer = (state = initialState, action) => {
+  const newState = {...state};
   switch (action.type) {
-    case LOAD_ALL_SPOTS:
-      newState = Object.assign({}, state);
-      action.spots.map(spot => newState[spot.id] = spot);
+    case LOAD_ALL_SPOTS: {
+      // newState = Object.assign({}, action.spots.spots);
+      // newState.spots = action.spots;
+      action.spots.forEach(spot => {
+        newState[spot.id] = spot
+      });
       return newState;
+    }
 
-    case LOAD_ONE_SPOT:
-      newState = Object.assign({}, state);
-      newState[action.spot.id] = action.spot;
-      return newState;
-
-    case ADD_SPOT:
-
+    // case LOAD_ONE_SPOT:
+    //   newState = Object.assign({}, state);
+    //   newState[action.spot.id] = action.spot;
+    //   return newState;
 
     // case ADD_SPOT:
     //   if (!state[action.spot.id]) {
