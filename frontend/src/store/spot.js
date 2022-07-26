@@ -71,21 +71,20 @@ export const editSpot = (payload, id) => async dispatch => {
   }
 };
 
-export const deleteSpot = (id) => async dispatch => {
-  const response = await csrfFetch(`/spots/${id}`, {
-    method: 'DELETE',
-  })
+// export const deleteSpot = (id) => async dispatch => {
+//   const response = await csrfFetch(`/spots/${id}`, {
+//     method: 'DELETE',
+//   })
 
-  if (response.ok) {
-    const spot = await response.json();
-    dispatch(removeSpot(spot));
-    console.log(`Successfully deleted spotId: ${id}`);
-  }
-};
+//   if (response.ok) {
+//     const spot = await response.json();
+//     dispatch(removeSpot(spot));
+//     console.log(`Successfully deleted spotId: ${id}`);
+//   }
+// };
 
-let initialState = { spots: [] };
 
-const spotReducer = (state = initialState, action) => {
+const spotReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_ALL_SPOTS:
       const allSpots = {};
@@ -113,10 +112,10 @@ const spotReducer = (state = initialState, action) => {
           ...action.spot
         }
       };
-    case REMOVE_SPOT:
-      const newState = {...state};
-      delete newState[action.id];
-      return newState;
+    // case REMOVE_SPOT:
+    //   const newState = {...state};
+    //   delete newState[action.id];
+    //   return newState;
     default:
       return state;
   }
