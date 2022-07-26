@@ -6,6 +6,7 @@ import SpotCard from "./SpotCard";
 
 function SpotsBrowser() {
   const dispatch = useDispatch();
+
   const spots = useSelector(state => Object.values(state.spots));
 
   useEffect(() => {
@@ -13,7 +14,7 @@ function SpotsBrowser() {
   }, [dispatch]);
 
   return (
-    <div className="spots-list-container">
+    <div className="spots-list-container">"Spots Container"
       {spots && (
         spots.map(spot => (
             <SpotCard spot={spot} />

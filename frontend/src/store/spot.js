@@ -22,7 +22,7 @@ const loadAllSpots = (spots) => ({
 
 // const removeSpot = (id) => ({
 //   type: REMOVE_SPOT,
-//   id
+//   payload: id
 // });
 
 export const getAllSpots = () => async dispatch => {
@@ -88,19 +88,17 @@ export const getAllSpots = () => async dispatch => {
 const initialState = {}
 
 const spotReducer = (state = initialState, action) => {
-  const newState = {...state};
+  const newState = { ...state };
   switch (action.type) {
     case LOAD_ALL_SPOTS: {
-      // newState = Object.assign({}, action.spots.spots);
-      // newState.spots = action.spots;
+      console.log(action.spots);
       action.spots.forEach(spot => {
-        newState[spot.id] = spot
-      });
-      return newState;
+          newState[spot.id] = spot
+        });
+        return newState;
     }
 
     // case LOAD_ONE_SPOT:
-    //   newState = Object.assign({}, state);
     //   newState[action.spot.id] = action.spot;
     //   return newState;
 
