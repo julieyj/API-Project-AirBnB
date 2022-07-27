@@ -2,9 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 
-import { getOneSpot, deleteSpot } from "../../store/spot";
+import { getOneSpot, deleteSpot } from "../../../store/spot";
 import './SpotDetail.css';
-// import EditSpotForm from "./EditSpotForm";
 
 
 function SpotDetail() {
@@ -36,12 +35,6 @@ function SpotDetail() {
               {currentUser && currentUser.id === spot.userId && (
                 <>
                   <NavLink to={`/spots/${spot.id}/edit`}>Edit Listing</NavLink>
-                  <button
-                    className="delete-spot-button"
-                    onClick={() => dispatch(deleteSpot(id))}
-                  >
-                    Remove Listing
-                  </button>
                 </>
               )}
             </div>

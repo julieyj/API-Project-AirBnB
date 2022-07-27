@@ -5,7 +5,7 @@ import { createSpot } from '../../../store/spot';
 
 function CreateSpotForm({ setShowModal }) {
   const history = useHistory();
-  const user = useSelector(state => state.session.user);
+  const currentUser = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
   const [address, setAddress] = useState('');
@@ -48,7 +48,7 @@ function CreateSpotForm({ setShowModal }) {
     setErrors(newErrors);
   }, [name, lat, lng]);
 
-  if (!user) {
+  if (!currentUser) {
     return (
       <Redirect to='/' />
     )
@@ -70,17 +70,13 @@ function CreateSpotForm({ setShowModal }) {
       previewImage,
     };
 
-    let createdSpot = await dispatch(createSpot(payload));
+    const createdSpot = await dispatch(createSpot(payload));
+    console.log("createdSpot:", createdSpot)
 
     if (createdSpot) {
       history.push(`/spots/${createdSpot.id}`);
     }
   }
-
-  // const handleCancelClick = (e) => {
-  //   e.preventDefault();
-  //   hideForm();
-  // }
 
   return (
     <section className="create-spot-form-container">

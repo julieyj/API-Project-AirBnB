@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from 'react-router-dom';
 import * as sessionActions from './store/session';
 import Navigation from "./components/Navigation";
-import SpotsBrowser from "./components/spots/SpotsBrowser";
-import SpotsDetail from "./components/spots/SpotDetail";
-import EditSpotForm from "./components/spots/EditSpotForm";
+import SpotsBrowser from "./components/spots/SpotsBrowser/SpotsBrowser";
+import SpotsDetail from "./components/spots/SpotDetail/SpotDetail";
+import EditSpotForm from "./components/spots/EditSpotForm/EditSpotForm";
 
 const App = () => {
   const dispatch = useDispatch();

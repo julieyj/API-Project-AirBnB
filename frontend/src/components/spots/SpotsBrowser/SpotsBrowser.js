@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getAllSpots } from "../../store/spot";
-import SpotCard from "./SpotCard";
+import { getAllSpots } from "../../../store/spot";
+import SpotCard from "../SpotCard/SpotCard";
 import './SpotsBrowser.css';
 
 function SpotsBrowser() {

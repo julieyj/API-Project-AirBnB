@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
-import { updateSpot, getOneSpot } from '../../store/spot';
+import { updateSpot, deleteSpot } from '../../../store/spot';
+import './EditSpotForm.css';
 
 function EditSpotForm() {
   const { id } = useParams();
-  // const history = useHistory();
+  const history = useHistory();
   const currentUser = useSelector((state) => state.session.user);
   const spot = useSelector((state) => state.spots[id]);
-  console.log('edit-spot:', spot);
   const dispatch = useDispatch();
 
   const [spotId, setSpotId] = useState(id);
@@ -22,7 +22,7 @@ function EditSpotForm() {
   const [name, setName] = useState(spot.name);
   const [description, setDescription] = useState(spot.description);
   const [price, setPrice] = useState(spot.price);
-  const [previewImage, setPreviewImage] = useState(spot.previewImage);
+  const [previewImage, setPreviewImage] = useState(spot.previewImage || "");
   const [errors, setErrors] = useState([]);
 
   const updateAddress = (e) => setAddress(e.target.value);
@@ -80,13 +80,22 @@ function EditSpotForm() {
       previewImage,
     };
 
-    let updatedSpot = await dispatch(updateSpot(payload));
-    console.log('updatedSpot', updatedSpot)
+    let updatedSpot = dispatch(updateSpot(payload));
 
     if (updatedSpot) {
       console.log(`Successfully updated spotId: ${id}`);
-      dispatch(getOneSpot(id))
-    }
+      history.push(`/spots/${id}`);
+    };
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    let deletedSpot = dispatch(deleteSpot(id));
+
+    if (deletedSpot) {
+      console.log(`Successfully deleted spotId: ${id}`);
+      history.push(`/`);
+    };
   };
 
   return (
@@ -101,6 +110,12 @@ function EditSpotForm() {
           ))}
         </ul>
         <div className="XX">
+          <button
+            className="delete-spot-button"
+            onClick={handleDelete}
+          >
+            Remove Listing
+          </button>
           <label className="label-1">
             Address
             <div>
