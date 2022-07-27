@@ -158,7 +158,7 @@ router.get('/', async (req, res) => {
     attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt', 'previewImage'],
     ...pagination
   });
-  return res.json({ Spots: spots, page, size });
+  return res.json(spots);
 });
 
 
@@ -171,7 +171,7 @@ router.get('/users/:userId', requireAuth, async (req, res) => {
     attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt', 'previewImage']
   });
 
-  return res.json({ Spots: userSpots });
+  return res.json(userSpots);
 });
 
 
@@ -225,6 +225,7 @@ router.get('/:id', async (req, res, next) => {
     price: spot.price,
     createdAt: spot.createdAt,
     updatedAt: spot.updatedAt,
+    previewImage: spot.previewImage,
     numReviews: review.numReviews,
     avgStarRating: review.avgStarRating,
     images: image,
@@ -237,7 +238,7 @@ router.get('/:id', async (req, res, next) => {
 
 // Create a spot
 router.post('/', requireAuth, validateSpot, async (req, res) => {
-  const { address, city, state, country, lat, lng, name, description, price } = req.body;
+  const { address, city, state, country, lat, lng, name, description, price, previewImage } = req.body;
 
   const newSpot = await Spot.create({
     userId: req.user.id,
@@ -249,16 +250,17 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
     lng,
     name,
     description,
-    price
+    price,
+    previewImage
   });
 
-  return res.json({ newSpot });
+  return res.json(newSpot);
 });
 
 
 // Edit a spot
 router.put('/:id', requireAuth, spotUserAuth, validateSpot, async (req, res, next) => {
-  const { address, city, state, country, lat, lng, name, description, price } = req.body;
+  const { address, city, state, country, lat, lng, name, description, price, previewImage } = req.body;
 
   const updateSpot = await Spot.findByPk(req.params.id);
 
@@ -279,10 +281,11 @@ router.put('/:id', requireAuth, spotUserAuth, validateSpot, async (req, res, nex
     lng,
     name,
     description,
-    price
+    price,
+    previewImage
   });
 
-  return res.json({ updateSpot });
+  return res.json(updateSpot);
 });
 
 
@@ -333,7 +336,7 @@ router.post('/:id/images', requireAuth, spotUserAuth, async (req, res, next) => 
     attributes: ['id', 'spotId', 'imageableType', 'url']
   });
 
-  return res.json({ result });
+  return res.json(result);
 });
 
 

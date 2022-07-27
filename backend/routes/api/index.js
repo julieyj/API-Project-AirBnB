@@ -9,19 +9,15 @@ const bookingsRouter = require("./bookings.js");
 const imagesRouter = require("./images.js");
 
 const { restoreUser } = require("../../utils/auth.js");
+const { setTokenCookie } = require('../../utils/auth.js');
+const { User } = require('../../db/models');
 
 router.use(restoreUser);
-
 router.use("/session", sessionRouter);
-
 router.use("/users", usersRouter);
-
 router.use("/spots", spotsRouter);
-
 router.use("/reviews", reviewsRouter);
-
 router.use("/bookings", bookingsRouter);
-
 router.use("/images", imagesRouter);
 
 router.post("/test", function (req, res) {
@@ -29,8 +25,6 @@ router.post("/test", function (req, res) {
 });
 
 // TEST ROUTE : GET /api/set-token-cookie
-const { setTokenCookie } = require('../../utils/auth.js');
-const { User } = require('../../db/models');
 router.get('/set-token-cookie', async (_req, res) => {
   const user = await User.findOne({
       where: {
@@ -41,10 +35,15 @@ router.get('/set-token-cookie', async (_req, res) => {
   return res.json({ user });
 });
 
+// Add a XSRF-TOKEN cookie in development
+if (process.env.NODE_ENV !== 'production') {
+  router.get('/api/csrf/restore', (req, res) => {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
+    return res.json({});
+  });
+}
+
 // GET /api/restore-user
-
-router.use(restoreUser);
-
 router.get(
     '/restore-user',
     (req, res) => {

@@ -1,0 +1,75 @@
+.create-spot-form {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 30px;
+  max-height: 100%;
+  max-width: 100%;
+  background-color: white;
+  position: relative;
+}
+
+.modal-title {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* .modal-title-2 {
+  font-size: 16px;
+  font-weight: 500;
+} */
+
+.label-1 {
+  font-size: 12px;
+  font-weight: 800;
+  color: rgb(193, 53, 21);
+}
+
+.create-spot-input {
+  min-width: 300px;
+  width: 500px;
+  height: 40px;
+  border-radius: 5px;
+  margin: 5px 0px;
+  background-color: transparent;
+  border: 1px solid #484848;
+}
+
+svg {
+  display: block;
+}
+
+.close {
+  display: inline-block;
+  border-radius: 50%;
+  border: none;
+  color: rgb(34 34 34);
+  background-color: transparent;
+  position: relative;
+  transition: -ms-transform 0.25s ease 0s, -webkit-transform 0.25s ease 0s, transform 0.25s ease 0s;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  max-height: 100%;
+  max-width: 100%;
+  background-color: white;
+  position: relative;
+  border-radius: 20px;
+}
+
+.create-spot-submit-button {
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  display: block;
+  align-self: center;
+  width: 500px;
+  height: 40px;
+  min-width: 300px;
+  border: none;
+  background-image: radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%);
+}
