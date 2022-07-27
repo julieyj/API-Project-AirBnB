@@ -225,6 +225,7 @@ router.get('/:id', async (req, res, next) => {
     price: spot.price,
     createdAt: spot.createdAt,
     updatedAt: spot.updatedAt,
+    previewImage: spot.previewImage,
     numReviews: review.numReviews,
     avgStarRating: review.avgStarRating,
     images: image,
@@ -237,7 +238,7 @@ router.get('/:id', async (req, res, next) => {
 
 // Create a spot
 router.post('/', requireAuth, validateSpot, async (req, res) => {
-  const { address, city, state, country, lat, lng, name, description, price } = req.body;
+  const { address, city, state, country, lat, lng, name, description, price, previewImage } = req.body;
 
   const newSpot = await Spot.create({
     userId: req.user.id,
@@ -249,7 +250,8 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
     lng,
     name,
     description,
-    price
+    price,
+    previewImage
   });
 
   return res.json(newSpot);
@@ -258,7 +260,7 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
 
 // Edit a spot
 router.put('/:id', requireAuth, spotUserAuth, validateSpot, async (req, res, next) => {
-  const { address, city, state, country, lat, lng, name, description, price } = req.body;
+  const { address, city, state, country, lat, lng, name, description, price, previewImage } = req.body;
 
   const updateSpot = await Spot.findByPk(req.params.id);
 
@@ -279,7 +281,8 @@ router.put('/:id', requireAuth, spotUserAuth, validateSpot, async (req, res, nex
     lng,
     name,
     description,
-    price
+    price,
+    previewImage
   });
 
   return res.json(updateSpot);

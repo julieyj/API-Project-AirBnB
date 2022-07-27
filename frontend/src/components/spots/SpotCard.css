@@ -1,15 +1,20 @@
 .spot-card-container {
-  display: flex;
-  height: 380px;
+  display: block;
+  box-sizing: border-box;
+  flex-direction: column;
+  height: 385px;
+  width: 300px;
+  cursor: pointer;
 }
 
-.card-image {
-  width: 50%;
-  height: 15vw;
+.spot-card-image {
+  width: 299px;
+  height: 284px;
   object-fit: cover;
+  border-radius: 5%;
 }
 
 .spot-card-location {
-  font-size: 60px;
+  font-size: 16px;
   font-weight: bolder;
 }

@@ -1,8 +1,9 @@
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import './SpotCard.css';
 
 function SpotCard({ spot }) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const history = useHistory();
 
   const spotDetail = (event) => {
@@ -12,7 +13,7 @@ function SpotCard({ spot }) {
 
   return (
     <div className="spot-card-container" onClick={(event) => spotDetail(event)}>
-      <img className="spot-card card-image" src={spot.previewImage} alt={`Spot ${spot.id} preview`} />
+      <img className="spot-card-image" src={spot.previewImage} alt={`Spot ${spot.id} preview`} />
       <div className="spot-card-location">
         <h3>
           {spot.city}, {spot.state}

@@ -15,12 +15,14 @@ function SpotsBrowser() {
   }, [dispatch]);
 
   return (
-    <div className="spots-list-container">"Spots Container"
-      {spots && (
-        spots.map(spot => (
-            <SpotCard spot={spot} />
-        ))
-      )}
+    <div className="spots-list-body">
+      <div className="spots-list-container">
+        {spots && (
+          spots.map(spot => (
+              <SpotCard spot={spot} key={spot.id} />
+          ))
+        )}
+      </div>
     </div>
   )
 };

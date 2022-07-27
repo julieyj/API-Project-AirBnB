@@ -1,23 +1,28 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from 'react-router-dom';
-import { createSpot } from '../../../store/spot';
+import { Redirect, useHistory, useParams } from "react-router-dom";
+import { updateSpot, getOneSpot } from '../../store/spot';
 
-function CreateSpotForm({ setShowModal }) {
-  const history = useHistory();
-  const user = useSelector(state => state.session.user);
+function EditSpotForm() {
+  const { id } = useParams();
+  // const history = useHistory();
+  const currentUser = useSelector((state) => state.session.user);
+  const spot = useSelector((state) => state.spots[id]);
+  console.log('edit-spot:', spot);
   const dispatch = useDispatch();
 
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [country, setCountry] = useState('');
-  const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [previewImage, setPreviewImage] = useState('');
+  const [spotId, setSpotId] = useState(id);
+  const [userId, setUserId] = useState(spot.userId);
+  const [address, setAddress] = useState(spot.address);
+  const [city, setCity] = useState(spot.city);
+  const [state, setState] = useState(spot.state);
+  const [country, setCountry] = useState(spot.country);
+  const [lat, setLat] = useState(spot.lat);
+  const [lng, setLng] = useState(spot.lng);
+  const [name, setName] = useState(spot.name);
+  const [description, setDescription] = useState(spot.description);
+  const [price, setPrice] = useState(spot.price);
+  const [previewImage, setPreviewImage] = useState(spot.previewImage);
   const [errors, setErrors] = useState([]);
 
   const updateAddress = (e) => setAddress(e.target.value);
@@ -35,29 +40,34 @@ function CreateSpotForm({ setShowModal }) {
     const newErrors = [];
 
     if (name.length < 0) {
-      newErrors.push('Name is required.');
+      newErrors.push("Name is required.");
     } else if (name.length > 50) {
-      newErrors.push('Name must be 50 characters or less.')
-    };
+      newErrors.push("Name must be 50 characters or less.");
+    }
     if (lat < -90 || lat > 90) {
-      newErrors.push('Please check your latitude.')
-    };
+      newErrors.push("Please check your latitude.");
+    }
     if (lng < -180 || lng > 180) {
-      newErrors.push('Please check your longitude.')
-    };
+      newErrors.push("Please check your longitude.");
+    }
     setErrors(newErrors);
   }, [name, lat, lng]);
 
-  if (!user) {
-    return (
-      <Redirect to='/' />
-    )
-  }
+  if (!currentUser) {
+    return <Redirect to="/" />;
+  };
+
+  if (spot.userId && spot.userId !== currentUser.id) {
+    return <Redirect to='/' />;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
+      ...spot,
+      spotId,
+      userId,
       address,
       city,
       state,
@@ -70,55 +80,32 @@ function CreateSpotForm({ setShowModal }) {
       previewImage,
     };
 
-    let createdSpot = await dispatch(createSpot(payload));
+    let updatedSpot = await dispatch(updateSpot(payload));
+    console.log('updatedSpot', updatedSpot)
 
-    if (createdSpot) {
-      history.push(`/spots/${createdSpot.id}`);
+    if (updatedSpot) {
+      console.log(`Successfully updated spotId: ${id}`);
+      dispatch(getOneSpot(id))
     }
-  }
-
-  // const handleCancelClick = (e) => {
-  //   e.preventDefault();
-  //   hideForm();
-  // }
+  };
 
   return (
-    <section className="create-spot-form-container">
-      <form className="create-spot-form" onSubmit={handleSubmit}>
-        <div className="modal-title">
-          <h3>Become a host</h3>
+    <section className="edit-spot-form-container">
+      <form className="edit-spot-form" onSubmit={handleSubmit}>
+        <div className="X">
+          <h3>Edit your listing</h3>
         </div>
         <ul className="errors">
           {errors.map((error) => (
             <li key={error.id}>{error}</li>
           ))}
         </ul>
-        <div className="modal-body">
-          <button
-            className="close"
-            type="button"
-            onClick={() => setShowModal(false)}
-          >
-            <svg
-              viewBox="0 0 32 32"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              height="30"
-              width="30"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M13.7071 1.70711C14.0976 1.31658 14.0976 0.683417 13.7071 0.292893C13.3166 -0.0976311 12.6834 -0.0976311 12.2929 0.292893L7 5.58579L1.70711 0.292893C1.31658 -0.0976311 0.683417 -0.0976311 0.292893 0.292893C-0.0976311 0.683417 -0.0976311 1.31658 0.292893 1.70711L5.58579 7L0.292893 12.2929C-0.0976311 12.6834 -0.0976311 13.3166 0.292893 13.7071C0.683417 14.0976 1.31658 14.0976 1.70711 13.7071L7 8.41421L12.2929 13.7071C12.6834 14.0976 13.3166 14.0976 13.7071 13.7071C14.0976 13.3166 14.0976 12.6834 13.7071 12.2929L8.41421 7L13.7071 1.70711Z"
-                fill="#484848"
-              />
-            </svg>
-          </button>
+        <div className="XX">
           <label className="label-1">
             Address
             <div>
               <input
-                className="create-spot-input"
+                className="edit-spot-input"
                 type="string"
                 placeholder="Address"
                 required
@@ -131,7 +118,7 @@ function CreateSpotForm({ setShowModal }) {
             City
             <div>
               <input
-                className="create-spot-input"
+                className="edit-spot-input"
                 type="text"
                 placeholder="City"
                 required
@@ -144,7 +131,7 @@ function CreateSpotForm({ setShowModal }) {
             State
             <div>
               <input
-                className="create-spot-input"
+                className="edit-spot-input"
                 type="text"
                 placeholder="State"
                 required
@@ -157,7 +144,7 @@ function CreateSpotForm({ setShowModal }) {
             Country
             <div>
               <input
-                className="create-spot-input"
+                className="edit-spot-input"
                 type="text"
                 placeholder="Country"
                 required
@@ -170,7 +157,7 @@ function CreateSpotForm({ setShowModal }) {
             Latitude
             <div>
               <input
-                className="create-spot-input"
+                className="edit-spot-input"
                 type="decimal"
                 placeholder="Latitude"
                 required
@@ -183,7 +170,7 @@ function CreateSpotForm({ setShowModal }) {
             Longitude
             <div>
               <input
-                className="create-spot-input"
+                className="edit-spot-input"
                 type="decimal"
                 placeholder="Longitude"
                 required
@@ -196,7 +183,7 @@ function CreateSpotForm({ setShowModal }) {
             Name
             <div>
               <input
-                className="create-spot-input"
+                className="edit-spot-input"
                 type="text"
                 placeholder="Name"
                 required
@@ -209,7 +196,7 @@ function CreateSpotForm({ setShowModal }) {
             Description
             <div>
               <input
-                className="create-spot-input"
+                className="edit-spot-input"
                 type="text"
                 placeholder="Description"
                 required
@@ -222,7 +209,7 @@ function CreateSpotForm({ setShowModal }) {
             Price
             <div>
               <input
-                className="create-spot-input"
+                className="edit-spot-input"
                 type="decimal"
                 placeholder="Price"
                 required
@@ -235,7 +222,7 @@ function CreateSpotForm({ setShowModal }) {
             Preview Image
             <div>
               <input
-                className="create-spot-input"
+                className="edit-spot-input"
                 type="text"
                 placeholder="Preview Image URL"
                 required
@@ -246,15 +233,15 @@ function CreateSpotForm({ setShowModal }) {
           </label>
         </div>
         <button
-          className="create-spot-submit-button"
+          className="edit-spot-submit-button"
           type="submit"
           disabled={errors.length ? true : false}
         >
-          Start Hosting
+          Save Changes
         </button>
       </form>
     </section>
   );
 }
 
-export default CreateSpotForm;
+export default EditSpotForm;
