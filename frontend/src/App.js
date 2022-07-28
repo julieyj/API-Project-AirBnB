@@ -3,9 +3,10 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from 'react-router-dom';
 import * as sessionActions from './store/session';
 import Navigation from "./components/Navigation";
-import SpotsBrowser from "./components/spots/SpotsBrowser/SpotsBrowser";
-import SpotsDetail from "./components/spots/SpotDetail/SpotDetail";
-import EditSpotForm from "./components/spots/EditSpotForm/EditSpotForm";
+import SpotsBrowser from "./components/Spots/SpotsBrowser/SpotsBrowser";
+import SpotsDetail from "./components/Spots/SpotDetail/SpotDetail";
+import EditSpotForm from "./components/Spots/EditSpotForm/EditSpotForm";
+import CreateReviewForm from "./components/Reviews/CreateReviewFormPage/CreateReviewFormPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,8 +27,11 @@ const App = () => {
           <Route exact path='/spots/:id'>
             <SpotsDetail />
           </Route>
-          <Route path='/spots/:id/edit'>
+          <Route exact path='/spots/:id/edit'>
             <EditSpotForm />
+          </Route>
+          <Route exact path='/spots/:id/review'>
+            <CreateReviewForm />
           </Route>
           <Route>
             Page Not Found

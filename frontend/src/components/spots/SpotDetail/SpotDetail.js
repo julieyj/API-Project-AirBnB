@@ -54,8 +54,15 @@ function SpotDetail() {
           </div>
           {currentUser && currentUser.id === spot.userId && (
             <>
+            <div>
               <NavLink to={`/spots/${spot.id}/edit`}>Edit Listing</NavLink>
+            </div>
             </>
+          )}
+          {currentUser && currentUser.id !== spot.userId && (
+            <div>
+              <NavLink to={`/spots/${spot.id}/review`}>Submit a Review</NavLink>
+            </div>
           )}
         </div>
       )}
@@ -67,10 +74,14 @@ function SpotDetail() {
             <div className="spot-reviews-count">
               <b>{spot.numReviews} reviews</b>
             </div>
-        <ul className="spot-reviews-list">
-          <li>
-            {Object.values(spotReviews).map(spotReview => spotReview.review)}
-
+        <ul className="spot-reviews-unordered-list">
+          <li className="spot-reviews-list-item-array">
+            {Object.values(spotReviews).map(spotReview => (
+              <div className="spot-reviews-list-item">
+                {spotReview.review}
+              </div>
+              )
+            )}
           </li>
         </ul>
       </div>

@@ -5,7 +5,7 @@ import ProfileButton from "./ProfileButton";
 // import UserSpots from '../spots/UserSpots/UserSpots';
 import LoginFormModal from '../LoginFormModal';
 import SignUpFormModal from '../SignUpFormModal';
-import CreateSpotFormModal from '../spots/CreateSpotModal';
+import CreateSpotFormModal from '../Spots/CreateSpotModal';
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {

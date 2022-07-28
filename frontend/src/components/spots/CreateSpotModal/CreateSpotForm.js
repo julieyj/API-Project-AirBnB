@@ -71,10 +71,8 @@ function CreateSpotForm({ setShowModal }) {
     };
 
     const createdSpot = await dispatch(createSpot(payload));
-    console.log("createdSpot:", createdSpot)
 
     if (createdSpot) {
-      console.log("THIS IS RUNNING", createdSpot);
       setShowModal(false);
       history.push(`/spots/${createdSpot.id}`);
     }
