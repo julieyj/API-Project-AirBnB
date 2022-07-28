@@ -65,7 +65,7 @@ router.get("/users/:userId", requireAuth, async (req, res) => {
       },
     ],
   });
-  return res.json({ userReviews });
+  return res.json(userReviews);
 });
 
 // Get all reviews by spot id
@@ -94,7 +94,7 @@ router.get("/spots/:spotId", async (req, res, next) => {
     next(err);
   }
 
-  return res.json({ spotReviews });
+  return res.json(spotReviews);
 });
 
 // Create a review for a spot based on spot id
@@ -173,7 +173,7 @@ router.put(
       stars,
     });
 
-    return res.json({ editReview });
+    return res.json(editReview);
   }
 );
 
@@ -231,13 +231,13 @@ router.post("/:id/images", requireAuth, reviewUserAuth, async (req, res, next) =
     next(err);
   }
 
-  return res.json({ reviewImage });
+  return res.json(reviewImage);
 });
 
 // Get all reviews
 router.get("/", async (req, res) => {
   const allReviews = await Review.findAll();
-  return res.json({ allReviews });
+  return res.json(allReviews);
 });
 
 module.exports = router;

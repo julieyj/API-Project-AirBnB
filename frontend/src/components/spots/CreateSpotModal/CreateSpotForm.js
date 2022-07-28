@@ -34,7 +34,7 @@ function CreateSpotForm({ setShowModal }) {
   useEffect(() => {
     const newErrors = [];
 
-    if (name.length < 0) {
+    if (name.length <= 0) {
       newErrors.push('Name is required.');
     } else if (name.length > 50) {
       newErrors.push('Name must be 50 characters or less.')
@@ -74,6 +74,8 @@ function CreateSpotForm({ setShowModal }) {
     console.log("createdSpot:", createdSpot)
 
     if (createdSpot) {
+      console.log("THIS IS RUNNING", createdSpot);
+      setShowModal(false);
       history.push(`/spots/${createdSpot.id}`);
     }
   }
@@ -234,7 +236,6 @@ function CreateSpotForm({ setShowModal }) {
                 className="create-spot-input"
                 type="text"
                 placeholder="Preview Image URL"
-                required
                 value={previewImage}
                 onChange={updatePreviewImage}
               />

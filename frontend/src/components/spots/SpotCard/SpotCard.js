@@ -4,15 +4,15 @@ import './SpotCard.css';
 
 function SpotCard({ spot }) {
   // const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
 
-  const spotDetail = (event) => {
-    let spotDetailPath = `/spots/${spot.id}`;
-    history.push(spotDetailPath);
-  }
+  // const spotDetail = (event) => {
+  //   let spotDetailPath = `/spots/${spot.id}`;
+  //   history.push(spotDetailPath);
+  // }
 
   return (
-    <div className="spot-card-container" onClick={(event) => spotDetail(event)}>
+    <div className="spot-card-container">
       <img className="spot-card-image" src={spot.previewImage} alt={`Spot ${spot.id} preview`} />
       <div className="spot-card-location">
         <h3>
