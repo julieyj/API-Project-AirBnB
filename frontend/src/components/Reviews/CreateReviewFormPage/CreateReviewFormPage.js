@@ -48,10 +48,10 @@ function CreateReviewForm() {
     };
 
     const createdReview = dispatch(createReview(payload));
-    console.log("CREATED REVIEW", createdReview);
+    // console.log("CREATED REVIEW", createdReview);
 
     if (createdReview) {
-      console.log("THIS IS RUNNING", createdReview);
+      // console.log("THIS IS RUNNING", createdReview);
       history.push(`/spots/${spotId}`);
     }
   };

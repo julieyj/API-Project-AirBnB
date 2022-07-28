@@ -1,20 +1,21 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useHistory } from "react-router-dom";
 
 import { getOneSpot } from "../../../store/spot";
-import { getSpotReviews } from "../../../store/review";
+import { getSpotReviews, deleteReview } from "../../../store/review";
 import './SpotDetail.css';
 
 
 function SpotDetail() {
-  // const history = useHistory();
+  const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
   const spot = useSelector(state => (state.spots[id]));
   const currentUser = useSelector((state) => state.session.user);
   const reviews = useSelector(state => Object.values(state.reviews));
   const spotReviews = reviews.filter(review => review.spotId === parseInt(id));
+  console.log("SPOT REVIEWS", spotReviews);
 
   useEffect(() => {
     dispatch(getOneSpot(id));
@@ -23,6 +24,17 @@ function SpotDetail() {
   useEffect(() => {
     dispatch(getSpotReviews(id));
   }, [dispatch, id])
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    let deletedReview = dispatch(deleteReview(spotReviews.id));
+    console.log("DELETED REVIEW", deletedReview);
+
+    if (deletedReview) {
+      console.log(`Succesfully deleted reviewId: ${spotReviews.id}`);
+      history.push(`/spots/${id}`);
+    };
+  };
 
   return (
     <>
@@ -54,9 +66,9 @@ function SpotDetail() {
           </div>
           {currentUser && currentUser.id === spot.userId && (
             <>
-            <div>
-              <NavLink to={`/spots/${spot.id}/edit`}>Edit Listing</NavLink>
-            </div>
+              <div>
+                <NavLink to={`/spots/${spot.id}/edit`}>Edit Listing</NavLink>
+              </div>
             </>
           )}
           {currentUser && currentUser.id !== spot.userId && (
@@ -67,25 +79,27 @@ function SpotDetail() {
         </div>
       )}
       {spot && spotReviews && (
-      <div className="spot-reviews-container">
-        <div className="spot-reviews-stars">
-              ★ {spot.avgStarRating}
-            </div>
-            <div className="spot-reviews-count">
-              <b>{spot.numReviews} reviews</b>
-            </div>
-        <ul className="spot-reviews-unordered-list">
-          <li className="spot-reviews-list-item-array">
-            {Object.values(spotReviews).map(spotReview => (
-              <div className="spot-reviews-list-item">
-                {spotReview.review}
-              </div>
-              )
-            )}
-          </li>
-        </ul>
-      </div>
-    )}
+        <div className="spot-reviews-container">
+          <div className="spot-reviews-stars">★ {spot.avgStarRating}</div>
+          <div className="spot-reviews-count">
+            <b>{spot.numReviews} reviews</b>
+          </div>
+          <ul className="spot-reviews-unordered-list">
+            <li className="spot-reviews-list-item-array">
+              {Object.values(spotReviews).map((spotReview) => (
+                <>
+                  <div className="spot-reviews-list-item">
+                    {spotReview.review}
+                  </div>
+                  <div className="delete-review-button">
+                    <button onClick={handleDelete}>Delete Review</button>
+                  </div>
+                </>
+              ))}
+            </li>
+          </ul>
+        </div>
+      )}
     </>
   );
 };
