@@ -1,15 +1,6 @@
-// import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import './SpotCard.css';
 
 function SpotCard({ spot }) {
-  // const dispatch = useDispatch();
-  // const history = useHistory();
-
-  // const spotDetail = (event) => {
-  //   let spotDetailPath = `/spots/${spot.id}`;
-  //   history.push(spotDetailPath);
-  // }
 
   return (
     <div className="spot-card-container">

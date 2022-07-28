@@ -13,8 +13,8 @@ function SpotDetail() {
   const { id } = useParams();
   const spot = useSelector(state => (state.spots[id]));
   const currentUser = useSelector((state) => state.session.user);
-  const spotReviews = useSelector(state => state.reviews);
-  console.log("spotReviews:", spotReviews);
+  const reviews = useSelector(state => Object.values(state.reviews));
+  const spotReviews = reviews.filter(review => review.spotId === parseInt(id));
 
   useEffect(() => {
     dispatch(getOneSpot(id));
@@ -59,7 +59,7 @@ function SpotDetail() {
           )}
         </div>
       )}
-      { spotReviews && (
+      {spot && spotReviews && (
       <div className="spot-reviews-container">
         <div className="spot-reviews-stars">
               ★ {spot.avgStarRating}
