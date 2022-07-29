@@ -48,12 +48,13 @@ export const getAllSpots = () => async dispatch => {
 };
 
 export const getOneSpot = (id) => async dispatch => {
+  console.log("ID", id)
   const response = await fetch(`/api/spots/${id}`);
 
   if (response.ok) {
     const spot = await response.json();
     dispatch(loadOneSpot(spot));
-    // return response;
+    return response;
   }
 };
 

@@ -16,6 +16,7 @@ function SpotDetail() {
   const reviews = useSelector(state => Object.values(state.reviews));
   const spotReviews = reviews.filter(review => review.spotId === parseInt(id));
   console.log("SPOT REVIEWS",  spotReviews);
+  const singleReview = useSelector(state => state.reviews[id]);
 
   useEffect(() => {
     dispatch(getOneSpot(id));
@@ -27,7 +28,7 @@ function SpotDetail() {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    let deletedReview = await dispatch(deleteReview(spotReviews[0].id));
+    let deletedReview = await dispatch(deleteReview(e.target.value));
     console.log("DELETED REVIEW", deletedReview);
 
     if (deletedReview) {
@@ -92,7 +93,7 @@ function SpotDetail() {
                     {spotReview.review}
                   </div>
                   <div className="delete-review-button">
-                    <button onClick={handleDelete}>Delete Review</button>
+                    <button onClick={handleDelete} value={spotReview.id}>Delete Review</button>
                   </div>
                 </>
               ))}

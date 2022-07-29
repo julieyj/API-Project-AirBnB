@@ -20,6 +20,7 @@ const removeReview = (id) => ({
 });
 
 export const getSpotReviews = (spotId) => async dispatch => {
+  console.log("GETSPOTID, ID", spotId)
   const response = await csrfFetch(`/api/reviews/spots/${spotId}`);
 
   if (response.ok) {
