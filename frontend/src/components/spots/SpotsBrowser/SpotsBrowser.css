@@ -1,7 +1,17 @@
-.spots-list-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 30px;
-  margin: 50px;
-  padding: 0%;
+.spots-list-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: space-evenly;
+  padding: 0px;
+  gap: 5px;
+  position: relative;
+}
+
+.spots-list-container-items {
+  display: inline-flex;
+  align-self: auto;
+  margin: 5px;
+  flex: 0 1;
 }

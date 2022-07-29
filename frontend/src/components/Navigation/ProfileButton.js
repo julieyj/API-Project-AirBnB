@@ -40,6 +40,15 @@ function ProfileButton({ user }) {
           <li>
             <button onClick={logout}>Log Out</button>
           </li>
+          <li>
+            {!user && (
+              <button className="demo-button" onClick={() => {
+                dispatch(sessionActions.login({credential: "demo@user.io", password: "password"}))
+              }}>
+                Demo User
+              </button>
+            )}
+          </li>
         </ul>
       )}
     </>

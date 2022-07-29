@@ -20,9 +20,11 @@ function SpotsBrowser() {
       <div className="spots-list-container">
         {spots && (
           spots.map(spot => (
-            <Link to={`/spots/${spot.id}`}>
-              <SpotCard spot={spot} key={spot.id} />
-            </Link>
+            <div className="spots-list-container-items">
+              <Link to={`/spots/${spot.id}`}>
+                <SpotCard spot={spot} key={spot.id.toString()} />
+              </Link>
+            </div>
           ))
         )}
       </div>

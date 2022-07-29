@@ -94,7 +94,7 @@ router.get("/spots/:spotId", async (req, res, next) => {
     next(err);
   }
 
-  return res.json({ spotReviews });
+  return res.json(spotReviews);
 });
 
 // Create a review for a spot based on spot id

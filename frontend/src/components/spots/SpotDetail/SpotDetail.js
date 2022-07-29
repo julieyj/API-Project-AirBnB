@@ -15,7 +15,7 @@ function SpotDetail() {
   const currentUser = useSelector((state) => state.session.user);
   const reviews = useSelector(state => Object.values(state.reviews));
   const spotReviews = reviews.filter(review => review.spotId === parseInt(id));
-  console.log("SPOT REVIEWS", spotReviews);
+  console.log("SPOT REVIEWS",  spotReviews);
 
   useEffect(() => {
     dispatch(getOneSpot(id));
@@ -27,7 +27,7 @@ function SpotDetail() {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    let deletedReview = dispatch(deleteReview(spotReviews.id));
+    let deletedReview = await dispatch(deleteReview(spotReviews[0].id));
     console.log("DELETED REVIEW", deletedReview);
 
     if (deletedReview) {
@@ -88,7 +88,7 @@ function SpotDetail() {
             <li className="spot-reviews-list-item-array">
               {Object.values(spotReviews).map((spotReview) => (
                 <>
-                  <div className="spot-reviews-list-item">
+                  <div className="spot-reviews-list-item" key={spotReviews.id}>
                     {spotReview.review}
                   </div>
                   <div className="delete-review-button">
