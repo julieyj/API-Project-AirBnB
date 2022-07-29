@@ -30,17 +30,18 @@ function ProfileButton({ user }) {
 
   return (
     <>
+    <nav>
       <button className="profile-button" onClick={openMenu}>
         <i className="fas fa-user-circle" />
       </button>
       {showMenu && (
-        <ul className="profile-dropdown">
-          <li>{user.firstName}</li>
-          <li>{user.email}</li>
-          <li>
+        <div className="profile-dropdown">
+          <span>{user.firstName}</span>
+          <span>{user.email}</span>
+          <span>
             <button onClick={logout}>Log Out</button>
-          </li>
-          <li>
+          </span>
+          <span>
             {!user && (
               <button className="demo-button" onClick={() => {
                 dispatch(sessionActions.login({credential: "demo@user.io", password: "password"}))
@@ -48,9 +49,10 @@ function ProfileButton({ user }) {
                 Demo User
               </button>
             )}
-          </li>
-        </ul>
+          </span>
+        </div>
       )}
+    </nav>
     </>
   );
 }

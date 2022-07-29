@@ -4,19 +4,22 @@ import { NavLink, useParams, useHistory } from "react-router-dom";
 
 import { getOneSpot } from "../../../store/spot";
 import { getSpotReviews, deleteReview } from "../../../store/review";
-import './SpotDetail.css';
-
+import "./SpotDetail.css";
 
 function SpotDetail() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const spot = useSelector(state => (state.spots[id]));
+  const spot = useSelector((state) => state.spots[id]);
   const currentUser = useSelector((state) => state.session.user);
-  const reviews = useSelector(state => Object.values(state.reviews));
-  const spotReviews = reviews.filter(review => review.spotId === parseInt(id));
-  console.log("SPOT REVIEWS",  spotReviews);
-  const singleReview = useSelector(state => state.reviews[id]);
+  const reviews = useSelector((state) => Object.values(state.reviews));
+  const spotReviews = reviews.filter(
+    (review) => review.spotId === parseInt(id)
+  );
+  // console.log("SPOT REVIEWS",  spotReviews);
+
+  // let spotPrice = spot.price;
+  // const spotPriceCommas = new Intl.NumberFormat().format(spotPrice);
 
   useEffect(() => {
     dispatch(getOneSpot(id));
@@ -24,17 +27,17 @@ function SpotDetail() {
 
   useEffect(() => {
     dispatch(getSpotReviews(id));
-  }, [dispatch, id])
+  }, [dispatch, id]);
 
   const handleDelete = async (e) => {
     e.preventDefault();
     let deletedReview = await dispatch(deleteReview(e.target.value));
-    console.log("DELETED REVIEW", deletedReview);
+    // console.log("DELETED REVIEW", deletedReview);
 
     if (deletedReview) {
       console.log(`Succesfully deleted reviewId: ${spotReviews.id}`);
       history.push(`/spots/${id}`);
-    };
+    }
   };
 
   return (
@@ -56,7 +59,7 @@ function SpotDetail() {
             <div className="spot-detail-images">
               {" "}
               Images
-              <img src={spot.images} alt="Current Spot Pics" />
+              {/* <img src={spot.images} alt="Current Spot Pics" /> */}
             </div>
             <div className="spot-detail-owner">
               Entire location hosted by {spot?.Owners?.firstName}{" "}
@@ -93,7 +96,9 @@ function SpotDetail() {
                     {spotReview.review}
                   </div>
                   <div className="delete-review-button">
-                    <button onClick={handleDelete} value={spotReview.id}>Delete Review</button>
+                    <button onClick={handleDelete} value={spotReview.id}>
+                      Delete Review
+                    </button>
                   </div>
                 </>
               ))}
@@ -103,6 +108,6 @@ function SpotDetail() {
       )}
     </>
   );
-};
+}
 
 export default SpotDetail;

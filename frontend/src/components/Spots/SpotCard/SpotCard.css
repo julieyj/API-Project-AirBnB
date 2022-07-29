@@ -14,7 +14,44 @@
   border-radius: 5%;
 }
 
+.spot-card-text-container {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 .spot-card-location {
+  display: inline-flex;
+  align-self: flex-start;
+  line-height: 19px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #222222;
+}
+
+.spot-card-review {
+  display: inline-flex;
+  align-self: flex-end;
+  line-height: 19px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #222222;
+}
+
+.spot-card-availability {
+  line-height: 19px;
+  font-size: 15px;
+  font-weight: 300;
+  color: #717171;
+  box-sizing: border-box;
+}
+
+.spot-card-price {
+  line-height: 20px;
   font-size: 16px;
-  font-weight: bolder;
+  font-weight: 400;
+  color: rgb(34 34 34);
+  padding-top: 8px;
 }
