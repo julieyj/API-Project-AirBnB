@@ -7,14 +7,16 @@ function CreateSpotFormModal() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <>
-      <button onClick={() => setShowModal(true)}>Try hosting</button>
+    <div className='become-host-container'>
+      <div>
+        <button className = 'become-host-button' onClick={() => setShowModal(true)}>Become a Host</button>
+      </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <CreateSpotForm setShowModal={setShowModal} />
         </Modal>
       )}
-    </>
+    </div>
   )
 }
 

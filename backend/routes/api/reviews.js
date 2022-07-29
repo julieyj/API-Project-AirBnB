@@ -94,7 +94,7 @@ router.get("/spots/:spotId", async (req, res, next) => {
     next(err);
   }
 
-  return res.json({ spotReviews });
+  return res.json(spotReviews);
 });
 
 // Create a review for a spot based on spot id
@@ -199,40 +199,45 @@ router.delete("/:id", requireAuth, reviewUserAuth, async (req, res, next) => {
 });
 
 // Add an image to review based on review id
-router.post("/:id/images", requireAuth, reviewUserAuth, async (req, res, next) => {
-  const { url } = req.body;
+router.post(
+  "/:id/images",
+  requireAuth,
+  reviewUserAuth,
+  async (req, res, next) => {
+    const { url } = req.body;
 
-  const imageMaxCount = await Image.findAll({
-    where: {
-      reviewId: req.params.id,
-      imageableType: 'Review'
+    const imageMaxCount = await Image.findAll({
+      where: {
+        reviewId: req.params.id,
+        imageableType: "Review",
+      },
+    });
+
+    if (imageMaxCount.length >= 10) {
+      const err = new Error("Validation error");
+      err.status = 400;
+      err.title = "Validation error";
+      err.errors = ["Maximum number of images for this resource was reached"];
+      next(err);
     }
-  });
 
-  if (imageMaxCount.length >= 10) {
-    const err = new Error("Validation error");
-    err.status = 400;
-    err.title = "Validation error";
-    err.errors = ["Maximum number of images for this resource was reached"];
-    next(err);
+    const reviewImage = await Image.create({
+      reviewId: req.params.id,
+      imageableType: "Review",
+      url: url,
+    });
+
+    if (!reviewImage) {
+      const err = new Error("Not found");
+      err.status = 404;
+      err.title = "Not found";
+      err.errors = ["Review couldn't be found"];
+      next(err);
+    }
+
+    return res.json({ reviewImage });
   }
-
-  const reviewImage = await Image.create({
-    reviewId: req.params.id,
-    imageableType: "Review",
-    url: url,
-  });
-
-  if (!reviewImage) {
-    const err = new Error("Not found");
-    err.status = 404;
-    err.title = "Not found";
-    err.errors = ["Review couldn't be found"];
-    next(err);
-  }
-
-  return res.json({ reviewImage });
-});
+);
 
 // Get all reviews
 router.get("/", async (req, res) => {

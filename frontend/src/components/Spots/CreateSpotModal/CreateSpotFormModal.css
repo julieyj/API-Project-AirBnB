@@ -1,3 +1,25 @@
+.bcome-host-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  position: relative;
+}
+
+.become-host-button {
+  display: inline-flex;
+  align-self: baseline;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  border-color: transparent;
+  cursor: pointer;
+  line-height: 18px;
+  height: 50px;
+  margin: auto;
+}
+
 .create-spot-form {
   display: flex;
   overflow: hidden;
@@ -14,11 +36,6 @@
   font-size: 13px;
   font-weight: 500;
 }
-
-/* .modal-title-2 {
-  font-size: 16px;
-  font-weight: 500;
-} */
 
 .label-1 {
   font-size: 12px;

@@ -20,9 +20,10 @@ module.exports = {
         {
           userId: 3,
           spotId: 1,
-          review: "I loved the views of the city and the architecture was amazing - one star off for the crowds and noise from visitors at Barnsdall Park.",
+          review:
+            "I loved the views of the city and the architecture was amazing - one star off for the crowds and noise from visitors at Barnsdall Park.",
           stars: 4,
-        },
+        }
       ],
       {}
     );

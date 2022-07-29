@@ -48,7 +48,8 @@ export const getAllSpots = () => async dispatch => {
 };
 
 export const getOneSpot = (id) => async dispatch => {
-  const response = await csrfFetch(`/api/spots/${id}`);
+  console.log("ID", id)
+  const response = await fetch(`/api/spots/${id}`);
 
   if (response.ok) {
     const spot = await response.json();
@@ -60,7 +61,7 @@ export const getOneSpot = (id) => async dispatch => {
 export const createSpot = (payload) => async dispatch => {
   const response = await csrfFetch('/api/spots', {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    // headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(payload)
   });
 
