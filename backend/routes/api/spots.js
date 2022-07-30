@@ -231,10 +231,6 @@ router.get("/:id", async (req, res, next) => {
     ],
   });
 
-  console.log("SPOT REVIEWS", spotReviews[0]);
-  // let d = spotReviews[0];
-  // let e = JSON.parse(d);
-
   const result = {
     id: spot.id,
     userId: spot.userId,

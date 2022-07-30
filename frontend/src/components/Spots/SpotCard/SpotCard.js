@@ -1,8 +1,10 @@
 import './SpotCard.css';
 
 function SpotCard({ spot }) {
+  console.log("SPOTCARD SPOT:", spot)
 
-  // let priceCommas = spot.price;
+  let spotPrice = spot.price;
+  const spotPriceComma = new Intl.NumberFormat().format(spotPrice);
 
   return (
     <div className="spot-card-container">
@@ -19,7 +21,7 @@ function SpotCard({ spot }) {
       </div>
       <div className="spot-card-availability">Available Dates</div>
       <div className="spot-card-price">
-        <b>${spot.price}</b> night
+        <b>${spotPriceComma}</b> night
       </div>
     </div>
   );

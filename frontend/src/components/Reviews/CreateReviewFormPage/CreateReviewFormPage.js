@@ -33,7 +33,7 @@ function CreateReviewForm() {
   }, [review, stars]);
 
   if (spot?.Owners?.id === currentUser.id) {
-    console.log('Owner cannot add own review!!!');
+    console.log('Owner cannot add their own review.');
     <Redirect to={`/spots/${spot.id}`} />
   }
 
@@ -48,10 +48,8 @@ function CreateReviewForm() {
     };
 
     const createdReview = dispatch(createReview(payload));
-    // console.log("CREATED REVIEW", createdReview);
 
     if (createdReview) {
-      // console.log("THIS IS RUNNING", createdReview);
       history.push(`/spots/${spotId}`);
     }
   };

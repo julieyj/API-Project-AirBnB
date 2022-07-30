@@ -20,7 +20,6 @@ const removeReview = (id) => ({
 });
 
 export const getSpotReviews = (spotId) => async dispatch => {
-  console.log("GETSPOTID, ID", spotId)
   const response = await csrfFetch(`/api/reviews/spots/${spotId}`);
 
   if (response.ok) {
@@ -36,7 +35,7 @@ export const createReview = (payload) => async dispatch => {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(payload)
   });
-  // console.log("PAYLOAD:", payload)
+
   if (response.ok) {
     const newReview = await response.json();
     dispatch(addReview(newReview));
@@ -51,7 +50,6 @@ export const deleteReview = (id) => async dispatch => {
 
   if (response.ok) {
     const review = await response.json();
-    console.log("REDUCER REVIEW", review);
     dispatch(removeReview(id));
     return review;
   }

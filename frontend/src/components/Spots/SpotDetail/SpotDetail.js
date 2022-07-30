@@ -16,10 +16,9 @@ function SpotDetail() {
   const spotReviews = reviews.filter(
     (review) => review.spotId === parseInt(id)
   );
-  // console.log("SPOT REVIEWS",  spotReviews);
 
-  // let spotPrice = spot.price;
-  // const spotPriceCommas = new Intl.NumberFormat().format(spotPrice);
+  let spotPriceDetail = spot.price;
+  const spotPriceCommaDetail = new Intl.NumberFormat().format(spotPriceDetail);
 
   useEffect(() => {
     dispatch(getOneSpot(id));
@@ -32,7 +31,6 @@ function SpotDetail() {
   const handleDelete = async (e) => {
     e.preventDefault();
     let deletedReview = await dispatch(deleteReview(e.target.value));
-    // console.log("DELETED REVIEW", deletedReview);
 
     if (deletedReview) {
       console.log(`Succesfully deleted reviewId: ${spotReviews.id}`);
@@ -66,7 +64,7 @@ function SpotDetail() {
               {spot?.Owners?.lastName}
             </div>
             <div className="spot-detail-description"> {spot.description} </div>
-            <div className="spot-detail-price"> ${spot.price} night</div>
+            <div className="spot-detail-price"> ${spotPriceCommaDetail} night</div>
           </div>
           {currentUser && currentUser.id === spot.userId && (
             <>
