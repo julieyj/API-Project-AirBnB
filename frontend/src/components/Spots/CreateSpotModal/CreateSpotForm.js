@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from 'react-router-dom';
-import CreateSpotFormModal from ".";
+import { useHistory } from 'react-router-dom';
+// import CreateSpotFormModal from ".";
 import { createSpot } from '../../../store/spot';
-import SignUpFormModal from "../../SignUpFormModal";
 
 function CreateSpotForm({ setShowModal }) {
   const history = useHistory();
@@ -51,7 +50,7 @@ function CreateSpotForm({ setShowModal }) {
       newErrors.push('Please check your longitude.')
     };
     setErrors(newErrors);
-  }, [name, lat, lng]);
+  }, [currentUser, name, lat, lng]);
 
   // if (!currentUser) {
   //   return (
