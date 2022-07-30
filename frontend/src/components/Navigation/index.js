@@ -24,6 +24,7 @@ function Navigation({ isLoaded }) {
       <>
         <SignUpFormModal />
         <LoginFormModal />
+        <CreateSpotFormModal />
       </>
     );
   }

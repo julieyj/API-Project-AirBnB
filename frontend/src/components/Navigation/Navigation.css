@@ -38,6 +38,15 @@
   height: 42px;
   position: relative;
   vertical-align: middle;
+  transition: 0.2s ease;
+}
+
+.profile-button-container {
+  transition: 0.2s ease;
+}
+
+.profile-button-container:hover {
+  box-shadow: #DDDDDD;
 }
 
 .profile-dropdown {
@@ -55,3 +64,123 @@
   border: 1px solid #DDDDDD;
   /* height: 42px; */
 }
+
+/*
+
+.c1grjlav:is(*, #x #x) {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  color: inherit;
+  display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  outline: 0;
+  overflow: visible;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+  outline: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: var(--f-k-smk-x);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 42px;
+  position: relative;
+  vertical-align: middle;
+  transition: box-shadow 0.2s ease;
+  z-index: 1;
+}
+
+.dir.c1grjlav:is(*, #x #x) {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  text-align: inherit;
+  background-color: var(--f-mkcy-f);
+  border: 1px solid var(--j-qkgmf);
+  border-radius: 21px;
+  -webkit-transition: box-shadow 0.2s ease;
+}
+
+.dir-ltr.c1grjlav:is(*, #x #x) {
+  padding: 5px 5px 5px 12px;
+}
+
+.dir-rtl.c1grjlav:is(*, #x #x) {
+  padding: 5px 12px 5px 5px;
+}
+
+.dir.c1grjlav:is(*, #x #x)::-moz-focus-inner {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dir.c1grjlav:is(*, #x #x):focus::-moz-focus-inner {
+  border: none;
+}
+
+.c1grjlav:is(*, #x #x):-moz-focusring {
+  outline: none;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .c1grjlav:is(*, #x #x) {
+    transition: none;
+  }
+
+  .dir.c1grjlav:is(*, #x #x) {
+    -webkit-transition: none;
+  }
+}
+
+.c1grjlav:is(*, #x #x):focus-visible {
+  transition: box-shadow 0.2s ease;
+}
+
+.dir.c1grjlav:is(*, #x #x):focus-visible {
+  -webkit-transition: box-shadow 0.2s ease;
+  box-shadow: 0 0 0 2px var(--f-k-smk-x), 0 0 0 4px var(--f-mkcy-f);
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .c1grjlav:is(*, #x #x):focus-visible {
+    transition: none;
+  }
+
+  .dir.c1grjlav:is(*, #x #x):focus-visible {
+    -webkit-transition: none;
+  }
+}
+
+.c1grjlav:is(*, #x #x):focus[data-focus-visible-added] {
+  transition: box-shadow 0.2s ease;
+}
+
+.dir.c1grjlav:is(*, #x #x):focus[data-focus-visible-added] {
+  -webkit-transition: box-shadow 0.2s ease;
+  box-shadow: 0 0 0 2px var(--f-k-smk-x), 0 0 0 4px var(--f-mkcy-f);
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .c1grjlav:is(*, #x #x):focus[data-focus-visible-added] {
+    transition: none;
+  }
+
+  .dir.c1grjlav:is(*, #x #x):focus[data-focus-visible-added] {
+    -webkit-transition: none;
+  }
+} */

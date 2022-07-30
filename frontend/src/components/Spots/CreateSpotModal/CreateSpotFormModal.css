@@ -10,14 +10,23 @@
 .become-host-button {
   display: inline-flex;
   align-self: baseline;
+  align-items: center;
+  justify-content: center;
   font-size: 14px;
   font-weight: 600;
-  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 12px;
+  border-radius: 22px;
   border-color: transparent;
   cursor: pointer;
   line-height: 18px;
-  height: 50px;
+  width: 150px;
   margin: auto;
+  transition: 0.3s ease;
+}
+
+.become-host-button:hover {
+  background-color: #F7F7F7;
 }
 
 .create-spot-form {
