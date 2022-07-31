@@ -214,7 +214,7 @@ router.get("/:id", async (req, res, next) => {
     attributes: ["id", "firstName", "lastName"],
   });
 
-  const image = await Image.findOne({
+  const imageArray = await Image.findAll({
     where: {
       spotId: req.params.id,
     },
@@ -248,7 +248,7 @@ router.get("/:id", async (req, res, next) => {
     previewImage: spot.previewImage,
     numReviews: spotReviews[0].dataValues.numReviews,
     avgStarRating: spotReviews[0].dataValues.avgStarRating,
-    images: image,
+    images: imageArray,
     Owners: user,
   };
 

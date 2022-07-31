@@ -19,7 +19,7 @@ function SpotCard({ spot }) {
         </span>
         <span className="spot-card-review">★{spot.avgStarRating} 5.0</span>
       </div>
-      <div className="spot-card-availability">Available Dates</div>
+      <div className="spot-card-availability">Availability Coming Soon!</div>
       <div className="spot-card-price">
         <b>${spotPriceComma}</b> night
       </div>

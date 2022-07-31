@@ -54,17 +54,29 @@ function SpotDetail() {
               {" "}
               {spot.city}, {spot.state}, {spot.country}
             </div>
-            <div className="spot-detail-images">
-              {" "}
-              Images
-              {/* <img src={spot.images} alt="Current Spot Pics" /> */}
+            <div className="spot-detail-image-container">
+              <img className="spot-detail-main-image" src={spot.previewImage} alt="Main Spot Image"/>
+              <div className="spot-small-images-container">
+                {spot.images &&
+                  spot.images.map((image) => (
+                    <img
+                      className="spot-small-images-items"
+                      src={image.url}
+                      alt="Current Spot Pics"
+                      key={image.id}
+                    />
+                  ))}
+              </div>
             </div>
             <div className="spot-detail-owner">
               Entire location hosted by {spot?.Owners?.firstName}{" "}
               {spot?.Owners?.lastName}
             </div>
             <div className="spot-detail-description"> {spot.description} </div>
-            <div className="spot-detail-price"> ${spotPriceCommaDetail} night</div>
+            <div className="spot-detail-price">
+              {" "}
+              ${spotPriceCommaDetail} night
+            </div>
           </div>
           {currentUser && currentUser.id === spot.userId && (
             <>
