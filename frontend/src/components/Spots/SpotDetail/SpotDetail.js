@@ -16,8 +16,6 @@ function SpotDetail() {
     (review) => review.spotId === parseInt(id)
   );
 
-  console.log(spotReviews)
-
   // let spotPriceDetail = spot.price;
   // const spotPriceCommaDetail = new Intl.NumberFormat().format(spotPriceDetail);
 
@@ -61,7 +59,7 @@ function SpotDetail() {
                   ></path>
                 </svg>
               </div>
-              <div className="spot-detail-avg-rating">{spot.avgStarRating}</div>
+              <div className="spot-detail-avg-rating">{spot.avgStarRating.toFixed(2)}</div>
               <div className="dot-divider">·</div>
               <div className="spot-detail-reviews-count">
                 <b>{spot.numReviews} reviews</b>
@@ -145,7 +143,7 @@ function SpotDetail() {
                     </svg>
                   </div>
                   <div className="spot-reviews-stars-avg">
-                    {spot.avgStarRating}
+                    {spot.avgStarRating.toFixed(2)}
                   </div>
                   <div className="dot-divider-2">·</div>
                   <div className="spot-reviews-count">

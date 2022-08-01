@@ -9,7 +9,6 @@ function EditSpotForm() {
   const history = useHistory();
   const currentUser = useSelector((state) => state.session.user);
   const spot = useSelector((state) => state.spots[id]);
-  console.log("spot", spot)
   const dispatch = useDispatch();
 
   const [spotId, setSpotId] = useState(id);
