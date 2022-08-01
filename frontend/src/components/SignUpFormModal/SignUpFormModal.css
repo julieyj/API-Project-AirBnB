@@ -24,17 +24,38 @@
   display: flex;
   overflow: hidden;
   flex-direction: column;
-  border-radius: 5px;
-  padding: 30px;
+  border-radius: 21px;
+  /* padding: 30px; */
   max-height: 100%;
   max-width: 100%;
   background-color: white;
   position: relative;
 }
 
-.modal-title {
-  font-size: 13px;
+.signup-divider {
+  border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+.modal-title-signup {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 22px;
   font-weight: 500;
+  align-items: center;
+  padding: 30px 20px 30px 20px;
+  /* padding-bottom: 15px; */
+}
+
+.signup-errors-container {
+  padding-bottom: 15px;
+  color: red;
+}
+
+.signup-title {
+  font-size: 16px;
+  font-weight: 700;
+    /* border-bottom: 1px solid rgb(235, 235, 235); */
 }
 
 .label-1 {
@@ -53,32 +74,34 @@
   border: 1px solid #484848;
 }
 
-svg {
-  display: block;
-}
-
-.close {
-  display: inline-block;
+.signup-close {
+  display: flex;
+  align-items: center;
+  /* width: 50%; */
   border-radius: 50%;
   border: none;
   color: rgb(34 34 34);
   background-color: transparent;
-  position: relative;
+  position: absolute;
+  top: 30px;
+  left: 30px;
   transition: -ms-transform 0.25s ease 0s, -webkit-transform 0.25s ease 0s, transform 0.25s ease 0s;
+  cursor: pointer;
 }
 
-.modal-body {
+.modal-body-signup {
   display: flex;
   flex-direction: column;
-  padding: 20px;
   max-height: 100%;
   max-width: 100%;
   background-color: white;
   position: relative;
   border-radius: 20px;
+  padding: 30px 20px 30px 20px;
 }
 
 .sign-up-submit-button {
+  margin-top: 10px;
   color: white;
   font-size: 16px;
   border-radius: 5px;

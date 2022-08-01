@@ -9,6 +9,7 @@ function EditSpotForm() {
   const history = useHistory();
   const currentUser = useSelector((state) => state.session.user);
   const spot = useSelector((state) => state.spots[id]);
+  console.log("spot", spot)
   const dispatch = useDispatch();
 
   const [spotId, setSpotId] = useState(id);
@@ -39,7 +40,7 @@ function EditSpotForm() {
   useEffect(() => {
     const newErrors = [];
 
-    if (name.length < 0) {
+    if (name.length === 0) {
       newErrors.push("Name is required.");
     } else if (name.length > 50) {
       newErrors.push("Name must be 50 characters or less.");
@@ -98,27 +99,26 @@ function EditSpotForm() {
     };
   };
 
+  const handleClose = async (e) => {
+    e.preventDefault();
+    history.push(`/spots/${id}`);
+  }
+
   return (
-    <section className="edit-spot-form-container">
+    <div className="edit-spot-form-container">
       <form className="edit-spot-form" onSubmit={handleSubmit}>
-        <div className="X">
-          <h3>Edit your listing</h3>
+        <div className="edit-form-header-container">
+          <h3 className="edit-form-header">Edit your listing</h3>
         </div>
-        <ul className="errors">
+        <div className="errors">
           {errors.map((error) => (
-            <li key={error.id}>{error}</li>
+            <span key={error.id}>{error}</span>
           ))}
-        </ul>
+        </div>
         <div className="XX">
-          <button
-            className="delete-spot-button"
-            onClick={handleDelete}
-          >
-            Remove Listing
-          </button>
-          <label className="label-1">
+          <label className="edit-label">
             Address
-            <div>
+            <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
                 type="string"
@@ -129,9 +129,9 @@ function EditSpotForm() {
               />
             </div>
           </label>
-          <label className="label-1">
+          <label className="edit-label">
             City
-            <div>
+            <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
                 type="text"
@@ -142,9 +142,9 @@ function EditSpotForm() {
               />
             </div>
           </label>
-          <label className="label-1">
+          <label className="edit-label">
             State
-            <div>
+            <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
                 type="text"
@@ -155,9 +155,9 @@ function EditSpotForm() {
               />
             </div>
           </label>
-          <label className="label-1">
+          <label className="edit-label">
             Country
-            <div>
+            <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
                 type="text"
@@ -168,9 +168,9 @@ function EditSpotForm() {
               />
             </div>
           </label>
-          <label className="label-1">
+          <label className="edit-label">
             Latitude
-            <div>
+            <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
                 type="decimal"
@@ -181,9 +181,9 @@ function EditSpotForm() {
               />
             </div>
           </label>
-          <label className="label-1">
+          <label className="edit-label">
             Longitude
-            <div>
+            <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
                 type="decimal"
@@ -194,9 +194,9 @@ function EditSpotForm() {
               />
             </div>
           </label>
-          <label className="label-1">
+          <label className="edit-label">
             Name
-            <div>
+            <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
                 type="text"
@@ -207,9 +207,9 @@ function EditSpotForm() {
               />
             </div>
           </label>
-          <label className="label-1">
+          <label className="edit-label">
             Description
-            <div>
+            <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
                 type="text"
@@ -220,9 +220,9 @@ function EditSpotForm() {
               />
             </div>
           </label>
-          <label className="label-1">
+          <label className="edit-label">
             Price
-            <div>
+            <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
                 type="decimal"
@@ -233,9 +233,9 @@ function EditSpotForm() {
               />
             </div>
           </label>
-          <label className="label-1">
+          <label className="edit-label">
             Preview Image
-            <div>
+            <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
                 type="text"
@@ -247,15 +247,27 @@ function EditSpotForm() {
             </div>
           </label>
         </div>
-        <button
-          className="edit-spot-submit-button"
-          type="submit"
-          disabled={errors.length ? true : false}
-        >
-          Save Changes
-        </button>
+        <div className="submit-container">
+          <button
+            className="edit-spot-submit-button"
+            type="submit"
+            disabled={errors.length ? true : false}
+          >
+            Save Changes
+          </button>
+        </div>
+        <div className="delete-container">
+          <button className="delete-spot-button" onClick={handleDelete}>
+            Remove Listing
+          </button>
+        </div>
+        <div className="close-container">
+          <button className="close-edit-button" onClick={handleClose}>
+            Cancel Edit
+          </button>
+        </div>
       </form>
-    </section>
+    </div>
   );
 }
 

@@ -19,10 +19,6 @@ const App = () => {
   return (
     <div className="app-root">
       <Navigation isLoaded={isLoaded} />
-      <div
-        className="app-body-container"
-      >
-        <div className="app-body">
           {isLoaded && (
             <Switch>
               <Route exact path={["/", "/spots"]}>
@@ -40,8 +36,6 @@ const App = () => {
               <Route>Page Not Found</Route>
             </Switch>
           )}
-        </div>
-      </div>
     </div>
   );
 };

@@ -24,22 +24,41 @@
   display: flex;
   overflow: hidden;
   flex-direction: column;
-  border-radius: 5px;
-  padding: 30px;
+  border-radius: 21px;
+  /* padding: 30px; */
   max-height: 100%;
   max-width: 100%;
   background-color: white;
   position: relative;
 }
 
-.modal-title {
-  font-size: 13px;
-  font-weight: 500;
+.login-errors-container {
+  padding-bottom: 15px;
+  color: red;
 }
 
-.modal-title-2 {
-  font-size: 16px;
+.modal-title-login {
+  font-size: 13px;
+  padding: 30px;
   font-weight: 500;
+  border-bottom: 1px solid rgb(235, 235, 235);
+  display: flex;
+  justify-content: center;
+}
+
+.divider {
+  padding: 30px;
+}
+
+.modal-title-welcome {
+  font-size: 22px;
+  font-weight: 500;
+  padding-bottom: 20px;
+}
+
+.login-title {
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .label-1 {
@@ -58,24 +77,23 @@
   border: 1px solid #484848;
 }
 
-svg {
-  display: block;
-}
-
-.close {
-  display: inline-block;
+.login-close {
+  display: flex;
+  align-items: center;
   border-radius: 50%;
   border: none;
   color: rgb(34 34 34);
   background-color: transparent;
-  position: relative;
+  position: absolute;
+  top: 30px;
+  left: 30px;
   transition: -ms-transform 0.25s ease 0s, -webkit-transform 0.25s ease 0s, transform 0.25s ease 0s;
+  cursor: pointer;
 }
 
-.modal-body {
+.modal-body-login {
   display: flex;
     flex-direction: column;
-    padding: 20px;
     max-height: 100%;
     max-width: 100%;
     background-color: white;
@@ -84,6 +102,7 @@ svg {
 }
 
 .login-button {
+  margin-top: 10px;
   color: white;
   font-size: 16px;
   border-radius: 5px;
