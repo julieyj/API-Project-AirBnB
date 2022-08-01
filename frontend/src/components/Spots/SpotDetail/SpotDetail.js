@@ -16,6 +16,8 @@ function SpotDetail() {
     (review) => review.spotId === parseInt(id)
   );
 
+  console.log(spotReviews)
+
   // let spotPriceDetail = spot.price;
   // const spotPriceCommaDetail = new Intl.NumberFormat().format(spotPriceDetail);
 
@@ -150,23 +152,27 @@ function SpotDetail() {
                     <b>{spot.numReviews} reviews</b>
                   </div>
                 </div>
-                {currentUser && currentUser.id !== spot.userId && (
-                  <div className="spot-review-submit-container">
-                    <NavLink
-                      className="spot-review-submit-button"
-                      to={`/spots/${spot.id}/review`}
-                      style={{ textDecoration: "none" }}
-                    >
-                      Submit a Review
-                    </NavLink>
-                  </div>
-                )}
-                <ul className="spot-reviews-unordered-list">
-                  <span className="spot-reviews-list-item-array">
+                  {currentUser && currentUser.id !== spot.userId && (
+                    <div className="spot-review-submit-container">
+                      <NavLink
+                        className="spot-review-submit-button"
+                        to={`/spots/${spot.id}/review`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        Submit a Review
+                      </NavLink>
+                    </div>
+                  )}
+                <div className="spot-reviews-list-container">
                     {Object.values(spotReviews).map((spotReview, index) => (
-                      <div key={index}>
+                      <div className="spot-reviews-list-item-container" key={index}>
                         <div className="spot-reviews-list-item">
-                          {spotReview.review}
+                          <p id="review-user-name">
+                            {spotReview.User.firstName} {spotReview.User.lastName}
+                          </p>
+                          <p id="review-content">
+                            {spotReview.review}
+                          </p>
                         </div>
                         {spotReview &&
                           currentUser &&
@@ -183,8 +189,7 @@ function SpotDetail() {
                           )}
                       </div>
                     ))}
-                  </span>
-                </ul>
+                </div>
               </div>
             )}
           </div>

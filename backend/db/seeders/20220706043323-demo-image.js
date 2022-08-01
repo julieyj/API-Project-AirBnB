@@ -67,6 +67,27 @@ module.exports = {
           imageableType: "Spot",
           url: "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/26000/26621-Frank-Lloyd-Wright-Home-And-Studio.jpg?impolicy=fcrop&w=1040&h=580&q=mediumHigh",
         },
+        // SPOT 4 IMAGES
+        {
+          spotId: 4,
+          imageableType: "Spot",
+          url: "https://storage.googleapis.com/clio-images/20548.110376.jpg",
+        },
+        {
+          spotId: 4,
+          imageableType: "Spot",
+          url: "https://storage.googleapis.com/clio-images/20548.42275.jpg",
+        },
+        {
+          spotId: 4,
+          imageableType: "Spot",
+          url: "https://punchmagazine.com/wp-content/uploads/Robert-Siegel-4S0A3551-hanna-house-stanford-300-ppi-05-26-2020-Canon-EOS-7D-Mark-II-scaled.jpg",
+        },
+        {
+          spotId: 4,
+          imageableType: "Spot",
+          url: "https://images.squarespace-cdn.com/content/v1/54e65d77e4b06d2d72135b6c/1591383204690-GLZHBSKTNTNGZKSVQXEZ/hanna-house-interior-living-2.jpg",
+        },
         //REVIEW IMAGES
         {
           reviewId: 1,
