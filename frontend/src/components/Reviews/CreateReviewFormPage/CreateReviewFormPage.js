@@ -67,7 +67,7 @@ function CreateReviewForm() {
         </div>
         <div className="create-review-errors">
           {errors.map((error) => (
-            <p key={error.id}>{error}</p>
+            <p key={error.id}>Error: {error}</p>
           ))}
         </div>
         <div className="modal-body">

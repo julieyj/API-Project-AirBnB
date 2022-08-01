@@ -111,7 +111,7 @@ function EditSpotForm() {
         </div>
         <div className="errors">
           {errors.map((error) => (
-            <span key={error.id}>{error}</span>
+            <p key={error.id}>Error: {error}</p>
           ))}
         </div>
         <div className="XX">
