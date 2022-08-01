@@ -60,7 +60,6 @@ function SpotDetail() {
                 </svg>
               </div>
               <div className="spot-detail-avg-rating">{spot.avgStarRating}</div>
-              {/* {console.log(typeof(spot.avgStarRating))} */}
               <div className="dot-divider">·</div>
               <div className="spot-detail-reviews-count">
                 <b>{spot.numReviews} reviews</b>
