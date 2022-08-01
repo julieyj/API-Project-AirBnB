@@ -109,7 +109,7 @@ function CreateReviewForm() {
         </div>
         <div className="review-close-container">
           <button className="close-review-button" onClick={handleClose}>
-            Cancel Edit
+            Close Review
           </button>
         </div>
       </form>
