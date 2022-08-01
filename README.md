@@ -13,6 +13,15 @@ This project is built with:
 * React
 * Redux
 
+### Instructions to Clone
+* Run git clone https://github.com/julieyj/API-Project-AirBnB.git to download to your local repository
+* Open file on vscode
+* Run npm install in the root directory to install packages needed
+* Run npm install inside frontend folder
+* Run npm install inside backend folder
+* Run npm start inside backend folder to start backend server at port 8000
+* Run npm start inside frontend folder to start frontend server at port 3000
+
 # Features Directions:
 ### Home Page Demo User:
 You will be able to test the features without sign up by clicking on the "Demo User" button.
