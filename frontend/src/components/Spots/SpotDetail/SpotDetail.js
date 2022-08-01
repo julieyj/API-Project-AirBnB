@@ -59,7 +59,8 @@ function SpotDetail() {
                   ></path>
                 </svg>
               </div>
-              <div className="spot-detail-avg-rating">{(spot.avgStarRating).Fixed(2)}</div>
+              <div className="spot-detail-avg-rating">{spot.avgStarRating}</div>
+              {/* {console.log(typeof(spot.avgStarRating))} */}
               <div className="dot-divider">·</div>
               <div className="spot-detail-reviews-count">
                 <b>{spot.numReviews} reviews</b>
@@ -143,7 +144,7 @@ function SpotDetail() {
                     </svg>
                   </div>
                   <div className="spot-reviews-stars-avg">
-                    {(spot.avgStarRating).Fixed(2)}
+                    {spot.avgStarRating}
                   </div>
                   <div className="dot-divider-2">·</div>
                   <div className="spot-reviews-count">
