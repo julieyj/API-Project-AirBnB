@@ -16,7 +16,7 @@ function SpotCard({ spot }) {
         <span className="spot-card-location">
           {spot.city}, {spot.state}
         </span>
-        <span className="spot-card-review">★{spot.avgStarRating} 5.0</span>
+        {/* <span className="spot-card-review">★{spot.avgStarRating} 5.0</span> */}
       </div>
       <div className="spot-card-availability">Availability Coming Soon!</div>
       <div className="spot-card-price">

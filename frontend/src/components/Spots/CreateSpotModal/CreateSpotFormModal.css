@@ -34,16 +34,28 @@
   overflow: hidden;
   flex-direction: column;
   border-radius: 5px;
-  padding: 30px;
+  /* padding: 30px; */
   max-height: 100%;
   max-width: 100%;
   background-color: white;
   position: relative;
 }
 
-.modal-title {
-  font-size: 13px;
-  font-weight: 500;
+.create-spot-divider {
+  border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+.create-spot-errors {
+  padding: 20px 20px 0 20px;
+  color: red;
+}
+
+.modal-title-create-spot {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px 30px 20px;
 }
 
 .label-1 {
@@ -62,24 +74,29 @@
   border: 1px solid #484848;
 }
 
-svg {
-  display: block;
+.create-spot-title {
+  font-size: 16px;
+  font-weight: 700;
 }
 
-.close {
-  display: inline-block;
+.create-spot-close {
+  display: flex;
+  align-items: center;
+  top: 30px;
+  left: 30px;
+  cursor: pointer;
   border-radius: 50%;
   border: none;
   color: rgb(34 34 34);
   background-color: transparent;
-  position: relative;
+  position: absolute;
   transition: -ms-transform 0.25s ease 0s, -webkit-transform 0.25s ease 0s, transform 0.25s ease 0s;
 }
 
-.modal-body {
+.modal-body-create-spot {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 30px 20px 30px 20px;
   max-height: 100%;
   max-width: 100%;
   background-color: white;
@@ -88,6 +105,7 @@ svg {
 }
 
 .create-spot-submit-button {
+  margin-top: 10px;
   color: white;
   font-size: 16px;
   border-radius: 5px;

@@ -84,176 +84,180 @@ function CreateSpotForm({ setShowModal }) {
 
   return (
     <>
-        <section className="create-spot-form-container">
-          <form className="create-spot-form" onSubmit={handleSubmit}>
-            <div className="modal-title">
-              <h3>Become a host</h3>
-            </div>
-            <ul className="errors">
-              {errors.map((error) => (
-                <li key={error.id}>{error}</li>
-              ))}
-            </ul>
-            <div className="modal-body">
-              <button
-                className="close"
-                type="button"
-                onClick={() => setShowModal(false)}
+      <section className="create-spot-form-container">
+        <form className="create-spot-form" onSubmit={handleSubmit}>
+          <div className="modal-title-create-spot">
+            <div className="create-spot-close" onClick={() => setShowModal(false)}>
+              <svg
+                viewBox="0 0 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                role="presentation"
+                focusable="false"
+                style={{
+                  display: "block",
+                  fill: "none",
+                  height: "16px",
+                  width: "16px",
+                  stroke: "currentcolor",
+                  strokeWidth: "3",
+                  overflow: "visible",
+                }}
               >
-                <svg
-                  viewBox="0 0 32 32"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  height="30"
-                  width="30"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M13.7071 1.70711C14.0976 1.31658 14.0976 0.683417 13.7071 0.292893C13.3166 -0.0976311 12.6834 -0.0976311 12.2929 0.292893L7 5.58579L1.70711 0.292893C1.31658 -0.0976311 0.683417 -0.0976311 0.292893 0.292893C-0.0976311 0.683417 -0.0976311 1.31658 0.292893 1.70711L5.58579 7L0.292893 12.2929C-0.0976311 12.6834 -0.0976311 13.3166 0.292893 13.7071C0.683417 14.0976 1.31658 14.0976 1.70711 13.7071L7 8.41421L12.2929 13.7071C12.6834 14.0976 13.3166 14.0976 13.7071 13.7071C14.0976 13.3166 14.0976 12.6834 13.7071 12.2929L8.41421 7L13.7071 1.70711Z"
-                    fill="#484848"
-                  />
-                </svg>
-              </button>
-              <label className="label-1">
-                Address
-                <div>
-                  <input
-                    className="create-spot-input"
-                    type="string"
-                    placeholder="Address"
-                    required
-                    value={address}
-                    onChange={updateAddress}
-                  />
-                </div>
-              </label>
-              <label className="label-1">
-                City
-                <div>
-                  <input
-                    className="create-spot-input"
-                    type="text"
-                    placeholder="City"
-                    required
-                    value={city}
-                    onChange={updateCity}
-                  />
-                </div>
-              </label>
-              <label className="label-1">
-                State
-                <div>
-                  <input
-                    className="create-spot-input"
-                    type="text"
-                    placeholder="State"
-                    required
-                    value={state}
-                    onChange={updateState}
-                  />
-                </div>
-              </label>
-              <label className="label-1">
-                Country
-                <div>
-                  <input
-                    className="create-spot-input"
-                    type="text"
-                    placeholder="Country"
-                    required
-                    value={country}
-                    onChange={updateCountry}
-                  />
-                </div>
-              </label>
-              <label className="label-1">
-                Latitude
-                <div>
-                  <input
-                    className="create-spot-input"
-                    type="decimal"
-                    placeholder="Latitude"
-                    required
-                    value={lat}
-                    onChange={updateLat}
-                  />
-                </div>
-              </label>
-              <label className="label-1">
-                Longitude
-                <div>
-                  <input
-                    className="create-spot-input"
-                    type="decimal"
-                    placeholder="Longitude"
-                    required
-                    value={lng}
-                    onChange={updateLng}
-                  />
-                </div>
-              </label>
-              <label className="label-1">
-                Name
-                <div>
-                  <input
-                    className="create-spot-input"
-                    type="text"
-                    placeholder="Name"
-                    required
-                    value={name}
-                    onChange={updateName}
-                  />
-                </div>
-              </label>
-              <label className="label-1">
-                Description
-                <div>
-                  <input
-                    className="create-spot-input"
-                    type="text"
-                    placeholder="Description"
-                    required
-                    value={description}
-                    onChange={updateDescription}
-                  />
-                </div>
-              </label>
-              <label className="label-1">
-                Price
-                <div>
-                  <input
-                    className="create-spot-input"
-                    type="decimal"
-                    placeholder="Price"
-                    required
-                    value={price}
-                    onChange={updatePrice}
-                  />
-                </div>
-              </label>
-              <label className="label-1">
-                Preview Image
-                <div>
-                  <input
-                    className="create-spot-input"
-                    type="text"
-                    placeholder="Preview Image URL"
-                    value={previewImage}
-                    onChange={updatePreviewImage}
-                  />
-                </div>
-              </label>
+                <path d="m6 6 20 20"></path>
+                <path d="m26 6-20 20"></path>
+              </svg>
             </div>
-            <button
-              className="create-spot-submit-button"
-              type="submit"
-              disabled={errors.length ? true : false}
-            >
-              Start Hosting
-            </button>
-          </form>
-        </section>
+            <span className="create-spot-title">Become a host</span >
+          </div>
+          <div className="create-spot-divider">
+
+          </div>
+          <div className="create-spot-errors">
+            {errors.map((error) => (
+              <p key={error.id}>Error: {error}</p>
+            ))}
+          </div>
+          <div className="modal-body-create-spot">
+            <label className="label-1">
+              Address
+              <div>
+                <input
+                  className="create-spot-input"
+                  type="string"
+                  placeholder="Address"
+                  required
+                  value={address}
+                  onChange={updateAddress}
+                />
+              </div>
+            </label>
+            <label className="label-1">
+              City
+              <div>
+                <input
+                  className="create-spot-input"
+                  type="text"
+                  placeholder="City"
+                  required
+                  value={city}
+                  onChange={updateCity}
+                />
+              </div>
+            </label>
+            <label className="label-1">
+              State
+              <div>
+                <input
+                  className="create-spot-input"
+                  type="text"
+                  placeholder="State"
+                  required
+                  value={state}
+                  onChange={updateState}
+                />
+              </div>
+            </label>
+            <label className="label-1">
+              Country
+              <div>
+                <input
+                  className="create-spot-input"
+                  type="text"
+                  placeholder="Country"
+                  required
+                  value={country}
+                  onChange={updateCountry}
+                />
+              </div>
+            </label>
+            <label className="label-1">
+              Latitude
+              <div>
+                <input
+                  className="create-spot-input"
+                  type="decimal"
+                  placeholder="Latitude"
+                  required
+                  value={lat}
+                  onChange={updateLat}
+                />
+              </div>
+            </label>
+            <label className="label-1">
+              Longitude
+              <div>
+                <input
+                  className="create-spot-input"
+                  type="decimal"
+                  placeholder="Longitude"
+                  required
+                  value={lng}
+                  onChange={updateLng}
+                />
+              </div>
+            </label>
+            <label className="label-1">
+              Name
+              <div>
+                <input
+                  className="create-spot-input"
+                  type="text"
+                  placeholder="Name"
+                  required
+                  value={name}
+                  onChange={updateName}
+                />
+              </div>
+            </label>
+            <label className="label-1">
+              Description
+              <div>
+                <input
+                  className="create-spot-input"
+                  type="text"
+                  placeholder="Description"
+                  required
+                  value={description}
+                  onChange={updateDescription}
+                />
+              </div>
+            </label>
+            <label className="label-1">
+              Price
+              <div>
+                <input
+                  className="create-spot-input"
+                  type="decimal"
+                  placeholder="Price"
+                  required
+                  value={price}
+                  onChange={updatePrice}
+                />
+              </div>
+            </label>
+            <label className="label-1">
+              Preview Image
+              <div>
+                <input
+                  className="create-spot-input"
+                  type="text"
+                  placeholder="Preview Image URL"
+                  value={previewImage}
+                  onChange={updatePreviewImage}
+                />
+              </div>
+            </label>
+          <button
+            className="create-spot-submit-button"
+            type="submit"
+            disabled={errors.length ? true : false}
+          >
+            Start Hosting
+          </button>
+          </div>
+        </form>
+      </section>
     </>
   );
 }
