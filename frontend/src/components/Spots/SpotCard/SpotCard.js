@@ -1,7 +1,6 @@
 import './SpotCard.css';
 
 function SpotCard({ spot }) {
-  console.log("SPOTCARD SPOT:", spot)
 
   let spotPrice = spot.price;
   const spotPriceComma = new Intl.NumberFormat().format(spotPrice);

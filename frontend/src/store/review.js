@@ -1,25 +1,25 @@
 import { csrfFetch } from "./csrf";
 
-const LOAD_SPOT_REVIEWS = 'reviews/LOAD_SPOT_REVIEWS';
-const ADD_REVIEW = 'reviews/ADD_REVIEW';
-const REMOVE_REVIEW = 'reviews/REMOVE_REVIEW';
+const LOAD_SPOT_REVIEWS = "reviews/LOAD_SPOT_REVIEWS";
+const ADD_REVIEW = "reviews/ADD_REVIEW";
+const REMOVE_REVIEW = "reviews/REMOVE_REVIEW";
 
 const loadSpotReviews = (reviews) => ({
   type: LOAD_SPOT_REVIEWS,
-  reviews
+  reviews,
 });
 
 const addReview = (review) => ({
   type: ADD_REVIEW,
-  review
+  review,
 });
 
 const removeReview = (id) => ({
   type: REMOVE_REVIEW,
-  id
+  id,
 });
 
-export const getSpotReviews = (spotId) => async dispatch => {
+export const getSpotReviews = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/spots/${spotId}`);
 
   if (response.ok) {
@@ -29,11 +29,11 @@ export const getSpotReviews = (spotId) => async dispatch => {
   }
 };
 
-export const createReview = (payload) => async dispatch => {
+export const createReview = (payload) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/spots/${payload.spotId}`, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(payload)
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
   });
 
   if (response.ok) {
@@ -43,10 +43,10 @@ export const createReview = (payload) => async dispatch => {
   }
 };
 
-export const deleteReview = (id) => async dispatch => {
+export const deleteReview = (id) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/${id}`, {
-    method: 'DELETE',
-  })
+    method: "DELETE",
+  });
 
   if (response.ok) {
     const review = await response.json();
@@ -55,20 +55,20 @@ export const deleteReview = (id) => async dispatch => {
   }
 };
 
-const initialState = {}
+const initialState = {};
 
 const reviewReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
     case LOAD_SPOT_REVIEWS: {
-      action.reviews.forEach(review => {
-        newState[review.id] = review
+      action.reviews.forEach((review) => {
+        newState[review.id] = review;
       });
       return newState;
     }
 
     case ADD_REVIEW: {
-      newState[action.result.id] = action.result;
+      newState[action.review.id] = action.review;
       return newState;
     }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from 'react-router-dom';
-import * as sessionActions from './store/session';
+import { Route, Switch } from "react-router-dom";
+import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import SpotsBrowser from "./components/Spots/SpotsBrowser/SpotsBrowser";
 import SpotsDetail from "./components/Spots/SpotDetail/SpotDetail";
@@ -17,28 +17,32 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <>
-    <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
-        <Switch>
-          <Route exact path={['/', '/spots']}>
-            <SpotsBrowser />
-          </Route>
-          <Route exact path='/spots/:id'>
-            <SpotsDetail />
-          </Route>
-          <Route exact path='/spots/:id/edit'>
-            <EditSpotForm />
-          </Route>
-          <Route exact path='/spots/:id/review'>
-            <CreateReviewForm />
-          </Route>
-          <Route>
-            Page Not Found
-          </Route>
-        </Switch>
-      )}
-    </>
+    <div className="app-root">
+      <Navigation isLoaded={isLoaded} />
+      <div
+        className="app-body-container"
+      >
+        <div className="app-body">
+          {isLoaded && (
+            <Switch>
+              <Route exact path={["/", "/spots"]}>
+                <SpotsBrowser />
+              </Route>
+              <Route exact path="/spots/:id">
+                <SpotsDetail />
+              </Route>
+              <Route exact path="/spots/:id/edit">
+                <EditSpotForm />
+              </Route>
+              <Route exact path="/spots/:id/review">
+                <CreateReviewForm />
+              </Route>
+              <Route>Page Not Found</Route>
+            </Switch>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -1,4 +1,11 @@
+.spots-list-body {
+  display: flex;
+  justify-content: center;
+}
+
 .spots-list-container {
+  max-width: 1440px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -14,11 +21,4 @@
   align-self: auto;
   margin: 5px;
   flex: 0 1;
-}
-
-.spot-card-link:active,
-.spot-card-link:hover,
-.spot-card-link:visited,
-.spot-card-link:focus {
-  text-decoration: none;
 }
