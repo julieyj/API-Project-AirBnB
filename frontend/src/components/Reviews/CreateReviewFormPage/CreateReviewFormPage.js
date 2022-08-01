@@ -1,8 +1,8 @@
-
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
-import { createReview } from '../../../store/review';
+import { createReview } from "../../../store/review";
+import "./CreateReviewFormPage.css";
 
 function CreateReviewForm() {
   const history = useHistory();
@@ -33,8 +33,8 @@ function CreateReviewForm() {
   }, [review, stars]);
 
   if (spot?.Owners?.id === currentUser.id) {
-    console.log('Owner cannot add their own review.');
-    <Redirect to={`/spots/${spot.id}`} />
+    console.log("Owner cannot add their own review.");
+    <Redirect to={`/spots/${spot.id}`} />;
   }
 
   const handleSubmit = async (e) => {
@@ -54,21 +54,26 @@ function CreateReviewForm() {
     }
   };
 
+  const handleClose = async (e) => {
+    e.preventDefault();
+    history.push(`/spots/${spotId}`);
+  };
+
   return (
     <section className="create-review-form-container">
       <form className="create-review-form" onSubmit={handleSubmit}>
-        <div className="modal-title">
-          <h3>How was your stay?</h3>
+        <div className="create-review-header-container">
+          <h3 className="create-review-header">How was your stay?</h3>
         </div>
-        <ul className="errors">
+        <div className="create-review-errors">
           {errors.map((error) => (
-            <li key={error.id}>{error}</li>
+            <p key={error.id}>{error}</p>
           ))}
-        </ul>
+        </div>
         <div className="modal-body">
-          <label className="label-1">
+          <label className="create-review-label">
             Review
-            <div>
+            <div className="create-review-input-container">
               <input
                 className="create-review-input"
                 type="string"
@@ -79,7 +84,7 @@ function CreateReviewForm() {
               />
             </div>
           </label>
-          <label className="label-1">
+          <label className="create-review-label">
             Star Rating
             <div>
               <input
@@ -93,13 +98,20 @@ function CreateReviewForm() {
             </div>
           </label>
         </div>
-        <button
-          className="create-review-submit-button"
-          type="submit"
-          disabled={errors.length ? true : false}
-        >
-          Submit Review
-        </button>
+        <div className="review-submit-container">
+          <button
+            className="create-review-submit-button"
+            type="submit"
+            disabled={errors.length ? true : false}
+          >
+            Submit Review
+          </button>
+        </div>
+        <div className="review-close-container">
+          <button className="close-review-button" onClick={handleClose}>
+            Cancel Edit
+          </button>
+        </div>
       </form>
     </section>
   );
