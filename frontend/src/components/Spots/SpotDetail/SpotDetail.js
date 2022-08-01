@@ -59,7 +59,9 @@ function SpotDetail() {
                   ></path>
                 </svg>
               </div>
-              <div className="spot-detail-avg-rating">{Number(spot.avgStarRating).toFixed(2)}</div>
+              <div className="spot-detail-avg-rating">
+                {Number(spot.avgStarRating).toFixed(2)}
+              </div>
               <div className="dot-divider">·</div>
               <div className="spot-detail-reviews-count">
                 <b>{spot.numReviews} reviews</b>
@@ -150,43 +152,44 @@ function SpotDetail() {
                     <b>{spot.numReviews} reviews</b>
                   </div>
                 </div>
-                  {currentUser && currentUser.id !== spot.userId && (
-                    <div className="spot-review-submit-container">
-                      <NavLink
-                        className="spot-review-submit-button"
-                        to={`/spots/${spot.id}/review`}
-                        style={{ textDecoration: "none" }}
-                      >
-                        Submit a Review
-                      </NavLink>
-                    </div>
-                  )}
+                {currentUser && currentUser.id !== spot.userId && (
+                  <div className="spot-review-submit-container">
+                    <NavLink
+                      className="spot-review-submit-button"
+                      to={`/spots/${spot.id}/review`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      Submit a Review
+                    </NavLink>
+                  </div>
+                )}
                 <div className="spot-reviews-list-container">
-                    {Object.values(spotReviews).map((spotReview, index) => (
-                      <div className="spot-reviews-list-item-container" key={index}>
-                        <div className="spot-reviews-list-item">
-                          <p id="review-user-name">
-                            {spotReview.User.firstName} {spotReview.User.lastName}
-                          </p>
-                          <p id="review-content">
-                            {spotReview.review}
-                          </p>
-                        </div>
-                        {spotReview &&
-                          currentUser &&
-                          spotReview.userId === currentUser.id && (
-                            <div className="delete-review-container">
-                              <button
-                                className="delete-review-button"
-                                onClick={handleDelete}
-                                value={spotReview.id}
-                              >
-                                Delete Review
-                              </button>
-                            </div>
-                          )}
+                  {Object.values(spotReviews).map((spotReview, index) => (
+                    <div
+                      className="spot-reviews-list-item-container"
+                      key={index}
+                    >
+                      <div className="spot-reviews-list-item">
+                        <p id="review-user-name">
+                          {spotReview.User.firstName} {spotReview.User.lastName}
+                        </p>
+                        <p id="review-content">{spotReview.review}</p>
                       </div>
-                    ))}
+                      {spotReview &&
+                        currentUser &&
+                        spotReview.userId === currentUser.id && (
+                          <div className="delete-review-container">
+                            <button
+                              className="delete-review-button"
+                              onClick={handleDelete}
+                              value={spotReview.id}
+                            >
+                              Delete Review
+                            </button>
+                          </div>
+                        )}
+                    </div>
+                  ))}
                 </div>
               </div>
             )}

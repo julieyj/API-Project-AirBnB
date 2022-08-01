@@ -18,7 +18,7 @@ function Navigation({ isLoaded }) {
     sessionLinks = (
       <>
         <CreateSpotFormModal />
-        <ProfileButton user={sessionUser} />
+        <ProfileButton />
       </>
     )
   } else {

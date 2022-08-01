@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as sessionActions from "../../store/session";
 
 
-function ProfileButton({ user }) {
+function ProfileButton() {
   const dispatch = useDispatch();
+  const sessionUser = useSelector(state => state.session.user);
   const [showMenu, setShowMenu] = useState(false);
 
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
   };
+
+  console.log("sessionUser:", sessionUser);
+
 
   useEffect(() => {
     if (!showMenu) return;
@@ -76,13 +80,13 @@ function ProfileButton({ user }) {
       </button>
       {showMenu && (
         <div className="profile-dropdown">
-          <span className="text">{user.firstName} {user.lastName}</span>
-          <span className="text">{user.email}</span>
+          <span className="text">{sessionUser.user.firstName} {sessionUser.user.lastName}</span>
+          <span className="text">{sessionUser.user.email}</span>
           <span>
             <button className="logout-button" onClick={logout}>Log Out</button>
           </span>
           <span>
-            {!user && (
+            {!sessionUser && (
               <button className="demo-button" onClick={() => {
                 dispatch(sessionActions.login({credential: "demo@user.io", password: "password"}))
               }}>
