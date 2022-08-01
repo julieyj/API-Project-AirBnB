@@ -13,6 +13,13 @@ This project is built with:
 * React
 * Redux
 
+### Links to Wiki
+[API Documentation](https://github.com/julieyj/API-Project-AirBnB/wiki/API-Documentation)<br>
+[Features List](https://github.com/julieyj/API-Project-AirBnB/wiki/Features-List)<br>
+[Database Schema](https://github.com/julieyj/API-Project-AirBnB/wiki/Database-Schema)<br>
+[Redux State Shape](https://github.com/julieyj/API-Project-AirBnB/wiki/Redux-State-Shape---Pseudocode)<br>
+
+
 ### Instructions to Clone
 * Run git clone https://github.com/julieyj/API-Project-AirBnB.git to download to your local repository
 * Open file on vscode
