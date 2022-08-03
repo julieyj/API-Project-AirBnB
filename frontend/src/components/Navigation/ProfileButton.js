@@ -5,7 +5,6 @@ import * as sessionActions from "../../store/session";
 
 function ProfileButton() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector(state => state.session.user);
   const [showMenu, setShowMenu] = useState(false);
 
   const openMenu = () => {
@@ -13,6 +12,7 @@ function ProfileButton() {
     setShowMenu(true);
   };
 
+  const sessionUser = useSelector(state => state.session.user);
   console.log("sessionUser:", sessionUser);
 
 
@@ -80,8 +80,8 @@ function ProfileButton() {
       </button>
       {showMenu && (
         <div className="profile-dropdown">
-          <span className="text">{sessionUser.user.firstName} {sessionUser.user.lastName}</span>
-          <span className="text">{sessionUser.user.email}</span>
+          <span className="text">{sessionUser.firstName} {sessionUser.lastName}</span>
+          <span className="text">{sessionUser.email}</span>
           <span>
             <button className="logout-button" onClick={logout}>Log Out</button>
           </span>

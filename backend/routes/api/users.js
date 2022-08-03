@@ -57,6 +57,26 @@ router.get('/', async (req, res) => {
   return res.json({ allUsers });
 });
 
+// Delete user
+router.delete('/:id', async (req, res, next) => {
+  const deleteUser = await User.findOne({
+    where: {
+      id: req.params.id
+    }
+  });
+
+  if (!deleteUser) {
+    const err = new Error("Not found");
+    err.status = 404;
+    err.title = "Not found";
+    err.errors = ["User couldn't be found"];
+    next(err);
+  }
+
+  await deleteUser.destroy();
+
+  return res.json({ message: "Successfully deleted"});
+});
 
 // Get all current user's bookings
 router.get('/:id/bookings', requireAuth, async (req, res) => {
