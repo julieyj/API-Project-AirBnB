@@ -149,7 +149,7 @@ module.exports = {
         {
           spotId: 7,
           imageableType: "Spot",
-          url: "hhttps://waterlandlife.org/wp-content/uploads/2021/04/FW_East-Terrace-looking-through-living-room-Christopher-Little-courtesy-of-the-Western-Pennsylvania-Conservancy-web-700x700.jpg",
+          url: "https://waterlandlife.org/wp-content/uploads/2021/04/FW_East-Terrace-looking-through-living-room-Christopher-Little-courtesy-of-the-Western-Pennsylvania-Conservancy-web-700x700.jpg",
         },
         // SPOT 8 IMAGES
         {
