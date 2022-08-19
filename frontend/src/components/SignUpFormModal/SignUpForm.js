@@ -14,6 +14,12 @@ function SignupFormPage({ setShowModal }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
+  const updateEmail = (e) => setEmail(e.target.value);
+  const updateFirstName = (e) => setFirstName(e.target.value);
+  const updateLastName = (e) => setLastName(e.target.value);
+  const updatePassword = (e) => setPassword(e.target.value);
+  const updateConfirmPassword = (e) => setConfirmPassword(e.target.value);
+
   if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = (e) => {
@@ -76,7 +82,7 @@ function SignupFormPage({ setShowModal }) {
                 type="text"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={updateEmail}
                 required
               />
             </div>
@@ -89,7 +95,7 @@ function SignupFormPage({ setShowModal }) {
                 type="text"
                 placeholder="First Name"
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={updateFirstName}
                 required
               />
             </div>
@@ -102,7 +108,7 @@ function SignupFormPage({ setShowModal }) {
                 type="text"
                 placeholder="Last Name"
                 value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={updateLastName}
                 required
               />
             </div>
@@ -115,7 +121,7 @@ function SignupFormPage({ setShowModal }) {
                 type="password"
                 placeholder="Password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={updatePassword}
                 required
               />
             </div>
@@ -128,7 +134,7 @@ function SignupFormPage({ setShowModal }) {
                 type="password"
                 placeholder="Confirm Password"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={updateConfirmPassword}
                 required
               />
             </div>

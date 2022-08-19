@@ -209,7 +209,7 @@ router.get("/:id", async (req, res, next) => {
 
   const user = await User.findOne({
     where: {
-      id: req.params.id,
+      id: spot.userId,
     },
     attributes: ["id", "firstName", "lastName"],
   });
