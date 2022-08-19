@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 
-function LoginForm( { setShowModal }) {
+function LoginForm({ setShowModal }) {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
@@ -22,10 +22,7 @@ function LoginForm( { setShowModal }) {
   return (
     <form className="login-form-modal" onSubmit={handleSubmit}>
       <div className="modal-title-login">
-        <div
-          className="login-close"
-          onClick={() => setShowModal(false)}
-        >
+        <div className="login-close" onClick={() => setShowModal(false)}>
           <svg
             viewBox="0 0 32 32"
             xmlns="http://www.w3.org/2000/svg"
@@ -46,10 +43,10 @@ function LoginForm( { setShowModal }) {
             <path d="m26 6-20 20"></path>
           </svg>
         </div>
-        <h3 className="login-title">Log in</h3>
+        <span className="login-title">Log in</span>
       </div>
-      <div className="divider">
-        <div className="modal-title-welcome">
+      <div className="login-divider">
+        <div className="login-title-welcome">
           <span>Welcome to Airbnb</span>
         </div>
         <div className="modal-body-login">
@@ -59,26 +56,26 @@ function LoginForm( { setShowModal }) {
             ))}
           </div>
           <label className="label-1">
-            Email{" "}
+            Email
             <div>
               <input
                 className="email-password"
                 type="text"
                 value={credential}
-                placeholder={"Email"}
+                placeholder="Email"
                 onChange={(e) => setCredential(e.target.value)}
                 required
               />
             </div>
           </label>
           <label className="label-1">
-            Password{" "}
+            Password
             <div>
               <input
                 className="email-password"
                 type="password"
                 value={password}
-                placeholder={"Password"}
+                placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />

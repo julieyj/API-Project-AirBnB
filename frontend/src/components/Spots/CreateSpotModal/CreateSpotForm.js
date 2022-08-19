@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 // import CreateSpotFormModal from ".";
-import { createSpot } from '../../../store/spot';
+import { createSpot } from "../../../store/spot";
 
 function CreateSpotForm({ setShowModal }) {
   const history = useHistory();
-  const currentUser = useSelector(state => state.session.user);
+  const currentUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [country, setCountry] = useState('');
-  const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [previewImage, setPreviewImage] = useState('');
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [country, setCountry] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
   const [errors, setErrors] = useState([]);
 
   const updateAddress = (e) => setAddress(e.target.value);
@@ -36,27 +36,21 @@ function CreateSpotForm({ setShowModal }) {
     const newErrors = [];
 
     if (!currentUser) {
-      newErrors.push('Please log in or sign up with MuseumBnB to continue.')
+      newErrors.push("Please log in or sign up with MuseumBnB to continue.");
     }
     if (name.length <= 0) {
-      newErrors.push('Name is required.');
+      newErrors.push("Name is required.");
     } else if (name.length > 50) {
-      newErrors.push('Name must be 50 characters or less.')
-    };
+      newErrors.push("Name must be 50 characters or less.");
+    }
     if (lat < -90 || lat > 90) {
-      newErrors.push('Please check your latitude.')
-    };
+      newErrors.push("Please check your latitude.");
+    }
     if (lng < -180 || lng > 180) {
-      newErrors.push('Please check your longitude.')
-    };
+      newErrors.push("Please check your longitude.");
+    }
     setErrors(newErrors);
   }, [currentUser, name, lat, lng]);
-
-  // if (!currentUser) {
-  //   return (
-  //     <Redirect to='/' />
-  //   )
-  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,38 +74,41 @@ function CreateSpotForm({ setShowModal }) {
       setShowModal(false);
       history.push(`/spots/${createdSpot.id}`);
     }
-  }
+  };
 
   return (
     <>
-      <section className="create-spot-form-container">
-        <form className="create-spot-form" onSubmit={handleSubmit}>
-          <div className="modal-title-create-spot">
-            <div className="create-spot-close" onClick={() => setShowModal(false)}>
-              <svg
-                viewBox="0 0 32 32"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                role="presentation"
-                focusable="false"
-                style={{
-                  display: "block",
-                  fill: "none",
-                  height: "16px",
-                  width: "16px",
-                  stroke: "currentcolor",
-                  strokeWidth: "3",
-                  overflow: "visible",
-                }}
-              >
-                <path d="m6 6 20 20"></path>
-                <path d="m26 6-20 20"></path>
-              </svg>
-            </div>
-            <span className="create-spot-title">Become a host</span >
+      <form className="create-spot-form" onSubmit={handleSubmit}>
+        <div className="modal-title-create-spot">
+          <div
+            className="create-spot-close"
+            onClick={() => setShowModal(false)}
+          >
+            <svg
+              viewBox="0 0 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              role="presentation"
+              focusable="false"
+              style={{
+                display: "block",
+                fill: "none",
+                height: "16px",
+                width: "16px",
+                stroke: "currentcolor",
+                strokeWidth: "3",
+                overflow: "visible",
+              }}
+            >
+              <path d="m6 6 20 20"></path>
+              <path d="m26 6-20 20"></path>
+            </svg>
           </div>
-          <div className="create-spot-divider">
-
+          <span className="create-spot-title">Become a host</span>
+        </div>
+        <div className="create-spot-divider">
+          <div className="create-spot-title-welcome">
+            <span>Welcome to Airbnb</span>
           </div>
           <div className="create-spot-errors">
             {errors.map((error) => (
@@ -248,16 +245,16 @@ function CreateSpotForm({ setShowModal }) {
                 />
               </div>
             </label>
-          <button
-            className="create-spot-submit-button"
-            type="submit"
-            disabled={errors.length ? true : false}
-          >
-            Start Hosting
-          </button>
+            <button
+              className="create-spot-submit-button"
+              type="submit"
+              disabled={errors.length ? true : false}
+            >
+              Start Hosting
+            </button>
           </div>
-        </form>
-      </section>
+        </div>
+      </form>
     </>
   );
 }

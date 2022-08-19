@@ -33,8 +33,7 @@
   display: flex;
   overflow: hidden;
   flex-direction: column;
-  border-radius: 5px;
-  /* padding: 30px; */
+  border-radius: 21px;
   max-height: 100%;
   max-width: 100%;
   background-color: white;
@@ -42,20 +41,31 @@
 }
 
 .create-spot-divider {
-  border-bottom: 1px solid rgb(235, 235, 235);
+  padding: 30px;
+}
+
+.create-spot-title-welcome {
+  font-size: 22px;
+  font-weight: 500;
 }
 
 .create-spot-errors {
-  padding: 20px 20px 0 20px;
+  padding: 20px 20px 20px 0px;
   color: red;
 }
 
 .modal-title-create-spot {
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  font-size: 22px;
+  font-weight: 500;
   padding: 30px 20px 30px 20px;
+  border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+.create-spot-title {
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .label-1 {
@@ -74,29 +84,23 @@
   border: 1px solid #484848;
 }
 
-.create-spot-title {
-  font-size: 16px;
-  font-weight: 700;
-}
-
 .create-spot-close {
   display: flex;
   align-items: center;
-  top: 30px;
-  left: 30px;
-  cursor: pointer;
   border-radius: 50%;
   border: none;
   color: rgb(34 34 34);
   background-color: transparent;
   position: absolute;
+  top: 30px;
+  left: 30px;
   transition: -ms-transform 0.25s ease 0s, -webkit-transform 0.25s ease 0s, transform 0.25s ease 0s;
+  cursor: pointer;
 }
 
 .modal-body-create-spot {
   display: flex;
   flex-direction: column;
-  padding: 30px 20px 30px 20px;
   max-height: 100%;
   max-width: 100%;
   background-color: white;

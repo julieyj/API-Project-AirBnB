@@ -25,16 +25,10 @@
   overflow: hidden;
   flex-direction: column;
   border-radius: 21px;
-  /* padding: 30px; */
   max-height: 100%;
   max-width: 100%;
   background-color: white;
   position: relative;
-}
-
-.login-errors-container {
-  padding-bottom: 15px;
-  color: red;
 }
 
 .modal-title-login {
@@ -46,14 +40,19 @@
   justify-content: center;
 }
 
-.divider {
+.login-divider {
   padding: 30px;
 }
 
-.modal-title-welcome {
+.login-title-welcome {
   font-size: 22px;
   font-weight: 500;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
+}
+
+.login-errors-container {
+  padding-bottom: 15px;
+  color: red;
 }
 
 .login-title {
