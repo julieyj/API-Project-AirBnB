@@ -30,6 +30,7 @@ export const getSpotReviews = (spotId) => async (dispatch) => {
 };
 
 export const createReview = (payload) => async (dispatch) => {
+  console.log("payload", payload)
   const response = await csrfFetch(`/api/reviews/spots/${payload.spotId}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -69,6 +70,8 @@ const reviewReducer = (state = initialState, action) => {
 
     case ADD_REVIEW: {
       newState[action.review.id] = action.review;
+      console.log("action.review", action.review);
+      console.log("newState:", newState);
       return newState;
     }
 

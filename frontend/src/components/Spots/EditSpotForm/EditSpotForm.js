@@ -239,7 +239,6 @@ function EditSpotForm() {
                 className="edit-spot-input"
                 type="text"
                 placeholder="Preview Image URL"
-                required
                 value={previewImage}
                 onChange={updatePreviewImage}
               />

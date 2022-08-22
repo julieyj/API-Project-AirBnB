@@ -11,6 +11,7 @@ function CreateReviewForm() {
   const spot = useSelector((state) => state.spots[id]);
   const dispatch = useDispatch();
 
+
   const [spotId, setSpotId] = useState(id);
   const [userId, setUserId] = useState(currentUser.id);
   const [review, setReview] = useState("");
@@ -50,7 +51,7 @@ function CreateReviewForm() {
     const createdReview = dispatch(createReview(payload));
 
     if (createdReview) {
-      history.push(`/spots/${spot.id}`);
+      history.push(`/spots/${spotId}`);
     }
   };
 
