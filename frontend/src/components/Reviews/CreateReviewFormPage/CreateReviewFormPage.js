@@ -50,13 +50,13 @@ function CreateReviewForm() {
     const createdReview = dispatch(createReview(payload));
 
     if (createdReview) {
-      history.push(`/spots/${spotId}`);
+      history.push(`/spots/${spot.id}`);
     }
   };
 
   const handleClose = async (e) => {
     e.preventDefault();
-    history.push(`/spots/${spotId}`);
+    history.push(`/spots/${spot.id}`);
   };
 
   return (
