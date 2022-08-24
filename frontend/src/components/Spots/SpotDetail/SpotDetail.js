@@ -16,9 +16,7 @@ function SpotDetail() {
   const spotReviews = reviews.filter(
     (review) => review.spotId === parseInt(id)
   );
-
-  // let spotPriceDetail = spot.price;
-  // const spotPriceCommaDetail = new Intl.NumberFormat().format(spotPriceDetail);
+  console.log('spotReviews-----', spotReviews);
 
   useEffect(() => {
     dispatch(getOneSpot(id));
@@ -155,13 +153,6 @@ function SpotDetail() {
                 </div>
                 {currentUser && currentUser.id !== spot.userId && (
                   <div className="spot-review-submit-container">
-                    {/* <NavLink
-                      className="spot-review-submit-button"
-                      to={`/spots/${spot.id}/review`}
-                      style={{ textDecoration: "none" }}
-                    >
-                      Submit a Review
-                    </NavLink> */}
                     <CreateReviewFormModal />
                   </div>
                 )}
