@@ -33,15 +33,14 @@ This project is built with:
 ### Home Page Demo User:
 You will be able to test the features without sign up by clicking on the "Demo User" button.
 
-![Screen Shot 2022-08-01 at 6 34 50 AM](https://user-images.githubusercontent.com/103216479/182159780-600e95fa-b42f-48a8-958a-f31cfe24bcbe.png)
+![Screen Shot 2022-08-24 at 3 05 18 PM](https://user-images.githubusercontent.com/103216479/186532100-ae5ecc6b-1225-4bd9-934c-e615657656a6.png)
 
 ### Login and Signup Users:
 You will be able to either log in or create a new profile by clicking on the "Log in" or "Sign up" buttons.
 
-![Screen Shot 2022-08-01 at 6 53 41 AM](https://user-images.githubusercontent.com/103216479/182163912-fba2cfce-338a-463e-9886-33778f98acba.png)
+![Screen Shot 2022-08-24 at 3 05 30 PM](https://user-images.githubusercontent.com/103216479/186532151-3b6e113d-5b5e-438c-8b47-f05c6632e472.png)
 
-![Screen Shot 2022-08-01 at 6 53 33 AM](https://user-images.githubusercontent.com/103216479/182163922-93029582-e8fd-41a4-adf4-d9362c9f795f.png)
-
+![Screen Shot 2022-08-24 at 3 05 38 PM](https://user-images.githubusercontent.com/103216479/186532175-9afb65c1-cf8d-4688-a13f-5e827c8e1004.png)
 
 ### Spot Detail Page:
 You will be able to see details of a listing and see its reviews by clicking on a spot card.
@@ -62,4 +61,4 @@ You will be able to leave a review of a listing if you haven't already and if yo
 ### Create a Spot Page:
 You will be able to create a new listing if you are logged in.
 
-![Screen Shot 2022-08-01 at 7 09 35 AM](https://user-images.githubusercontent.com/103216479/182166795-e82cc9c6-5155-43e8-a8cc-65bf60591a15.png)
+![Screen Shot 2022-08-24 at 3 05 46 PM](https://user-images.githubusercontent.com/103216479/186532274-154ff313-60dc-447c-b783-c53ccd29ba5f.png)
