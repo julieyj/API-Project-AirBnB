@@ -5,6 +5,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { getOneSpot } from "../../../store/spot";
 import { getSpotReviews, deleteReview } from "../../../store/review";
 import "./SpotDetail.css";
+import CreateReviewFormModal from "../../Reviews/CreateReviewFormModal";
 
 function SpotDetail() {
   const dispatch = useDispatch();
@@ -154,13 +155,14 @@ function SpotDetail() {
                 </div>
                 {currentUser && currentUser.id !== spot.userId && (
                   <div className="spot-review-submit-container">
-                    <NavLink
+                    {/* <NavLink
                       className="spot-review-submit-button"
                       to={`/spots/${spot.id}/review`}
                       style={{ textDecoration: "none" }}
                     >
                       Submit a Review
-                    </NavLink>
+                    </NavLink> */}
+                    <CreateReviewFormModal />
                   </div>
                 )}
                 <div className="spot-reviews-list-container">

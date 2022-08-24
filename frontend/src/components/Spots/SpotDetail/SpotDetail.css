@@ -190,7 +190,7 @@ img {
   border-radius: 21px;
   color: #FFFFFF;
   font-size: 14px;
-  position: relative;
+  font-weight: 600;
   width: 100px;
   height: 30px;
   cursor: pointer;

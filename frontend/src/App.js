@@ -6,7 +6,7 @@ import Navigation from "./components/Navigation";
 import SpotsBrowser from "./components/Spots/SpotsBrowser/SpotsBrowser";
 import SpotsDetail from "./components/Spots/SpotDetail/SpotDetail";
 import EditSpotForm from "./components/Spots/EditSpotForm/EditSpotForm";
-import CreateReviewForm from "./components/Reviews/CreateReviewFormPage/CreateReviewFormPage";
+// import CreateReviewForm from "./components/Reviews/CreateReviewFormPage/CreateReviewFormPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -30,9 +30,9 @@ const App = () => {
               <Route exact path="/spots/:id/edit">
                 <EditSpotForm />
               </Route>
-              <Route exact path="/spots/:id/review">
+              {/* <Route exact path="/spots/:id/review">
                 <CreateReviewForm />
-              </Route>
+              </Route> */}
               <Route>Page Not Found</Route>
             </Switch>
           )}

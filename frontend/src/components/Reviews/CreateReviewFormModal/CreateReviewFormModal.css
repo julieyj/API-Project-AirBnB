@@ -1,0 +1,79 @@
+.review-form-button {
+  display: inline-flex;
+  box-sizing: border-box;
+  border-radius: 21px;
+  color: white;
+  font-size: 14px;
+  width: 140px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+  background-image: linear-gradient(to right, #E61E4D 0%, #E31C5F 50%, #D70466 100%);
+  border-color: transparent;
+  margin: auto;
+}
+
+.create-review-form-modal {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  border-radius: 21px;
+  max-height: 100%;
+  max-width: 100%;
+  background-color: white;
+  position: relative;
+  padding: 20px;
+}
+
+.create-review-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.create-review-errors-container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: red;
+  font-weight: 600;
+}
+
+.create-review-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: rgb(193, 53, 21);
+}
+
+.create-review-input {
+  min-width: 300px;
+  width: 500px;
+  height: 40px;
+  border-radius: 5px;
+  margin: 5px 0px;
+  background-color: transparent;
+  border: 1px solid #484848;
+}
+
+.review-submit-container,
+.review-close-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-review-submit-button,
+.close-review-button {
+  margin-top: 10px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 21px;
+  display: block;
+  width: 300px;
+  height: 30px;
+  min-width: 300px;
+  border: none;
+  cursor: pointer;
+  background-image: radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%);
+}

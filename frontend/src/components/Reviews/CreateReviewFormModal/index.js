@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal } from '../../../context/Modal';
 import CreateReviewForm from './CreateReviewForm';
+import "./CreateReviewFormModal.css";
 
 function CreateReviewFormModal() {
   const [showModal, setShowModal] = useState(false);
@@ -26,3 +27,5 @@ function CreateReviewFormModal() {
     </div>
   );
 }
+
+export default CreateReviewFormModal;
