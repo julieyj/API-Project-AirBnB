@@ -8,6 +8,7 @@
   justify-content: center;
   align-items: center;
   background-color: transparent;
+  overflow-y: auto;
 }
 
 #modal-background {
@@ -23,4 +24,5 @@
   position: absolute;
   background-color: white;
   border-radius: 31px;
+  overflow-y: auto;
 }

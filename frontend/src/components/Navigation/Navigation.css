@@ -92,7 +92,7 @@
   box-shadow: 0 2px 16px rgb(0 0 0 / 12%);
   border-radius: 12px;
   cursor: pointer;
-  overflow-y: clip;
+  overflow-y: auto;
   max-height: calc(100vh - 100px);
   min-width: 240px;
   color: #222222;

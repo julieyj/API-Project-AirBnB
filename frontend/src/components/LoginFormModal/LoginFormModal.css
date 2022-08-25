@@ -22,7 +22,7 @@
 
 .login-form-modal {
   display: flex;
-  overflow: hidden;
+  overflow-y: auto;
   flex-direction: column;
   border-radius: 21px;
   max-height: 100%;
