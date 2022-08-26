@@ -64,6 +64,27 @@ function CreateReviewForm({ setShowModal }) {
   return (
     <form className="create-review-form-modal" onSubmit={handleSubmit}>
       <div className="create-review-header-container">
+        <div className="create-review-close" onClick={() => setShowModal(false)}>
+          <svg
+            viewBox="0 0 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            role="presentation"
+            focusable="false"
+            style={{
+              display: "block",
+              fill: "none",
+              height: "16px",
+              width: "16px",
+              stroke: "currentcolor",
+              strokeWidth: "3",
+              overflow: "visible",
+            }}
+          >
+            <path d="m6 6 20 20"></path>
+            <path d="m26 6-20 20"></path>
+          </svg>
+        </div>
         <span className="create-review-title">How was your stay?</span>
       </div>
       <div className="create-review-errors-container">
@@ -108,11 +129,11 @@ function CreateReviewForm({ setShowModal }) {
           Submit Review
         </button>
       </div>
-      <div className="review-close-container">
+      {/* <div className="review-close-container">
         <button className="close-review-button" onClick={handleClose}>
           Close Review
         </button>
-      </div>
+      </div> */}
     </form>
   );
 }
