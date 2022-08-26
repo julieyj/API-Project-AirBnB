@@ -47,7 +47,7 @@ function CreateReviewForm({ setShowModal }) {
       stars,
     };
 
-    const createdReview = dispatch(createReview(payload));
+    const createdReview = await dispatch(createReview(payload));
 
     if (createdReview) {
       setShowModal(false);

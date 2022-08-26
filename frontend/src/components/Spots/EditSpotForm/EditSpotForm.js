@@ -80,7 +80,7 @@ function EditSpotForm() {
       previewImage,
     };
 
-    let updatedSpot = dispatch(updateSpot(payload));
+    let updatedSpot = await dispatch(updateSpot(payload));
 
     if (updatedSpot) {
       console.log(`Successfully updated spotId: ${id}`);

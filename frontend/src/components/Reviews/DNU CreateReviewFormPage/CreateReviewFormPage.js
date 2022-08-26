@@ -48,7 +48,7 @@ function CreateReviewForm() {
       stars,
     };
 
-    const createdReview = dispatch(createReview(payload));
+    const createdReview = await dispatch(createReview(payload));
 
     if (createdReview) {
       history.push(`/spots/${spotId}`);
