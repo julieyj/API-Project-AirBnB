@@ -90,7 +90,7 @@ function EditSpotForm() {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    let deletedSpot = dispatch(deleteSpot(id));
+    let deletedSpot = await dispatch(deleteSpot(id));
 
     if (deletedSpot) {
       console.log(`Successfully deleted spotId: ${id}`);

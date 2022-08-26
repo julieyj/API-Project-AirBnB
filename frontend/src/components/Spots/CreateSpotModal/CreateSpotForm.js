@@ -173,7 +173,7 @@ function CreateSpotForm({ setShowModal }) {
               <div>
                 <input
                   className="create-spot-input"
-                  type="decimal"
+                  type="number"
                   placeholder="Latitude"
                   required
                   value={lat}
@@ -186,7 +186,7 @@ function CreateSpotForm({ setShowModal }) {
               <div>
                 <input
                   className="create-spot-input"
-                  type="decimal"
+                  type="number"
                   placeholder="Longitude"
                   required
                   value={lng}
@@ -225,7 +225,7 @@ function CreateSpotForm({ setShowModal }) {
               <div>
                 <input
                   className="create-spot-input"
-                  type="decimal"
+                  type="number"
                   placeholder="Price"
                   required
                   value={price}
