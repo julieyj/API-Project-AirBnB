@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
-import { updateSpot, deleteSpot } from '../../../store/spot';
-import './EditSpotForm.css';
+import { updateSpot, deleteSpot } from "../../../store/spot";
+import "./EditSpotForm.css";
 
 function EditSpotForm() {
   const { id } = useParams();
@@ -12,17 +12,17 @@ function EditSpotForm() {
   const dispatch = useDispatch();
 
   const [spotId, setSpotId] = useState(id);
-  const [userId, setUserId] = useState(spot.userId);
-  const [address, setAddress] = useState(spot.address);
-  const [city, setCity] = useState(spot.city);
-  const [state, setState] = useState(spot.state);
-  const [country, setCountry] = useState(spot.country);
-  const [lat, setLat] = useState(spot.lat);
-  const [lng, setLng] = useState(spot.lng);
-  const [name, setName] = useState(spot.name);
-  const [description, setDescription] = useState(spot.description);
-  const [price, setPrice] = useState(spot.price);
-  const [previewImage, setPreviewImage] = useState(spot.previewImage || "");
+  const [userId, setUserId] = useState(spot?.userId);
+  const [address, setAddress] = useState(spot?.address);
+  const [city, setCity] = useState(spot?.city);
+  const [state, setState] = useState(spot?.state);
+  const [country, setCountry] = useState(spot?.country);
+  const [lat, setLat] = useState(spot?.lat);
+  const [lng, setLng] = useState(spot?.lng);
+  const [name, setName] = useState(spot?.name);
+  const [description, setDescription] = useState(spot?.description);
+  const [price, setPrice] = useState(spot?.price);
+  const [previewImage, setPreviewImage] = useState(spot?.previewImage || "");
   const [errors, setErrors] = useState([]);
 
   const updateAddress = (e) => setAddress(e.target.value);
@@ -50,16 +50,19 @@ function EditSpotForm() {
     if (lng < -180 || lng > 180) {
       newErrors.push("Please check your longitude.");
     }
+    if (price < 0) {
+      newErrors.push("Price per day cannot be less than $0.");
+    }
     setErrors(newErrors);
-  }, [name, lat, lng]);
+  }, [name, lat, lng, price]);
 
   if (!currentUser) {
     return <Redirect to="/" />;
-  };
+  }
 
-  if (spot.userId && spot.userId !== currentUser.id) {
-    return <Redirect to='/' />;
-  };
+  if (spot?.userId !== currentUser.id) {
+    return <Redirect to="/" />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,12 +83,12 @@ function EditSpotForm() {
       previewImage,
     };
 
-    let updatedSpot = dispatch(updateSpot(payload));
+    let updatedSpot = await dispatch(updateSpot(payload));
 
     if (updatedSpot) {
       console.log(`Successfully updated spotId: ${id}`);
       history.push(`/spots/${id}`);
-    };
+    }
   };
 
   const handleDelete = async (e) => {
@@ -101,7 +104,7 @@ function EditSpotForm() {
   const handleClose = async (e) => {
     e.preventDefault();
     history.push(`/spots/${id}`);
-  }
+  };
 
   return (
     <div className="edit-spot-form-container">
@@ -111,7 +114,7 @@ function EditSpotForm() {
         </div>
         <div className="errors">
           {errors.map((error) => (
-            <p key={error.id}>Error: {error}</p>
+            <p key={error}>Error: {error}</p>
           ))}
         </div>
         <div className="XX">
@@ -172,7 +175,7 @@ function EditSpotForm() {
             <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
-                type="decimal"
+                type="number"
                 placeholder="Latitude"
                 required
                 value={lat}
@@ -185,7 +188,7 @@ function EditSpotForm() {
             <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
-                type="decimal"
+                type="number"
                 placeholder="Longitude"
                 required
                 value={lng}
@@ -224,7 +227,7 @@ function EditSpotForm() {
             <div className="edit-spot-input-container">
               <input
                 className="edit-spot-input"
-                type="decimal"
+                type="number"
                 placeholder="Price"
                 required
                 value={price}
