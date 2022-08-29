@@ -49,8 +49,11 @@ function CreateSpotForm({ setShowModal }) {
     if (lng < -180 || lng > 180) {
       newErrors.push("Please check your longitude.");
     }
+    if (price < 0) {
+      newErrors.push("Price per day cannot be less than $0.");
+    }
     setErrors(newErrors);
-  }, [currentUser, name, lat, lng]);
+  }, [currentUser, name, lat, lng, price]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
